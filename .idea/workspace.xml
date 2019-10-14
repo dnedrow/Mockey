@@ -6,19 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8c0cf41-65aa-4193-8199-3c1edb1ea08c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mockey.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Mockey.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.num" beforeDir="false" afterPath="$PROJECT_DIR$/build.num" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/images/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/web/images/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/images/logo.png" afterDir="false" />
-    </list>
+    <list default="true" id="f8c0cf41-65aa-4193-8199-3c1edb1ea08c" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -957,11 +945,11 @@
     <configuration />
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
+    <task id="Default" summary="Default task">
       <created>1518251726877</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1518251726877</updated>
+      <updated>1571011341393</updated>
       <workItem from="1518251730480" duration="8998000" />
       <workItem from="1518356674542" duration="4285000" />
       <workItem from="1518370555345" duration="1871000" />
@@ -977,8 +965,33 @@
       <workItem from="1570329103154" duration="1016000" />
       <workItem from="1570406105619" duration="4086000" />
       <workItem from="1570843334706" duration="324000" />
-      <workItem from="1571010751502" duration="477000" />
+      <workItem from="1571010751502" duration="590000" />
     </task>
+    <task id="LOCAL-00001" summary="Idea project update.">
+      <created>1571011293814</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1571011293814</updated>
+    </task>
+    <task active="true" id="LOCAL-00002" summary="Logo">
+      <changelist id="" name="Logo" comment="Illustrator-based logo." />
+      <created>1571011340708</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1571011341393</updated>
+      <workItem from="1571011342360" duration="127000" />
+    </task>
+    <task id="LOCAL-00003" summary="Added Illustrator-based icon assets.">
+      <created>1571011422160</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1571011422160</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <option name="trackContextForNewChangelist" value="true" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -998,9 +1011,15 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="USE_CUSTOM_SHELF_PATH" value="true" />
     <option name="CUSTOM_SHELF_PATH" value="$PROJECT_DIR$/../../shelves/IntelliJIDEA/Mockey" />
     <option name="MOVE_SHELVES" value="true" />
+    <MESSAGE value="Idea project update." />
+    <MESSAGE value="Added Illustrator-based icon assets." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Illustrator-based icon assets." />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="319" y="115" key="#Glassfish_Server" timestamp="1569640957042">
@@ -1060,17 +1079,6 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1570418131528" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/java/com/mockey/api/ServiceUpdate.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>
