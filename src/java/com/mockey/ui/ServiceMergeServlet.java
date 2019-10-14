@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -66,8 +66,8 @@ public class ServiceMergeServlet extends HttpServlet {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param req
 	 *            basic request
 	 * @param resp
@@ -83,7 +83,7 @@ public class ServiceMergeServlet extends HttpServlet {
 
 		Boolean originalMode = store.getReadOnlyMode();
 		store.setReadOnlyMode(true);
-		
+
 		String[] serviceMergeIdList = req
 				.getParameterValues("serviceIdMergeSource[]");
 		Enumeration<String> names = (Enumeration<String>)req.getParameterNames();
@@ -115,14 +115,14 @@ public class ServiceMergeServlet extends HttpServlet {
 				responseMap.put("additions", mergeResults.getAdditionMsg());
 				responseMap.put("conflicts", mergeResults.getConflictMsg());
 			}
-			
+
 		} catch (Exception e) {
 			// Do nothing
 			log.error("Something wrong with merging services.", e);
 			responseMap.put("conflicts", "Unable to merge services. The services selected may be missing or contain bad data. Sorry about this.");
 
 		}
-		
+
 		// IF NO CONFLICTS, THEN DELETE OLD SOURCE SERVICES
 		if(mergeResults!=null && (mergeResults.getConflictMsgs()==null || mergeResults.getConflictMsgs().isEmpty())){
 			for (int i = 0; i < serviceMergeIdList.length; i++) {
@@ -130,7 +130,7 @@ public class ServiceMergeServlet extends HttpServlet {
 				Service service = store.getServiceById(serviceIdMergeSource);
 				store.deleteService(service);
 			}
-			
+
 		}
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();

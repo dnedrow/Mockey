@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -46,21 +46,21 @@ import com.mockey.model.PersistableItem;
  * 1 == myMap.save(new MyObj()).getId();<br>
  * 2 == myMap.save(new MyObj()).getId();<br>
  * </code>
- * 
+ *
  * @author chad.lafontaine
- * 
+ *
  */
 public class OrderedMap<T extends PersistableItem> extends ConcurrentHashMap<Long, T> implements Map<Long, T> {
 
     private static final long serialVersionUID = -1654150132938363942L;
     private Integer maxSize = null;
 
-    
+
     /**
      * Will save item. If maximum size of this Map is set (non-null, positive),
      * this method will purge the oldest value, the value with the smallest key
      * value.
-     * 
+     *
      * @param item
      * @return item saved, with ID set.
      * @see #getMaxSize()
@@ -143,7 +143,7 @@ public class OrderedMap<T extends PersistableItem> extends ConcurrentHashMap<Lon
     }
 
     /**
-     * 
+     *
      * @param maxSize
      * @see #getMaxSize()
      */
@@ -155,7 +155,7 @@ public class OrderedMap<T extends PersistableItem> extends ConcurrentHashMap<Lon
      * Maximum number of <code>PersistableItem</code> allowed in this ordered
      * map. Once this map has reached its limit, if set, it takes a first-in,
      * first-out (FIFO) persistence approach, purging the oldest object.
-     * 
+     *
      * @return null if not set (no size limit), otherwise returns the maximum
      *         size value.
      */

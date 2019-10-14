@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -46,7 +46,7 @@ import com.mockey.storage.xml.MockeyXmlFileManager;
 
 /**
  * In memory implementation to the storage of mock services and scenarios.
- * 
+ *
  * @author chad.lafontaine
  */
 public class InMemoryMockeyStorage implements IMockeyStorage {
@@ -69,7 +69,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 	private String globalFilterTag = null;
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	static InMemoryMockeyStorage getInstance() {
@@ -78,7 +78,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public void setReadOnlyMode(Boolean transientState) {
@@ -93,7 +93,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return empty string if service plan id is null, otherwise long value as
 	 *         string.
 	 */
@@ -106,7 +106,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return empty string if service plan id is null, otherwise long value as
 	 *         string.
 	 */
@@ -131,17 +131,17 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 	/**
 	 * HACK: this class is supposed to be a singleton but making this public for
 	 * XML parsing (Digester)
-	 * 
+	 *
 	 * Error is:
-	 * 
+	 *
 	 * Class org.apache.commons.digester.ObjectCreateRule can not access a
 	 * member of class com.mockey.storage.InMemoryMockeyStorage with modifiers
 	 * "private"
-	 * 
+	 *
 	 * Possible Fix: write/implement objectcreatefactory classes.
-	 * 
+	 *
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	 * http://jsp.codefetch.com/example/fr/storefront-source/com/oreilly/struts/storefront/service/memory/StorefrontMemoryDatabase.java?qy=parse+xml
 	 * </pre>
@@ -171,7 +171,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 
 	/**
 	 * This will only return a Service
-	 * 
+	 *
 	 * @see #getGlobalStateSystemFilterTag()
 	 */
 	public Service getServiceByUrl(String url) {
@@ -228,16 +228,16 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 	/**
 	 * This will return a Service with a matching URL pattern, a Service's
 	 * filter tags, and is RESTful aware
-	 * 
+	 *
 	 * For example, we need to support the following:
-	 * 
+	 *
 	 * <pre>
-	 * http://www.service.com/customers - returns a list of customers. 
+	 * http://www.service.com/customers - returns a list of customers.
 	 * http://www.service.com/customers/{ID} - returns a customer
 	 * http://www.service.com/customers/{ID}/subscription - returns a customer's subscriptions entity
 	 * </pre>
-	 * 
-	 * 
+	 *
+	 *
 	 * @param url
 	 *            - Incoming URL being requested.
 	 * @param serviceToEvaluate
@@ -290,7 +290,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 
 	/**
 	 * Deep clone of a Service.
-	 * 
+	 *
 	 * @param service
 	 */
 	public Service duplicateService(Service service) {
@@ -334,7 +334,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 
 	public Service saveOrUpdateService(Service mockServiceBean) {
 
-		//Helpful messaging:				
+		//Helpful messaging:
 		// Let's see if ServiceBean's NAME conflicts with other ServiceBeans
 		List<Service> services = this.getServices();
 		List<String> serviceNames = new ArrayList<String>();
@@ -342,11 +342,11 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 			serviceNames.add(service.getServiceName());
 		}
 		checkForDuplicateFileName(serviceNames, mockServiceBean.getServiceName());
-		
+
 		PersistableItem item = mockServiceStore.save(mockServiceBean);
-		
-		
-		
+
+
+
 		if (mockServiceBean != null && !mockServiceBean.getTransientState()) {
 			this.writeMemoryToFile();
 		}
@@ -359,7 +359,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 			if (mockServiceBean != null && !mockServiceBean.getTransientState()) {
 				this.writeMemoryToFile();
 			}
-			
+
 		}
 	}
 
@@ -752,8 +752,8 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 					}
 				}
 			}
-			
-			// Go through the list of 
+
+			// Go through the list of
 		}
 		return tokenFound;
 
@@ -870,7 +870,7 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 		return treeSet;
 	}
 
-	
+
 
 	public void deleteTagFromStore(String tag) {
 
@@ -940,13 +940,13 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 		}
 	}
 
-	
+
 	public Long getTimeOfCreation() {
 		return this.creationTime;
 	}
-	
+
 	private void checkForDuplicateFileName(List<String> inStateFileNames, String fileName)  {
-		
+
 		String safeFileName = MockeyXmlFileManager.getSafeForFileSystemName(fileName);
 		for(String inStateFileName: inStateFileNames) {
 			if(safeFileName.equals( MockeyXmlFileManager.getSafeForFileSystemName(inStateFileName))){
@@ -957,19 +957,19 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 			}
 		}
 	}
-	
+
 	public static void main(String[] args ) {
 		InMemoryMockeyStorage store = InMemoryMockeyStorage.getInstance();
 		Service service1 = new Service();
 		service1.setUrl("/id/{ID}/test");
-		
-		
+
+
 		Service service2 = new Service();
 		service2.setUrl("/id/{ID1}/otherid/{ID2}/test");
-		
+
 		Service service3 = new Service();
 		service3.setUrl("http://example.com/hotels/{hotel}/bookings/{booking}");
-		
+
 		String url1 = "/id/1/test";
 		String url2 = "/id/1/otherid/2/test";
 		String url3 = "http://example.com/hotels/XYZ/bookings/PTT";
@@ -979,8 +979,8 @@ public class InMemoryMockeyStorage implements IMockeyStorage {
 		System.out.println("Match1: " + serviceMatch1);
 		System.out.println("Match2: " + serviceMatch2);
 		System.out.println("Match3: " + serviceMatch3);
-		
-		
+
+
 	}
 
 }

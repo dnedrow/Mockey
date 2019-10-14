@@ -1,22 +1,22 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -34,9 +34,9 @@ import java.util.List;
 /**
  * Extend this class if you need to track meta information, which includes 'last
  * visited' and 'tags'
- * 
+ *
  * @author chad.lafontaine
- * 
+ *
  */
 public abstract class StatusCheck {
 
@@ -48,7 +48,7 @@ public abstract class StatusCheck {
 	/**
 	 * Add tag to the list. Method ensures no duplication, space trimming, and
 	 * is case insensitive. Actually, this method will force lower-case
-	 * 
+	 *
 	 * @param tag
 	 */
 	public void addTagToList(String tag) {
@@ -65,7 +65,7 @@ public abstract class StatusCheck {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param tag
 	 */
 	public void removeTagFromList(String tag) {
@@ -79,8 +79,8 @@ public abstract class StatusCheck {
 					this.tagList.remove(arg);
 				}
 			}
-			
-			
+
+
 		}
 	}
 
@@ -97,12 +97,12 @@ public abstract class StatusCheck {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return alphabetic ordered list
 	 */
 	public String getTag() {
 		StringBuffer sb = new StringBuffer();
-		
+
 		if (this.tagList != null) {
 			List<String> orderedList = orderAlphabetically(this.tagList);
 			for (String arg : orderedList) {
@@ -140,7 +140,7 @@ public abstract class StatusCheck {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param tagList
 	 *            - can be null; if not null, then all values will be lower
 	 *            cased, duplicates removed, values trimmed. Example: [a, b, def
@@ -193,7 +193,7 @@ public abstract class StatusCheck {
 
 	/**
 	 * Helper method.
-	 * 
+	 *
 	 * @return if available, in MM/dd/yyyy format.
 	 */
 	public String getLastVisitSimple() {
@@ -204,10 +204,10 @@ public abstract class StatusCheck {
 		}
 		return time;
 	}
-	
+
 	/**
 	 * Returns the services list ordered alphabetically.
-	 * 
+	 *
 	 * @param services
 	 * @return
 	 */

@@ -1,22 +1,22 @@
 /**
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -38,7 +38,7 @@ import com.mockey.model.Service;
 import com.mockey.model.ServiceStat;
 
 /**
- * 
+ *
  * @author clafonta
  *
  */
@@ -51,7 +51,7 @@ public class ServiceStatHelper {
 
 	/**
 	 * Returns NOW plus 1 minute.
-	 * 
+	 *
 	 * @return date of now, plus a minute.
 	 */
 	public static Date getNowPlusOneMinute() {
@@ -62,7 +62,7 @@ public class ServiceStatHelper {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @param b
 	 * @return date that is the oldest between A or B.
@@ -78,7 +78,7 @@ public class ServiceStatHelper {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param date
 	 * @return String in 'yyyy/MM/dd HH:mm:ss' format
 	 */
@@ -87,7 +87,7 @@ public class ServiceStatHelper {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param dateAsString
 	 *            should be in yyyy/MM/dd HH:mm:ss format.
 	 * @return Date object if string is in a valid format, otherwise, return's
@@ -111,7 +111,7 @@ public class ServiceStatHelper {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param listOfServices
 	 * @return
 	 */
@@ -131,7 +131,7 @@ public class ServiceStatHelper {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param statMap
 	 * @param historyOfServiceRequests
 	 * @param filterStartDate
@@ -152,11 +152,11 @@ public class ServiceStatHelper {
 
 			if (ServiceStatHelper.isTimeInBetweenStartAndEnd(timeOfRequest, filterStartDate, filterEndDate)) {
 				stat.setCount(stat.getCount() + 1);
-				
+
 				// Is this the earliest stat hit?
 				Date earliestTimeSeenFromThisService = stat.getTime();
-				Date timeOfThisRequest = new Date(timeOfRequest.getTime()); 
-				
+				Date timeOfThisRequest = new Date(timeOfRequest.getTime());
+
 				if(earliestTimeSeenFromThisService==null){
 					stat.setTime(timeOfThisRequest);
 				}else if(earliestTimeSeenFromThisService.after(timeOfThisRequest)){
@@ -168,11 +168,11 @@ public class ServiceStatHelper {
 			statMap.put(stat.getServiceName(), stat);
 		}
 		return statMap;
-		
+
 	}
 
 	/**
-	 * 
+	 *
 	 * @param time
 	 * @param start
 	 * @param end

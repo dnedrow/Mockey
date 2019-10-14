@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -68,11 +68,11 @@ public class RequestFromClient {
 	 * We will ignore the accept-encoding for now to avoid dealing with GZIP
 	 * responses if we decide to accept GZIP'ed data later, here is an example
 	 * of how to un-gzip it:
-	 * 
+	 *
 	 * <pre>
 	 * http://svn.apache.org/repos/asf/httpcomponents/httpclient/trunk/httpclient/src/examples/org/apache/http/examples/client/ClientGZipContentCompression.java
 	 * </pre>
-	 * 
+	 *
 	 */
 	public static final String[] HEADERS_TO_IGNORE = { "content-length",
 			"host", "accept-encoding", "cookie" };
@@ -89,7 +89,7 @@ public class RequestFromClient {
 	 * Initialization will extract Headers, Body, Parameters, and Cookies from
 	 * the raw HTTP request. Note: This class will <i>_ignore_</i> some header
 	 * information. See <code>HEADERS_TO_IGNORE</code>
-	 * 
+	 *
 	 * @param rawRequest
 	 */
 	public RequestFromClient(HttpServletRequest rawRequest) {
@@ -117,7 +117,7 @@ public class RequestFromClient {
 
 	/**
 	 * Copy all necessary data from the request into a POST to the new server
-	 * 
+	 *
 	 * @param serviceBean
 	 *            the path on the server to POST to
 	 * @return A fully populated HttpRequest object
@@ -187,7 +187,7 @@ public class RequestFromClient {
 
 	/**
 	 * Parameter key and value(s).
-	 * 
+	 *
 	 * @return
 	 */
 	public Map<String, String[]> getParameters() {
@@ -195,7 +195,7 @@ public class RequestFromClient {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return All the parameters as a URL encoded string
 	 * @throws UnsupportedEncodingException
 	 */
@@ -350,7 +350,7 @@ public class RequestFromClient {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return readeable string output of header
 	 */
 	public String getHeaderInfo() {
@@ -366,8 +366,8 @@ public class RequestFromClient {
 	}
 
 	/**
-	 * 
-	 * @return 
+	 *
+	 * @return
 	 */
 	public Map<String, String[]> getHeaderInfoAsMap() {
 
@@ -424,7 +424,7 @@ public class RequestFromClient {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return - true if incoming request is posting a body
 	 */
 	public boolean hasPostBody() {
@@ -432,7 +432,7 @@ public class RequestFromClient {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the body content of this request.
 	 */
 	public String getBodyInfo() {
@@ -440,7 +440,7 @@ public class RequestFromClient {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the parameters of this request
 	 */
 	public String getParameterInfo() {

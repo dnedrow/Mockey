@@ -82,7 +82,7 @@ public class JsonSchemaUtil {
 	/*
 	 * We have to use that since Java is not smart enough to detect that
 	 * sometimes, a variable is initialized in all paths.
-	 * 
+	 *
 	 * This returns true if the data is invalid.
 	 */
 	private static boolean fillWithData(final ObjectNode node,
@@ -106,7 +106,7 @@ public class JsonSchemaUtil {
 		 * Unfortunately, for some reason, Jackson botches the column number in
 		 * its JsonPosition -- I cannot figure out why exactly. However, it does
 		 * have a correct offset into the buffer.
-		 * 
+		 *
 		 * The problem is that if the input has CR/LF line terminators, its
 		 * offset will be "off" by the number of lines minus 1 with regards to
 		 * what JavaScript sees as positions in text areas. Make the necessary

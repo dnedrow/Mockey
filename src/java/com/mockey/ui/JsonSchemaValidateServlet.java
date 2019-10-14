@@ -55,16 +55,16 @@ import java.util.Set;
 
 /**
  * Servlet responsible of validating a schema/data pair
- * 
+ *
  * <p>
  * It returns a JSON Object as a result with the appropriate media type (thanks
  * Guava for providing {@link MediaType#JSON_UTF_8}!).
  * </p>
- * 
+ *
  * <p>
  * This object has the following members:
  * </p>
- * 
+ *
  * <ul>
  * <li>{@code invalidSchema}: boolean indicating whether the provided schema was
  * valid JSON;</li>
@@ -77,7 +77,7 @@ import java.util.Set;
  */
 public final class JsonSchemaValidateServlet extends HttpServlet {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2625630469996134777L;
 
@@ -196,7 +196,7 @@ public final class JsonSchemaValidateServlet extends HttpServlet {
 //	/*
 //	 * We have to use that since Java is not smart enough to detect that
 //	 * sometimes, a variable is initialized in all paths.
-//	 * 
+//	 *
 //	 * This returns true if the data is invalid.
 //	 */
 //	private static boolean fillWithData(final ObjectNode node,
@@ -220,7 +220,7 @@ public final class JsonSchemaValidateServlet extends HttpServlet {
 //		 * Unfortunately, for some reason, Jackson botches the column number in
 //		 * its JsonPosition -- I cannot figure out why exactly. However, it does
 //		 * have a correct offset into the buffer.
-//		 * 
+//		 *
 //		 * The problem is that if the input has CR/LF line terminators, its
 //		 * offset will be "off" by the number of lines minus 1 with regards to
 //		 * what JavaScript sees as positions in text areas. Make the necessary

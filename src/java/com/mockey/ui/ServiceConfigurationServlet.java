@@ -1,22 +1,22 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -48,9 +48,9 @@ import com.mockey.storage.StorageRegistry;
 
 /**
  * Management of Service configuration, in addition to HTTP Documentation.
- * 
+ *
  * @author chadlafontaine
- * 
+ *
  */
 public class ServiceConfigurationServlet extends HttpServlet {
 
@@ -268,7 +268,7 @@ public class ServiceConfigurationServlet extends HttpServlet {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -353,7 +353,7 @@ public class ServiceConfigurationServlet extends HttpServlet {
 		} catch (Exception e) {
 			// Do nothing.
 		}
-		
+
 		// ******************************
 		// REQUEST Evaluation Rules
 		// ******************************
@@ -371,7 +371,7 @@ public class ServiceConfigurationServlet extends HttpServlet {
 				service.setRequestInspectorJsonRules(reqInspectorRules);
 			}
 		} catch (Exception e) {
-			// TODO: we should add JSON Schema to evaluate the rules. Right? 
+			// TODO: we should add JSON Schema to evaluate the rules. Right?
 		}
 
 		try {
@@ -418,15 +418,15 @@ public class ServiceConfigurationServlet extends HttpServlet {
 				jsonResultObject.put(
 						ServiceConfigurationAPI.API_SERVICE_SCENARIO_ID,
 						service.getDefaultScenarioId());
-				
+
 				jsonResultObject.put(
 						ServiceConfigurationAPI.API_SERVICE_SCHEMA_ENABLE_FLAG,
 						service.isResponseSchemaFlag());
-				
+
 				jsonResultObject.put(
 						ServiceConfigurationAPI.API_SERVICE_REQUEST_INSPECTOR_RULES_ENABLE_FLAG,
 						service.isRequestInspectorJsonRulesEnableFlag());
-				
+
 				jsonResultObject.put(
 						ServiceConfigurationAPI.API_SERVICE_SCENARIO_NAME,
 						service.getDefaultScenarioName());

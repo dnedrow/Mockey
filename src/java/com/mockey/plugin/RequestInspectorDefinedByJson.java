@@ -1,46 +1,46 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2013  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  */
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -64,16 +64,16 @@ import com.mockey.model.RequestFromClient;
 /**
  * Given a JSON string containing rules to validate the HTTP request, this will
  * provide the logic to inspect and validate HTTP request and build an
- * informative message for results. A few things to note: 
- * 
- * All rules per TYPE will be treated as 'AND'. For example, all key/value 
- * pairs in 'parameters' must exist. 
- * 
+ * informative message for results. A few things to note:
+ *
+ * All rules per TYPE will be treated as 'AND'. For example, all key/value
+ * pairs in 'parameters' must exist.
+ *
  * All rules between TYPEs will be treated as 'OR'. For example, all key/value
  * pair rules must be TRUE in 'parameters' OR all key/value rules must be true
- * for 'headers'. 
- * 
- * 
+ * for 'headers'.
+ *
+ *
  * <pre>
  *  	{
  * 	    "parameters": [
@@ -114,9 +114,9 @@ import com.mockey.model.RequestFromClient;
  * 	    ]
  * 	}
  * </pre>
- * 
+ *
  * @author chadlafontaine
- * 
+ *
  */
 public class RequestInspectorDefinedByJson implements IRequestInspector {
 
@@ -125,11 +125,11 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 			.getLogger(RequestInspectorDefinedByJson.class);
 	private Map<RequestRuleType, List<String>> errorMapByKey = new HashMap<RequestRuleType, List<String>>();
 	private Map<RequestRuleType, Boolean> rulesDefinedForType = new HashMap<RequestRuleType, Boolean>();
-	private int totalRuleCount = 0; 
+	private int totalRuleCount = 0;
 	private int validRuleCount = 0;
 
 	/**
-	 * 
+	 *
 	 * @param json
 	 *            - request inspection rules
 	 * @throws JSONException
@@ -141,16 +141,16 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the number of rules processed post analysis.
 	 */
 	public int getTotalRuleCount() {
 		return this.totalRuleCount;
 	}
-	
+
 	/**
-	 * 
-	 * @return the number of rules that had a positive outcome. 
+	 *
+	 * @return the number of rules that had a positive outcome.
 	 */
 	public int getValidRuleCount() {
 		return this.validRuleCount;
@@ -159,7 +159,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 	/**
 	 * Will apply request inspection rules as defined in JSON, only looking at
 	 * parameters and headers, not Body.
-	 * 
+	 *
 	 * @param request
 	 *            - HTTP request to analyze.
 	 */
@@ -174,7 +174,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 		// *************
 		analyze(RequestRuleType.RULE_TYPE_FOR_PARAMETERS,
 				request.getParameters());
-		
+
 		// *************
 		// Headers
 		// *************
@@ -204,7 +204,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 	/**
 	 * Based on type, method will extra validation rules and evaluate the
 	 * keyValues mapping.
-	 * 
+	 *
 	 * @param type
 	 *            - Valid values are RULE_FOR_HEADERS or RULE_FOR_PARAMETERS
 	 * @param keyValues
@@ -264,7 +264,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 									allValues.add(v);
 								}
 							}
-							// Get ALL values from all parameters, and evaluate. 
+							// Get ALL values from all parameters, and evaluate.
 							if (requestRule.evaluate(allValues
 									.toArray(new String[allValues.size()]))) {
 								addErrorMessage(ruleType,
@@ -275,7 +275,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 						} else {
 							// We have non-null, and non-empty keys.
 							// Apply specific rules.
-							// Keys in RULES and INCOMING maps should 
+							// Keys in RULES and INCOMING maps should
 							// be case insensitive!
 							Iterator<String> allKeys = keyValues.keySet()
 									.iterator();
@@ -291,7 +291,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 										this.validRuleCount++;
 									}
 								}
-								
+
 							}
 						}
 					}
@@ -313,7 +313,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param type
 	 * @param error
 	 */
@@ -340,7 +340,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param type
 	 * @param error
 	 */
@@ -355,7 +355,7 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 
 //	/**
 //	 * Method should be called post analysis.
-//	 * 
+//	 *
 //	 * @return true if one or more errors exist regardless of type.
 //	 */
 //	public boolean hasErrors_() {
@@ -365,14 +365,14 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 //			return true;
 //		}
 //	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return true if ALL rules pass for PARAMETERS or BODY or HEADERS or URL
 	 */
 	public boolean hasAnySuccessForAtLeastOneRuleType(){
 		boolean success = false;
-		
+
 		Iterator<RequestRuleType> iter = rulesDefinedForType.keySet().iterator();
 		while(iter.hasNext()){
 			RequestRuleType type = iter.next();
@@ -384,14 +384,14 @@ public class RequestInspectorDefinedByJson implements IRequestInspector {
 		}
 		return success;
 	}
-	
-	
+
+
 
 	/**
 	 * If errors exists, this method will build 1 long string representation of
 	 * all broken rules, inserting a counter i.e. 1, 2, 3, etc. in front of each
 	 * message.
-	 * 
+	 *
 	 * @return the result of the validate rules, can be an empty string, but
 	 *         never null.
 	 */

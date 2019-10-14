@@ -47,7 +47,7 @@ public final class JsonSchemaLoadSamplesServlet
     extends HttpServlet
 {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 4101075691828931959L;
 	private static  Random RND = new Random();
@@ -55,16 +55,16 @@ public final class JsonSchemaLoadSamplesServlet
     private static int SAMPLE_DATA_SIZE;
     private static final String SAMPLESJSON = "samples.json";
 
-    
+
     public void init() throws ServletException {
         try {
-        	
-        	InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(SAMPLESJSON); 
+
+        	InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(SAMPLESJSON);
         	if(is==null){
         		is = getClass().getClassLoader().getResourceAsStream(SAMPLESJSON);
         	}
         	String myString = IOUtils.toString(is, "UTF-8");
-            final JsonNode node = JsonLoader.fromString(myString); 
+            final JsonNode node = JsonLoader.fromString(myString);
             SAMPLE_DATA = ImmutableList.copyOf(node);
             SAMPLE_DATA_SIZE = SAMPLE_DATA.size();
         } catch (IOException e) {
@@ -73,9 +73,9 @@ public final class JsonSchemaLoadSamplesServlet
         }
     }
 
-    
-    	
-    
+
+
+
     @Override
     protected void doGet(final HttpServletRequest req,
         final HttpServletResponse resp)

@@ -7,9 +7,9 @@ public class ApiOption {
 			System.out.print(a);
 		}
 	}
-	
+
 //	public static void main(String[] args){
 //		ApiOption a = new ApiOption("name", ApiOptionType.STRING, "A", "B", "C");
-//		
+//
 //	}
 }

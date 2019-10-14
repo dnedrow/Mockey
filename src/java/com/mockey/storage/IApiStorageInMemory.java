@@ -12,7 +12,7 @@ public class IApiStorageInMemory implements IApiStorage {
 	private static IApiStorageInMemory store = new IApiStorageInMemory();
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public static IApiStorageInMemory getInstance() {
@@ -46,9 +46,9 @@ public class IApiStorageInMemory implements IApiStorage {
 				service = s;
 				break;
 			}
-			
+
 		}
-		
+
 		return service;
 	}
 

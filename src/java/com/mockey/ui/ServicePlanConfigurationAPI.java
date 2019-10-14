@@ -1,7 +1,7 @@
 package com.mockey.ui;
 
 public interface ServicePlanConfigurationAPI {
-	
+
 	public static final String API_SERVICE_PLAN_CONFIGURATION_NAME = "Service Plan (Save, Delete, Set)";
 	public static final String API_SETPLAN_PARAMETER_ACTION = "action";
 	public static final String API_SETPLAN_PARAMETER_TYPE = "type";
@@ -13,6 +13,6 @@ public interface ServicePlanConfigurationAPI {
 	public static final String API_SET_SAVE_OR_UPDATE_PARAMETER_PLAN_NAME = "service_plan_name";
 	public static final String API_SET_SAVE_OR_UPDATE_PARAMETER_PLAN_TAG = "service_plan_tag";
 	public static final String API_TRANSIENT_STATE = "transient_state";
-	
+
 
 }

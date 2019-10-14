@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -54,9 +54,9 @@ import java.io.Serializable;
 
 /**
  * A Service is a remote url that can be called.
- * 
+ *
  * @author chad.lafontaine
- * 
+ *
  */
 public class Service extends StatusCheck implements PersistableItem, ExecutableService, Serializable {
 
@@ -116,7 +116,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @return null if no default scenario defined, otherwise, returns name
 	 */
 	public String getDefaultScenarioName() {
@@ -138,7 +138,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	 * its ID is set as the default scenario id. If no match is found, then no
 	 * change. Name matching is case insensitive, and leading and ending
 	 * whitespace is trimmed.
-	 * 
+	 *
 	 * @param scenarioName
 	 */
 	public void setDefaultScenarioByName(String scenarioName) {
@@ -198,7 +198,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	/**
 	 * DO NOT REMOVE. This is needed by XML reader and has a reference to the
 	 * method signature via reflection. Thank Digester.
-	 * 
+	 *
 	 * @param realServiceUrl
 	 * @deprecated - this method will call
 	 *             <code>saveOrUpdateRealServiceUrl(Url)</code>
@@ -244,7 +244,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @deprecated
 	 * @see #getRealServiceUrls()
 	 */
@@ -254,7 +254,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @param serviceResponseType
 	 *            - 0 (proxy), 1 (static), or 2 (dynamic). Any other value will
 	 *            default to PROXY.
@@ -297,7 +297,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	 * Takes 'proxy', 'static', or 'dynamic' arguments and translates them to
 	 * appropriate 'int' values and then calls
 	 * <code>setServiceResponseType</code>
-	 * 
+	 *
 	 * @see #setServiceResponseType(int)
 	 */
 	public void setServiceResponseTypeByString(String arg) {
@@ -568,8 +568,8 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 			int tempTotalRuleSuccessfulEvaluationCount = -1;
 			// For RESTful support of VERB (method type), we check if a Scenario
 			// value is set, and if so, it matches incoming request method type.
-			// All TYPES will be allowed if Scenario's method type is 'empty', 'null', or '*' (wildcard). 
-			// Otherwise, ONLY a matching type will be looked at. 
+			// All TYPES will be allowed if Scenario's method type is 'empty', 'null', or '*' (wildcard).
+			// Otherwise, ONLY a matching type will be looked at.
 			String incomingRequestMethod = request.getMethod();
 			if (scenario.getHttpMethodType() == null || scenario.getHttpMethodType().trim().length() == 0
 					|| "*".equals(scenario.getHttpMethodType().trim())
@@ -649,14 +649,14 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 			if (u != null) {
 				messageMatchFound = u.getResponseMessage();
 				httpResponseStatus = u.getHttpResponseStatusCode();
-				
+
 				// SET RULE_FOR_HEADERS
 				Map<String, String> headerInfo = u.getHeaderInfoHelper();
 				List<Header> headerList = new ArrayList<Header>();
 				for (String k : headerInfo.keySet()) {
 					headerList.add(new BasicHeader(k, headerInfo.get(k)));
 				}
-				
+
 				response.setHeaders(headerList.toArray(new Header[headerList.size()]));
 				response.setScenarioName(u.getScenarioName());
 				response.setScenarioTagsAsString(u.getTag());
@@ -671,7 +671,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 		response.setRequestUrl(realServiceUrl);
 		response.setBody(messageMatchFound);
 		response.setHttpResponseStatusCode(httpResponseStatus);
-		
+
 		return response;
 	}
 
@@ -702,7 +702,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @param url
 	 */
 	public void saveOrUpdateRealServiceUrl(Url url) {
@@ -725,7 +725,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @param otherService
 	 * @return non null if _this_ and otherService both have non-empty list of
 	 *         <code>Url</code> objects with a matching <code>Url</code> object.
@@ -762,7 +762,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @param url
 	 * @see #getUrl()
 	 */
@@ -774,7 +774,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	 * Mock URL. It's possible that this URL looks like one of the Real URLs.
 	 * But, this value can be anything, but should be unique in the list of
 	 * Services.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getUrl() {
@@ -827,7 +827,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the Class Name of the Java class responsible for validation of
 	 *         all incoming requests.
 	 * @see com.mockey.plugin.IRequestInspector
@@ -841,7 +841,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @return request inspection/validation rules defined in JSON format.
 	 */
 	public String getRequestInspectorJsonRules() {
@@ -850,7 +850,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @param _requestInspectorJsonRules
 	 *            can be null or empty or invalid JSON format to be able display
 	 *            to customers invalid input. Validation will be done elsewhere.
@@ -866,7 +866,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if the request inspector's JSON rules should be processed
 	 *         per request.
 	 */
@@ -881,7 +881,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	/**
 	 * Response schema is used to validate a Service's Scenario format, to help
 	 * developers quickly find out if their Service Scenario(s) are invalid.
-	 * 
+	 *
 	 * @return a string representing a schema.
 	 */
 	public String getResponseSchema() {
@@ -889,7 +889,7 @@ public class Service extends StatusCheck implements PersistableItem, ExecutableS
 	}
 
 	/**
-	 * 
+	 *
 	 * @param responseSchema
 	 */
 	public void setResponseSchema(String responseSchema) {

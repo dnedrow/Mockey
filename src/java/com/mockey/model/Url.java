@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 
 /**
  * A Url is the specific http url of a Service.
- * 
+ *
  */
 public class Url {
 	/**
@@ -80,7 +80,7 @@ public class Url {
 	/**
 	 * Constructor will parse the url argument to determine the port, host, and
 	 * scheme (http or https).
-	 * 
+	 *
 	 * @param url
 	 */
 	public Url(String url) {
@@ -91,7 +91,7 @@ public class Url {
 	/**
 	 * Empty constructor, needed for reflection but not useful unless parse
 	 * method is called shortly after.
-	 * 
+	 *
 	 */
 	public Url() {
 
@@ -99,7 +99,7 @@ public class Url {
 
 	/**
 	 * Calls parse. Method setter used in reflection.
-	 * 
+	 *
 	 * @param url
 	 */
 	public void setUrl(String url) {
@@ -110,7 +110,7 @@ public class Url {
 	 * If https or http cannot be determined, then HTTP will be the default. If
 	 * path cannot be determined, then 80 for HTTP scheme is default, 443 for
 	 * HTTPS.
-	 * 
+	 *
 	 * @param url
 	 * @throws UrlException
 	 */
@@ -179,7 +179,7 @@ public class Url {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if port equates to default value based on scheme, e.g. 443
 	 *         and 80 for HTTPS and HTTP respectively.
 	 */
@@ -190,7 +190,7 @@ public class Url {
 	/**
 	 * Returns the URL: scheme and host, and optionally, the port. Only
 	 * non-default HTTPS and HTTP port values will be appended to the URL.
-	 * 
+	 *
 	 * @return
 	 */
 	public String getFullUrl() {
@@ -213,13 +213,13 @@ public class Url {
 
 	/**
 	 * Why build an absolute path, and not just use relative?
-	 * 
+	 *
 	 * Here's why:
-	 * 
+	 *
 	 * <pre>
 	 * https://stackoverflow.com/questions/18891210/how-to-reproduce-sendredirect-issue-https-change-to-http
 	 * </pre>
-	 * 
+	 *
 	 * @param servletPath
 	 *            - servletPath
 	 * @return - returns absolute URL to the servletPath.
@@ -248,7 +248,7 @@ public class Url {
 	 * Given a valid URL with query and reference arguments, this method will
 	 * extract remove those values and return a value with
 	 * SCHEME://HOST[:PORT]//PATH
-	 * 
+	 *
 	 * @param validUrl
 	 * @return
 	 * @throws MalformedURLException
@@ -265,7 +265,7 @@ public class Url {
 
 	/**
 	 * Convenience method. When did this get here?
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean hasSettings() {

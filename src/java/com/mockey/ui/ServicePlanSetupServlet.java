@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -60,9 +60,9 @@ import com.mockey.storage.StorageRegistry;
 /**
  * Management of SAVE, DELETE, or SET for a Service Plan, in addition to HTTP
  * Documentation.
- * 
+ *
  * @author chadlafontaine
- * 
+ *
  */
 public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanConfigurationAPI {
 	private static final long serialVersionUID = -2964632050151431391L;
@@ -109,7 +109,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 			reqAttributeAction.addFieldValues(new ApiDocFieldValue(API_SETPLAN_PARAMETER_ACTION_VALUE_SET_AS_DEFAULT_PLAN,
 					"Sets a service plan to be set as the default state upon a Mockey startup. Set " + API_SETPLAN_PARAMETER_PLAN_ID
 					+" to 'none' if no desired default plan is to be set."));
-			
+
 			apiDocRequest.addAttribute(reqAttributeAction);
 
 			// Parameter - 'plan_id'
@@ -205,8 +205,8 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param req
 	 *            basic request
 	 * @param resp
@@ -244,7 +244,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 			if (servicePlan == null) {
 				try {
 					String servicePlanName = req.getParameter(API_SET_SAVE_OR_UPDATE_PARAMETER_PLAN_NAME);
-					
+
 					servicePlan = store.getServicePlanByName(servicePlanName.trim());
 				} catch (Exception e) {
 					if (req.getParameter(API_SET_SAVE_OR_UPDATE_PARAMETER_PLAN_NAME) != null) {
@@ -291,7 +291,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 				JSONObject jsonObject = new JSONObject();
 
 				try {
-					
+
 					store.setServicePlan(servicePlan);
 					String msg = "Service plan " + servicePlan.getName() + " set";
 					jsonObject.put("success", msg);
@@ -309,7 +309,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 				out.flush();
 				out.close();
 				return;
-				
+
 			}
 			else if(API_SETPLAN_PARAMETER_ACTION_VALUE_SET_AS_DEFAULT_PLAN.equals(action)){
 				PrintWriter out = resp.getWriter();
@@ -325,7 +325,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 					jsonObject.put("success", "Set as Default Service Plan");
 					jsonObject.put("planid", "" + servicePlan.getId());
 					jsonObject.put("planName", "" + servicePlan.getName());
-					
+
 				}else {
 					jsonObject.put("fail", "Unable to set Default Service Plan. Unknown Service Plan ID.");
 				}
@@ -334,7 +334,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 				out.flush();
 				out.close();
 				return;
-				
+
 			}
 			else if (API_SETPLAN_PARAMETER_ACTION_VALUE_SAVE_PLAN.equals(action)) {
 
@@ -402,7 +402,7 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 	}
 
 	/**
-	 * 
+	 *
 	 * @param servicePlan
 	 * @param serviceIdArray
 	 *            list of Service IDs that will be included in the plan.
@@ -432,5 +432,5 @@ public class ServicePlanSetupServlet extends HttpServlet implements ServicePlanC
 
 	}
 
-	
+
 }

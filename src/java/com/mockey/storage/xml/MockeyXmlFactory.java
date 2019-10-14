@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -52,7 +52,7 @@ public class MockeyXmlFactory {
 	private static Logger logger = Logger.getLogger(MockeyXmlFactory.class);
 
 	/**
-	 * Convert document to string. Helper method. 
+	 * Convert document to string. Helper method.
 	 * @return String.
 	 * @throws java.io.IOException
 	 *             when unable to write the xml
@@ -80,7 +80,7 @@ public class MockeyXmlFactory {
 	public void writeStoreToXML(IMockeyStorage sourceStore, String destinationFileName) {
 
 		try {
-			// 
+			//
 			MockeyXmlFileManager.getInstance().cleanDirectory();
 			// WRITE STORE META FIRST
 			File parentFolder = MockeyXmlFileManager.getInstance().getBasePathFile();
@@ -122,7 +122,7 @@ public class MockeyXmlFactory {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param scenarioFile
 	 *            The file to write the scenario XML definition to.
 	 * @param scenario
@@ -132,8 +132,8 @@ public class MockeyXmlFactory {
 	 */
 	private void writeServiceScenarioToXMLFile(File scenarioFile, Scenario scenario) throws IOException,
 			TransformerException {
-		
-		
+
+
 		FileOutputStream serviceFOP = new FileOutputStream(scenarioFile);
 		MockeyXmlFileConfigurationGenerator xmlGeneratorSupport = new MockeyXmlFileConfigurationGenerator();
 
@@ -145,8 +145,8 @@ public class MockeyXmlFactory {
 		// + <scenario def>.xml // Includes a x:include pointer to the *.txt file.
 		// + <scenario response>.txt // contains the scenario response.
 		//
-		// FALSE means the scenario response will include in the Scenario response 
-		// as a CDATA element. 
+		// FALSE means the scenario response will include in the Scenario response
+		// as a CDATA element.
 
 		Document serviceDoc = xmlGeneratorSupport
 				.getServiceScenarioAsDocument(scenario, writeScenarioResponseToTxtFile);

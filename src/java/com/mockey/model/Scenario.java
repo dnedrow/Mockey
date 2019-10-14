@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * A Scenario is a specific response from a Service.
- * 
+ *
  * @author chad.lafontaine
  */
 public class Scenario extends StatusCheck implements PersistableItem {
@@ -55,7 +55,7 @@ public class Scenario extends StatusCheck implements PersistableItem {
 	private String responseHeader = "Accept-Language: en-US | Accept: text/plain";
 	private int httpResponseStatusCode = HttpServletResponse.SC_OK;
 	private int hangTime = 0;
-	
+
 	public String getScenarioName() {
 		return scenarioName;
 	}
@@ -127,7 +127,7 @@ public class Scenario extends StatusCheck implements PersistableItem {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param otherScenario
 	 * @return true if scenario name and scenario response message are equal
 	 *         (case ignored), otherwise false.
@@ -178,7 +178,7 @@ public class Scenario extends StatusCheck implements PersistableItem {
 
 	/**
 	 * Helper class to parse the header response into key value pairs.
-	 * 
+	 *
 	 * @return
 	 */
 	public Map<String, String> getHeaderInfoHelper() {
@@ -198,7 +198,7 @@ public class Scenario extends StatusCheck implements PersistableItem {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if this Scenario's match argument should be treated as
 	 *         evaluation rules in JSON format, otherwise false.
 	 */
@@ -207,7 +207,7 @@ public class Scenario extends StatusCheck implements PersistableItem {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param matchStringArgEvaluationRulesFlag
 	 *            set to true if this Scenario's match argument should be
 	 *            treated as evaluation rules in JSON format

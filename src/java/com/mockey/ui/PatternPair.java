@@ -1,9 +1,9 @@
 package com.mockey.ui;
 
 /**
- * 
+ *
  * @author chadlafontaine
- * 
+ *
  */
 public class PatternPair {
 

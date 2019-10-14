@@ -31,8 +31,8 @@ import java.util.regex.Pattern;
  * Represents a URI template. An URI template is a URI-like String that
  * contained variables marked of in braces (<code>{</code>, <code>}</code>),
  * which can be expanded to produce a URI.
- * 
- * IMPORTANT: Case insensitive. 
+ *
+ * IMPORTANT: Case insensitive.
  * <p>
  * See {@link #expand(Map)}, {@link #expand(Object[])}, and
  * {@link #match(String)} for example usages.
@@ -59,7 +59,7 @@ public class UriTemplate {
 
 	/**
 	 * Construct a new {@link UriTemplate} with the given URI String.
-	 * 
+	 *
 	 * @param uriTemplate
 	 *            the URI template string
 	 */
@@ -72,7 +72,7 @@ public class UriTemplate {
 
 	/**
 	 * Return the names of the variables in the template, in order.
-	 * 
+	 *
 	 * @return the template variable names
 	 */
 	public List<String> getVariableNames() {
@@ -85,7 +85,7 @@ public class UriTemplate {
 	 * of variables is not significant.
 	 * <p>
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	 * UriTemplate template = new UriTemplate(&quot;http://example.com/hotels/{hotel}/bookings/{booking}&quot;);
 	 * Map&lt;String, String&gt; uriVariables = new HashMap&lt;String, String&gt;();
@@ -93,10 +93,10 @@ public class UriTemplate {
 	 * uriVariables.put(&quot;hotel&quot;, &quot;1&quot;);
 	 * System.out.println(template.expand(uriVariables));
 	 * </pre>
-	 * 
+	 *
 	 * will print: <blockquote>
 	 * <code>http://example.com/hotels/1/bookings/42</code></blockquote>
-	 * 
+	 *
 	 * @param uriVariables
 	 *            the map of URI variables
 	 * @return the expanded URI
@@ -123,15 +123,15 @@ public class UriTemplate {
 	 * array represent variable values. The order of variables is significant.
 	 * <p>
 	 * Example:
-	 * 
+	 *
 	 * <pre class="code>
 	 * UriTemplate template = new
 	 * UriTemplate("http://example.com/hotels/{hotel}/bookings/{booking}"); System.out.println(template.expand("1", "42));
 	 * </pre>
-	 * 
+	 *
 	 * will print: <blockquote>
 	 * <code>http://example.com/hotels/1/bookings/42</code></blockquote>
-	 * 
+	 *
 	 * @param uriVariableValues
 	 *            the array of URI variables
 	 * @return the expanded URI
@@ -160,7 +160,7 @@ public class UriTemplate {
 
 	/**
 	 * Indicate whether the given URI matches this template.
-	 * 
+	 *
 	 * @param uri
 	 *            the URI to match to
 	 * @return <code>true</code> if it matches; <code>false</code> otherwise
@@ -179,14 +179,14 @@ public class UriTemplate {
 	 * URI.
 	 * <p>
 	 * Example:
-	 * 
+	 *
 	 * <pre class="code">
 	 * UriTemplate template = new UriTemplate(&quot;http://example.com/hotels/{hotel}/bookings/{booking}&quot;);
 	 * System.out.println(template.match(&quot;http://example.com/hotels/1/bookings/42&quot;));
 	 * </pre>
-	 * 
+	 *
 	 * will print: <blockquote><code>{hotel=1, booking=42}</code></blockquote>
-	 * 
+	 *
 	 * @param uri
 	 *            the URI to match to
 	 * @return a map of variable values
@@ -203,8 +203,8 @@ public class UriTemplate {
 				// CHECK for a 'forward slash'.
 				int indexOfSlash = value.indexOf('/');
 				if (indexOfSlash > -1) {
-					// We don't want SLASHES in a variable value. 
-					// For example: 
+					// We don't want SLASHES in a variable value.
+					// For example:
 					//
 					// http://id/23/otherid/23/test
 					// http://id/{ID}/test
@@ -236,10 +236,10 @@ public class UriTemplate {
 
 	/**
 	 * Encodes the given String as URL.
-	 * 
+	 *
 	 * <p>
 	 * Defaults to {@link UriUtils#encodeUri(String, String)}.
-	 * 
+	 *
 	 * @param uri
 	 *            the URI to encode
 	 * @return the encoded URI
@@ -309,13 +309,13 @@ public class UriTemplate {
 		// System.out.println("Result size: " + results.size());
 		//
 		// }
-		
+
 		//TEST
 		UriTemplate template1 = new UriTemplate("http://id/{ID}/test");
 		Map results1 = template1.match("http://id/23/otherid/23/test");
 		System.out.println("Result size: " + results1.size());
 		System.out.println("Results: " + results1);
-		
+
 		UriTemplate template2 = new UriTemplate("http://id/{ID1}/otherId/{ID2}/test");
 		Map results2 = template2.match("http://id/23/otherid/23/test");
 		System.out.println("Result size: " + results2.size());

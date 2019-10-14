@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -57,11 +57,11 @@ public class ScenarioServlet extends HttpServlet {
 	public void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		// Ensure ENCODING is set. This is important. 
+		// Ensure ENCODING is set. This is important.
 		// The request body will be fully processed only whenever the first call on a getParameterXXX() method is made.
-		// We set encoding to ensure we handle special characters. 
+		// We set encoding to ensure we handle special characters.
 		req.setCharacterEncoding(HTTP.UTF_8);
-		
+
 		// A Service is needed to associate the
 		// scenario to.
 		Long serviceId = new Long(req.getParameter("serviceId"));
@@ -151,7 +151,7 @@ public class ScenarioServlet extends HttpServlet {
 		if (req.getParameter("tag") != null) {
 			scenario.setTag(req.getParameter("tag"));
 		}
-		
+
 		if (req.getParameter("hangTime") != null) {
 			try{
 				String v = req.getParameter("hangTime");
@@ -161,7 +161,7 @@ public class ScenarioServlet extends HttpServlet {
 			{
 				scenario.setHangTime(0);
 			}
-			
+
 		}
 
 		if (req.getParameter("httpResponseStatusCode") != null) {
@@ -173,7 +173,7 @@ public class ScenarioServlet extends HttpServlet {
 
 			}
 		}
-		
+
 		if (req.getParameter("httpMethodType") != null) {
 			try {
 				String v = req.getParameter("httpMethodType");
@@ -190,8 +190,8 @@ public class ScenarioServlet extends HttpServlet {
 			}
 
 		}
-		
-		
+
+
 		String respMessage = req.getParameter("responseMessage");
 		if (respMessage != null) {
 			scenario.setResponseMessage(respMessage);
@@ -252,7 +252,7 @@ public class ScenarioServlet extends HttpServlet {
 				// OK, we had an existing Service Scenario with a name change.
 				// Let's update the appropriate Service Plan.
 				store.updateServicePlansWithNewScenarioName(serviceId, oldName, newName);
-				
+
 			}
 			// *****************************************
 			resp.setContentType("application/json");

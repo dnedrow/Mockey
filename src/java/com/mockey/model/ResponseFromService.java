@@ -1,25 +1,25 @@
 /*
- * This file is part of Mockey, a tool for testing application 
- * interactions over HTTP, with a focus on testing web services, 
+ * This file is part of Mockey, a tool for testing application
+ * interactions over HTTP, with a focus on testing web services,
  * specifically web applications that consume XML, JSON, and HTML.
- *  
+ *
  * Copyright (C) 2009-2010  Authors:
- * 
+ *
  * chad.lafontaine (chad.lafontaine AT gmail DOT com)
- * neil.cronin (neil AT rackle DOT com) 
+ * neil.cronin (neil AT rackle DOT com)
  * lorin.kobashigawa (lkb AT kgawa DOT com)
  * rob.meyer (rob AT bigdis DOT com)
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -48,9 +48,9 @@ import com.mockey.plugin.RequestInspectionResult;
 
 /**
  * Wrapper with print and helper functions for a HTTP response message.
- * 
+ *
  * @author chad.lafontaine -
- * 
+ *
  */
 public class ResponseFromService {
 
@@ -77,7 +77,7 @@ public class ResponseFromService {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param rsp
 	 *            - parses the response
 	 */
@@ -154,7 +154,7 @@ public class ResponseFromService {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return - pretty print header information.
 	 */
 	public String getHeaderInfo() {
@@ -171,7 +171,7 @@ public class ResponseFromService {
 		return sb.toString();
 	}
 
-	
+
 	public int getServiceScenarioHangTime() {
 		return serviceScenarioHangTime;
 	}
@@ -187,10 +187,10 @@ public class ResponseFromService {
 	public int getHttpResponseStatusCode() {
 		return this.httpResponseStatusCode;
 	}
-	
+
 	private void setCookiesFromHeader(Header[] headers){
 		for (Header header : headers) {
-			
+
 			if (header.getName().equals("Set-Cookie")) {
 				String headerValue = header.getValue();
 	            // Parse cookie
@@ -254,7 +254,7 @@ public class ResponseFromService {
 
 				this.cookieList.add(cookie);
 	        }
-		
+
 		}
 	}
 
@@ -276,7 +276,7 @@ public class ResponseFromService {
 					resp.setHeader(header.getName(), header.getValue());
 			}
 		}
-		
+
 		/*
 		 * HttpServletResponse adds double quotes to cookie values that
 		 * contain special characters. That throws off certain clients.
@@ -385,6 +385,6 @@ public class ResponseFromService {
 	public void setScenarioTagsAsString(String scenarioTagsAsString) {
 		this.scenarioTagsAsString = scenarioTagsAsString;
 	}
-	
+
 
 }
