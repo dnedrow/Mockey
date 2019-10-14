@@ -46,48 +46,41 @@ import com.mockey.storage.StorageRegistry;
  * For searching anything in Mockey definitions, configurations, and results.
  *
  * @author chadlafontaine
- *
  */
 public class SearchServlet extends HttpServlet {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -4357189038127507482L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4357189038127507482L;
 
-	private IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private IMockeyStorage store = StorageRegistry.MockeyStorage;
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public static void main(String[] args) {
 
-		// Why do we need App context?
-		String appContextPath = Url.getAbsoluteURL(req, "/service");
-		SearchResultBuilder searchResultBuilder = new SearchResultBuilder(appContextPath + "/");
+    }
 
-		String term = req.getParameter("term");
-		//
-		List<SearchResult> searchResultList = searchResultBuilder.buildSearchResults(term, store);
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setAttribute("results", searchResultList);
-		req.setAttribute("term", term);
-		RequestDispatcher dispatch = req.getRequestDispatcher("/search_result.jsp");
-		dispatch.forward(req, resp);
+        // Why do we need App context?
+        String appContextPath = Url.getAbsoluteURL(req, "/service");
+        SearchResultBuilder searchResultBuilder = new SearchResultBuilder(appContextPath + "/");
 
-	}
+        String term = req.getParameter("term");
+        //
+        List<SearchResult> searchResultList = searchResultBuilder.buildSearchResults(term, store);
 
-	public static void main(String[] args){
+        req.setAttribute("results", searchResultList);
+        req.setAttribute("term", term);
+        RequestDispatcher dispatch = req.getRequestDispatcher("/search_result.jsp");
+        dispatch.forward(req, resp);
 
-	}
+    }
 
 }

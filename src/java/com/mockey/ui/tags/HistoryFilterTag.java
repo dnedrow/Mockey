@@ -46,8 +46,7 @@ public class HistoryFilterTag extends TagSupport {
     }
 
     /**
-     * @param value
-     *            the value to set
+     * @param value the value to set
      */
     public void setValue(String value) {
         this.value = value;

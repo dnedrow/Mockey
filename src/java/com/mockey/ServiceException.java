@@ -28,25 +28,23 @@
 package com.mockey;
 
 /**
- *
  * @author chadlafontaine
- *
  */
 public class ServiceException extends Throwable {
 
     private static final long serialVersionUID = 7710032914651271573L;
     private String errorMsg = null;
 
-	public ServiceException(String msg) {
-		this.errorMsg = msg;
-	}
+    public ServiceException(String msg) {
+        this.errorMsg = msg;
+    }
 
-	public ServiceException(String msg, Exception e) {
-		super(msg,e);
-		this.errorMsg = msg;
-	}
+    public ServiceException(String msg, Exception e) {
+        super(msg, e);
+        this.errorMsg = msg;
+    }
 
-	public String getMessage() {
-		return errorMsg;
-	}
+    public String getMessage() {
+        return errorMsg;
+    }
 }

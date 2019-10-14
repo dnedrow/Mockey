@@ -29,49 +29,60 @@ package com.mockey.model;
 
 public class ApiDocService implements PersistableItem {
 
-	private Long id = null;
-	private String name = null;
-	private String servicePath = null;
-	private String description = null;
-	private ApiDocRequest apiRequest = null;
-	private ApiDocResponse apiResponse = null;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getServicePath() {
-		return servicePath;
-	}
-	public void setServicePath(String servicePath) {
-		this.servicePath = servicePath;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public ApiDocRequest getApiRequest() {
-		return apiRequest;
-	}
-	public void setApiRequest(ApiDocRequest apiRequest) {
-		this.apiRequest = apiRequest;
-	}
-	public ApiDocResponse getApiResponse() {
-		return apiResponse;
-	}
-	public void setApiResponse(ApiDocResponse apiResponse) {
-		this.apiResponse = apiResponse;
-	}
+    private Long id = null;
+    private String name = null;
+    private String servicePath = null;
+    private String description = null;
+    private ApiDocRequest apiRequest = null;
+    private ApiDocResponse apiResponse = null;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getServicePath() {
+        return servicePath;
+    }
+
+    public void setServicePath(String servicePath) {
+        this.servicePath = servicePath;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ApiDocRequest getApiRequest() {
+        return apiRequest;
+    }
+
+    public void setApiRequest(ApiDocRequest apiRequest) {
+        this.apiRequest = apiRequest;
+    }
+
+    public ApiDocResponse getApiResponse() {
+        return apiResponse;
+    }
+
+    public void setApiResponse(ApiDocResponse apiResponse) {
+        this.apiResponse = apiResponse;
+    }
 
 
 }

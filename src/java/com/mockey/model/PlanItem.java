@@ -31,66 +31,62 @@ package com.mockey.model;
  * Mapping of desired settings for a service for the purpose of quickly setting
  * a desired state, part of a ServicePlan.
  *
- * @see com.mockey.model.ServicePlan
- *
  * @author chad.lafontaine
- *
+ * @see com.mockey.model.ServicePlan
  */
-public class PlanItem implements PersistableItem{
-	private Long id;
-	private String serviceName;
-	private String scenarioName;
+public class PlanItem implements PersistableItem {
+    private Long id;
+    private String serviceName;
+    private String scenarioName;
 
     private int hangTime;
     private int serviceResponseType;
-
-
-    public void setServiceResponseType(int serviceResponseType) {
-        this.serviceResponseType = serviceResponseType;
-    }
 
     public int getServiceResponseType() {
         return serviceResponseType;
     }
 
-    public void setHangTime(int hangTime) {
-        this.hangTime = hangTime;
+    public void setServiceResponseType(int serviceResponseType) {
+        this.serviceResponseType = serviceResponseType;
     }
 
     public int getHangTime() {
         return hangTime;
     }
 
-	public String getScenarioName() {
-		return scenarioName;
-	}
+    public void setHangTime(int hangTime) {
+        this.hangTime = hangTime;
+    }
 
-	public void setScenarioName(String scenarioName) {
-		this.scenarioName = scenarioName;
-	}
+    public String getScenarioName() {
+        return scenarioName;
+    }
 
-	public String getServiceName() {
-		return serviceName;
-	}
+    public void setScenarioName(String scenarioName) {
+        this.scenarioName = scenarioName;
+    }
 
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
+    public String getServiceName() {
+        return serviceName;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	@Override
-	public String toString() {
-		return "PlanItem [id=" + id + ", serviceName=" + serviceName + ", scenarioName=" + scenarioName + ", hangTime="
-				+ hangTime + ", serviceResponseType=" + serviceResponseType + "]";
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    @Override
+    public String toString() {
+        return "PlanItem [id=" + id + ", serviceName=" + serviceName + ", scenarioName=" + scenarioName + ", hangTime="
+                + hangTime + ", serviceResponseType=" + serviceResponseType + "]";
+    }
 
 
 }

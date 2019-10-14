@@ -49,7 +49,7 @@ public class ClassPathResourceHandler extends ContextHandler {
 
     @Override
     public void doHandle(String s, Request request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
-        realResourceHandler.handle(s,request,httpServletRequest,httpServletResponse);
+        realResourceHandler.handle(s, request, httpServletRequest, httpServletResponse);
     }
 
     private class ResourceHandlerImplementation extends ResourceHandler {
@@ -62,9 +62,9 @@ public class ClassPathResourceHandler extends ContextHandler {
 
             try {
                 Resource resource = Resource.newResource(path);
-                if(resource != null && resource.exists() && !resource.isDirectory()) {
+                if (resource != null && resource.exists() && !resource.isDirectory()) {
                     return resource;
-                }else{
+                } else {
                     return null;
                 }
             } catch (IOException e) {

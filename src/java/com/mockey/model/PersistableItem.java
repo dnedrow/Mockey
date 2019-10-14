@@ -31,9 +31,9 @@ package com.mockey.model;
  * Intended to be used for objects stored in memory cache for identification and order.
  *
  * @author chad.lafontaine
- *
  */
 public interface PersistableItem {
-	public Long getId();
-	public void setId(Long id);
+    Long getId();
+
+    void setId(Long id);
 }

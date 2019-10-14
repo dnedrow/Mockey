@@ -38,48 +38,51 @@ import com.mockey.ui.Util;
 
 public class MessageTag extends TagSupport {
 
-	private static final long serialVersionUID = -8902512566431524818L;
-	private String separator = null;
-	public String getSeparator() {
-		return separator;
-	}
-	public void setSeparator(String separator) {
-		this.separator = separator;
-	}
-	@SuppressWarnings("unchecked")
-	public int doStartTag() {
-		StringBuffer successMessage = new StringBuffer();
-		try {
-			HttpServletRequest request = (HttpServletRequest) pageContext
-					.getRequest();
-			List<String> messages = (List<String>) request
-					.getAttribute(Util.SUCCESS);
-			if(messages==null){
-				messages = (List<String>)request.getSession().getAttribute(Util.SUCCESS);
-			}
-			if (messages != null) {
-				Iterator<String> keyIter = messages.iterator();
-				while (keyIter.hasNext()) {
-					String key = keyIter.next();
-					successMessage.append(key);
-					if(separator!=null){
-						successMessage.append(this.separator);
-					}
-				}
-			}
-			request.removeAttribute(Util.SUCCESS);
-			request.getSession().removeAttribute(Util.SUCCESS);
-			JspWriter out = pageContext.getOut();
+    private static final long serialVersionUID = -8902512566431524818L;
+    private String separator = null;
 
-			out.println(successMessage.toString());
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new Error("All is not well in the world.", ex);
-		}
+    public String getSeparator() {
+        return separator;
+    }
 
-		// Must return SKIP_BODY because we are not supporting a body for this
-		// tag.
-		return SKIP_BODY;
-	}
+    public void setSeparator(String separator) {
+        this.separator = separator;
+    }
+
+    @SuppressWarnings("unchecked")
+    public int doStartTag() {
+        StringBuffer successMessage = new StringBuffer();
+        try {
+            HttpServletRequest request = (HttpServletRequest) pageContext
+                    .getRequest();
+            List<String> messages = (List<String>) request
+                    .getAttribute(Util.SUCCESS);
+            if (messages == null) {
+                messages = (List<String>) request.getSession().getAttribute(Util.SUCCESS);
+            }
+            if (messages != null) {
+                Iterator<String> keyIter = messages.iterator();
+                while (keyIter.hasNext()) {
+                    String key = keyIter.next();
+                    successMessage.append(key);
+                    if (separator != null) {
+                        successMessage.append(this.separator);
+                    }
+                }
+            }
+            request.removeAttribute(Util.SUCCESS);
+            request.getSession().removeAttribute(Util.SUCCESS);
+            JspWriter out = pageContext.getOut();
+
+            out.println(successMessage.toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new Error("All is not well in the world.", ex);
+        }
+
+        // Must return SKIP_BODY because we are not supporting a body for this
+        // tag.
+        return SKIP_BODY;
+    }
 
 }

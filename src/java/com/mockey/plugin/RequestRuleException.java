@@ -26,13 +26,14 @@ package com.mockey.plugin;
 
 class RequestRuleException extends Exception {
     /**
-	 *
-	 */
-	private static final long serialVersionUID = 0;
-	private Throwable cause;
+     *
+     */
+    private static final long serialVersionUID = 0;
+    private Throwable cause;
 
     /**
      * Constructs a RequestRuleException with an explanatory message.
+     *
      * @param message Detail about the reason for the exception.
      */
     public RequestRuleException(String message) {

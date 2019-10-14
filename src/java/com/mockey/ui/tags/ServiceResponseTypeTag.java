@@ -41,106 +41,105 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class ServiceResponseTypeTag extends TagSupport {
 
-	/**
+    /**
      *
      */
-	private static final long serialVersionUID = 702927192030153426L;
-	private int type = -1;
-	private int style = -1;
+    private static final long serialVersionUID = 702927192030153426L;
+    private static final String CSS_CLASS_RESPONSE_SET = "response_set";
+    private static final String CSS_CLASS_RESPONSE_NOT = "response_not";
+    private int type = -1;
+    private int style = -1;
+    private Long serviceId = null;
 
-	private Long serviceId = null;
-	private static final String CSS_CLASS_RESPONSE_SET = "response_set";
-	private static final String CSS_CLASS_RESPONSE_NOT = "response_not";
+    public Long getServiceId() {
+        return serviceId;
+    }
 
-	public Long getServiceId() {
-		return serviceId;
-	}
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
 
-	public void setServiceId(Long serviceId) {
-		this.serviceId = serviceId;
-	}
+    @Override
+    public int doStartTag() throws JspException {
 
-	@Override
-	public int doStartTag() throws JspException {
+        /*
+         * The output we want is: <pre> P S D </pre> Each letter is a link with
+         * HREF The
+         */
+        JspWriter out = pageContext.getOut();
+        try {
+            String text = "";
+            String proxyClass = CSS_CLASS_RESPONSE_NOT;
+            String staticClass = CSS_CLASS_RESPONSE_NOT;
+            String dynamicClass = CSS_CLASS_RESPONSE_NOT;
+            String serviceIdentifier = "";
+            if (this.serviceId != null) {
+                serviceIdentifier = this.serviceId.toString();
+            }
+            switch (type) {
+                case 0:
+                    proxyClass = CSS_CLASS_RESPONSE_SET;
+                    text = "Proxy";
+                    break;
+                case 1:
+                    staticClass = CSS_CLASS_RESPONSE_SET;
+                    text = "Static";
+                    break;
+                case 2:
+                    dynamicClass = CSS_CLASS_RESPONSE_SET;
+                    text = "Dynamic";
+                    break;
+                default:
+                    text = "";
+                    break;
+            }
+            if (this.style == -1) {
 
-		/*
-		 * The output we want is: <pre> P S D </pre> Each letter is a link with
-		 * HREF The
-		 */
-		JspWriter out = pageContext.getOut();
-		try {
-			String text = "";
-			String proxyClass = CSS_CLASS_RESPONSE_NOT;
-			String staticClass = CSS_CLASS_RESPONSE_NOT;
-			String dynamicClass = CSS_CLASS_RESPONSE_NOT;
-			String serviceIdentifier = "";
-			if (this.serviceId != null) {
-				serviceIdentifier = this.serviceId.toString();
-			}
-			switch (type) {
-			case 0:
-				proxyClass = CSS_CLASS_RESPONSE_SET;
-				text = "Proxy";
-				break;
-			case 1:
-				staticClass = CSS_CLASS_RESPONSE_SET;
-				text = "Static";
-				break;
-			case 2:
-				dynamicClass = CSS_CLASS_RESPONSE_SET;
-				text = "Dynamic";
-				break;
-			default:
-				text = "";
-				break;
-			}
-			if (this.style == -1) {
-
-				text = "<a class=\"serviceResponseTypeLink "
-						+ proxyClass
-						+ " serviceResponseType_0_"
-						+ serviceIdentifier
-						+ "\" id=\"serviceResponseType_0_"
-						+ serviceIdentifier
-						+ "\" onclick=\"return false;\" href=\"#\" title=\"Proxy response\">P</a>"
-						+ " <a class=\"serviceResponseTypeLink "
-						+ staticClass
-						+ " serviceResponseType_1_"
-						+ serviceIdentifier
-						+ "\" id=\"serviceResponseType_1_"
-						+ serviceIdentifier
-						+ "\" onclick=\"return false;\" href=\"#\" title=\"Static response\">S</a>"
-						+ " <a class=\"serviceResponseTypeLink "
-						+ dynamicClass
-						+ " serviceResponseType_2_"
-						+ serviceIdentifier
-						+ "\" id=\"serviceResponseType_2_"
-						+ serviceIdentifier
-						+ "\" onclick=\"return false;\" href=\"#\" title=\"Dynamic response\">D</a>";
-			}
+                text = "<a class=\"serviceResponseTypeLink "
+                        + proxyClass
+                        + " serviceResponseType_0_"
+                        + serviceIdentifier
+                        + "\" id=\"serviceResponseType_0_"
+                        + serviceIdentifier
+                        + "\" onclick=\"return false;\" href=\"#\" title=\"Proxy response\">P</a>"
+                        + " <a class=\"serviceResponseTypeLink "
+                        + staticClass
+                        + " serviceResponseType_1_"
+                        + serviceIdentifier
+                        + "\" id=\"serviceResponseType_1_"
+                        + serviceIdentifier
+                        + "\" onclick=\"return false;\" href=\"#\" title=\"Static response\">S</a>"
+                        + " <a class=\"serviceResponseTypeLink "
+                        + dynamicClass
+                        + " serviceResponseType_2_"
+                        + serviceIdentifier
+                        + "\" id=\"serviceResponseType_2_"
+                        + serviceIdentifier
+                        + "\" onclick=\"return false;\" href=\"#\" title=\"Dynamic response\">D</a>";
+            }
 
 
-			out.print(text);
-		} catch (IOException e) {
-			throw new JspException("Unable to write to the jsp output", e);
-		}
-		return SKIP_BODY;
-	}
+            out.print(text);
+        } catch (IOException e) {
+            throw new JspException("Unable to write to the jsp output", e);
+        }
+        return SKIP_BODY;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public int getType() {
+        return type;
+    }
 
-	public int getType() {
-		return type;
-	}
+    public void setType(int type) {
+        this.type = type;
+    }
 
-	public int getStyle() {
-		return style;
-	}
+    public int getStyle() {
+        return style;
+    }
 
-	public void setStyle(int style) {
-		this.style = style;
-	}
+    public void setStyle(int style) {
+        this.style = style;
+    }
 
 }

@@ -42,41 +42,40 @@ import com.mockey.plugin.PluginStore;
 /**
  * Returns JSON of the fulfilled request, designed to be consumed by an AJAX
  * call.
- *
  */
 public class RequestInspectorAjaxServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 4178219038104708097L;
-	private static Logger logger = Logger.getLogger(RequestInspectorAjaxServlet.class);
+    private static final long serialVersionUID = 4178219038104708097L;
+    private static Logger logger = Logger.getLogger(RequestInspectorAjaxServlet.class);
 
-	/**
+    /**
      *
      */
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Long fulfilledRequestId = null;
-		JSONObject jsonObject = new JSONObject();
-		JSONArray array = new JSONArray();
-		try {
-			for (Class<?> item : PluginStore.getInstance().getRequestInspectorImplClassList()) {
-				array.put(item.getName());
-			}
-			jsonObject.putOpt("request_inspectors", array);
+        Long fulfilledRequestId = null;
+        JSONObject jsonObject = new JSONObject();
+        JSONArray array = new JSONArray();
+        try {
+            for (Class<?> item : PluginStore.getInstance().getRequestInspectorImplClassList()) {
+                array.put(item.getName());
+            }
+            jsonObject.putOpt("request_inspectors", array);
 
-		} catch (Exception e) {
-			try {
-				jsonObject.put("error", "" + "Sorry, history for this conversation (fulfilledRequestId="
-						+ fulfilledRequestId + ") is not available.");
-			} catch (JSONException e1) {
-				logger.error("Unable to create JSON", e1);
-			}
-		}
+        } catch (Exception e) {
+            try {
+                jsonObject.put("error", "" + "Sorry, history for this conversation (fulfilledRequestId="
+                        + fulfilledRequestId + ") is not available.");
+            } catch (JSONException e1) {
+                logger.error("Unable to create JSON", e1);
+            }
+        }
 
-		resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-		PrintStream out = new PrintStream(resp.getOutputStream());
+        PrintStream out = new PrintStream(resp.getOutputStream());
 
-		out.println(jsonObject.toString());
-	}
+        out.println(jsonObject.toString());
+    }
 
 }

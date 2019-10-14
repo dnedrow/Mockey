@@ -35,7 +35,6 @@ import java.lang.annotation.Target;
  * <code>IRequestInspector</code>.
  *
  * @author chadlafontaine
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PACKAGE)

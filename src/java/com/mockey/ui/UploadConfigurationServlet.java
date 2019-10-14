@@ -50,138 +50,124 @@ import org.apache.log4j.Logger;
 import com.mockey.storage.xml.MockeyXmlFileManager;
 
 /**
- *
  * @author Chad.Lafontaine
- *
  */
 public class UploadConfigurationServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 2874257060865115637L;
-	private static Logger logger = Logger.getLogger(UploadConfigurationServlet.class);
+    private static final long serialVersionUID = 2874257060865115637L;
+    private static Logger logger = Logger.getLogger(UploadConfigurationServlet.class);
 
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.service(req, resp);
-	}
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.service(req, resp);
+    }
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		RequestDispatcher dispatch = req.getRequestDispatcher("/upload.jsp");
-		dispatch.forward(req, resp);
-	}
+        RequestDispatcher dispatch = req.getRequestDispatcher("/upload.jsp");
+        dispatch.forward(req, resp);
+    }
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	@SuppressWarnings("unchecked")
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    @SuppressWarnings("unchecked")
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String url = null;
-		String definitionsAsString = null;
-		String taglistValue = "";
+        String url = null;
+        String definitionsAsString = null;
+        String taglistValue = "";
 
-		// ***********************************
-		// STEP #1 - READ DATA
-		// ***********************************
-		if (req.getParameter("viaUrl") != null) {
-			url = req.getParameter("url");
-			taglistValue = req.getParameter("taglist");
-			try {
-				InputStream fstream = new URL(url).openStream();
-				if (fstream != null) {
+        // ***********************************
+        // STEP #1 - READ DATA
+        // ***********************************
+        if (req.getParameter("viaUrl") != null) {
+            url = req.getParameter("url");
+            taglistValue = req.getParameter("taglist");
+            try {
+                InputStream fstream = new URL(url).openStream();
+                if (fstream != null) {
 
-					BufferedReader br = new BufferedReader(new InputStreamReader(fstream, Charset.forName(HTTP.UTF_8)));
-					StringBuffer inputString = new StringBuffer();
-					// Read File Line By Line
-					String strLine = null;
-					// READ FIRST
-					while ((strLine = br.readLine()) != null) {
-						// Print the content on the console
-						inputString.append(new String(strLine.getBytes(HTTP.UTF_8)));
-					}
-					definitionsAsString = inputString.toString();
-				}
-			} catch (Exception e) {
-				logger.error("Unable to reach url: " + url, e);
-				Util.saveErrorMessage("Unable to reach url: " + url, req);
-			}
-		} else {
-			byte[] data = null;
-			try {
-				// STEP 1. GATHER UPLOADED ITEMS
-				// Create a new file upload handler
-				DiskFileUpload upload = new DiskFileUpload();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(fstream, Charset.forName(HTTP.UTF_8)));
+                    StringBuffer inputString = new StringBuffer();
+                    // Read File Line By Line
+                    String strLine = null;
+                    // READ FIRST
+                    while ((strLine = br.readLine()) != null) {
+                        // Print the content on the console
+                        inputString.append(new String(strLine.getBytes(HTTP.UTF_8)));
+                    }
+                    definitionsAsString = inputString.toString();
+                }
+            } catch (Exception e) {
+                logger.error("Unable to reach url: " + url, e);
+                Util.saveErrorMessage("Unable to reach url: " + url, req);
+            }
+        } else {
+            byte[] data = null;
+            try {
+                // STEP 1. GATHER UPLOADED ITEMS
+                // Create a new file upload handler
+                DiskFileUpload upload = new DiskFileUpload();
 
-				// Parse the request
-				List<FileItem> items = upload.parseRequest(req);
-				Iterator<FileItem> iter = items.iterator();
-				while (iter.hasNext()) {
-					FileItem item = (FileItem) iter.next();
+                // Parse the request
+                List<FileItem> items = upload.parseRequest(req);
+                Iterator<FileItem> iter = items.iterator();
+                while (iter.hasNext()) {
+                    FileItem item = iter.next();
 
-					if (!item.isFormField()) {
+                    if (!item.isFormField()) {
 
-						data = item.get();
+                        data = item.get();
 
-					} else {
+                    } else {
 
-						String name = item.getFieldName();
-						if ("taglist".equals(name)) {
-							taglistValue = item.getString();
-						}
+                        String name = item.getFieldName();
+                        if ("taglist".equals(name)) {
+                            taglistValue = item.getString();
+                        }
 
-					}
-				}
-				if (data != null && data.length > 0) {
-					definitionsAsString = new String(data);
-				}
-			} catch (Exception e) {
-				logger.error("Unable to read or parse file: ", e);
-				Util.saveErrorMessage("Unable to upload or parse file.", req);
-			}
-		}
+                    }
+                }
+                if (data != null && data.length > 0) {
+                    definitionsAsString = new String(data);
+                }
+            } catch (Exception e) {
+                logger.error("Unable to read or parse file: ", e);
+                Util.saveErrorMessage("Unable to upload or parse file.", req);
+            }
+        }
 
-		// ***********************************
-		// STEP #2 - PERSIST DATA
-		// ***********************************
-		try {
+        // ***********************************
+        // STEP #2 - PERSIST DATA
+        // ***********************************
+        try {
 
-			if (definitionsAsString != null) {
-				MockeyXmlFileManager configurationReader = MockeyXmlFileManager.getInstance();
+            if (definitionsAsString != null) {
+                MockeyXmlFileManager configurationReader = MockeyXmlFileManager.getInstance();
 
-				ServiceMergeResults results = configurationReader.loadConfigurationWithXmlDef(definitionsAsString,
-						taglistValue);
+                ServiceMergeResults results = configurationReader.loadConfigurationWithXmlDef(definitionsAsString,
+                        taglistValue);
 
-				Util.saveSuccessMessage("Service definitions uploaded.", req);
-				req.setAttribute("conflicts", results.getConflictMsgs());
-				req.setAttribute("additions", results.getAdditionMessages());
-			} else {
-				Util.saveErrorMessage("Unable to upload or parse empty file.", req);
-			}
-		} catch (Exception e) {
-			Util.saveErrorMessage("Unable to upload or parse file.", req);
-		}
+                Util.saveSuccessMessage("Service definitions uploaded.", req);
+                req.setAttribute("conflicts", results.getConflictMsgs());
+                req.setAttribute("additions", results.getAdditionMessages());
+            } else {
+                Util.saveErrorMessage("Unable to upload or parse empty file.", req);
+            }
+        } catch (Exception e) {
+            Util.saveErrorMessage("Unable to upload or parse file.", req);
+        }
 
-		RequestDispatcher dispatch = req.getRequestDispatcher("/upload.jsp");
-		dispatch.forward(req, resp);
-	}
+        RequestDispatcher dispatch = req.getRequestDispatcher("/upload.jsp");
+        dispatch.forward(req, resp);
+    }
 }

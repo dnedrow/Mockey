@@ -48,71 +48,70 @@ import com.mockey.storage.StorageRegistry;
  * Returns an HTML representations of the service .scenario
  *
  * @author chad.lafontaine
- *
  */
 public class ScenarioViewAjaxServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 6258997861605811341L;
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-	private Logger logger = Logger.getLogger(ScenarioViewAjaxServlet.class);
+    private static final long serialVersionUID = 6258997861605811341L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private Logger logger = Logger.getLogger(ScenarioViewAjaxServlet.class);
 
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Long serviceId = new Long(req.getParameter("serviceId"));
-		String scenarioIdAsString = req.getParameter("scenarioId");
-		Service service = store.getServiceById(serviceId);
-		Scenario scenario = null;
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding(HTTP.UTF_8);
-		PrintWriter out = resp.getWriter();
-		try {
-			scenario = service.getScenario(new Long(scenarioIdAsString));
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("serviceId", "" + serviceId);
-			jsonObject.put("serviceName", "" + service.getServiceName());
-			jsonObject.put("scenarioId", "" + scenario.getId());
-			jsonObject.put("tag", "" + scenario.getTag());
-			jsonObject.put("hangtime", "" + scenario.getHangTime());
-			jsonObject.put("httpResponseStatusCode", "" + scenario.getHttpResponseStatusCode());
-			jsonObject.put("httpMethodType", "" + scenario.getHttpMethodType());
-			jsonObject.put("name", scenario.getScenarioName());
-			jsonObject.put("match", scenario.getMatchStringArg());
-			jsonObject.put("matchRegexFlag", scenario.isMatchStringArgEvaluationRulesFlag());
-			jsonObject.put("response", scenario.getResponseMessage());
-			jsonObject.put("responseHeader", scenario.getResponseHeader());
+        Long serviceId = new Long(req.getParameter("serviceId"));
+        String scenarioIdAsString = req.getParameter("scenarioId");
+        Service service = store.getServiceById(serviceId);
+        Scenario scenario = null;
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding(HTTP.UTF_8);
+        PrintWriter out = resp.getWriter();
+        try {
+            scenario = service.getScenario(new Long(scenarioIdAsString));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("serviceId", "" + serviceId);
+            jsonObject.put("serviceName", "" + service.getServiceName());
+            jsonObject.put("scenarioId", "" + scenario.getId());
+            jsonObject.put("tag", "" + scenario.getTag());
+            jsonObject.put("hangtime", "" + scenario.getHangTime());
+            jsonObject.put("httpResponseStatusCode", "" + scenario.getHttpResponseStatusCode());
+            jsonObject.put("httpMethodType", "" + scenario.getHttpMethodType());
+            jsonObject.put("name", scenario.getScenarioName());
+            jsonObject.put("match", scenario.getMatchStringArg());
+            jsonObject.put("matchRegexFlag", scenario.isMatchStringArgEvaluationRulesFlag());
+            jsonObject.put("response", scenario.getResponseMessage());
+            jsonObject.put("responseHeader", scenario.getResponseHeader());
 
-			// Error handling flags
-			String scenarioErrorId = (service.getErrorScenario() != null) ? "" + service.getErrorScenario().getId()
-					: "-1";
-			if (scenarioErrorId.equals(scenarioIdAsString)) {
-				jsonObject.put("scenarioErrorFlag", true);
-			} else {
-				jsonObject.put("scenarioErrorFlag", false);
-			}
+            // Error handling flags
+            String scenarioErrorId = (service.getErrorScenario() != null) ? "" + service.getErrorScenario().getId()
+                    : "-1";
+            if (scenarioErrorId.equals(scenarioIdAsString)) {
+                jsonObject.put("scenarioErrorFlag", true);
+            } else {
+                jsonObject.put("scenarioErrorFlag", false);
+            }
 
-			// For universal, both SERVICE ID and SCENARIO ID have to match.
-			Scenario universalError = store.getUniversalErrorScenario();
-			boolean universalErrorFlag = false;
-			if (universalError != null) {
-				try {
-					if (serviceId.equals(universalError.getServiceId())
-							&& universalError.getId().equals(new Long(scenarioIdAsString))) {
-						universalErrorFlag = true;
-					}
-				} catch (Exception ae) {
-					// Ignore
-					logger.debug("Unable to set universal error.", ae);
-				}
+            // For universal, both SERVICE ID and SCENARIO ID have to match.
+            Scenario universalError = store.getUniversalErrorScenario();
+            boolean universalErrorFlag = false;
+            if (universalError != null) {
+                try {
+                    if (serviceId.equals(universalError.getServiceId())
+                            && universalError.getId().equals(new Long(scenarioIdAsString))) {
+                        universalErrorFlag = true;
+                    }
+                } catch (Exception ae) {
+                    // Ignore
+                    logger.debug("Unable to set universal error.", ae);
+                }
 
-			}
-			jsonObject.put("universalScenarioErrorFlag", universalErrorFlag);
-			out.println(jsonObject.toString());
-		} catch (Exception e) {
-			out.println("{ \"error\": \"Unable to find scenario \"}");
-		}
-		out.flush();
-		out.close();
-		return;
+            }
+            jsonObject.put("universalScenarioErrorFlag", universalErrorFlag);
+            out.println(jsonObject.toString());
+        } catch (Exception e) {
+            out.println("{ \"error\": \"Unable to find scenario \"}");
+        }
+        out.flush();
+        out.close();
+        return;
 
-	}
+    }
 }

@@ -39,197 +39,190 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Scenario extends StatusCheck implements PersistableItem {
 
-	private Long id;
-	private Long serviceId;
-	// ****************
-	// Why empty string and not use null?
-	// We write/persist Scenario to XML and handling null and empty string gets
-	// weird. XML doesn't allow 'attribute = null' but has 'attribute = ""'
-	// ************
-	private String scenarioName = "";
-	private String requestMessage = "";
-	private String responseMessage = "";
-	private String matchStringArg = "";
-	private boolean matchStringArgEvaluationRulesFlag = false;
-	private String httpMethodType = "";
-	private String responseHeader = "Accept-Language: en-US | Accept: text/plain";
-	private int httpResponseStatusCode = HttpServletResponse.SC_OK;
-	private int hangTime = 0;
+    private Long id;
+    private Long serviceId;
+    // ****************
+    // Why empty string and not use null?
+    // We write/persist Scenario to XML and handling null and empty string gets
+    // weird. XML doesn't allow 'attribute = null' but has 'attribute = ""'
+    // ************
+    private String scenarioName = "";
+    private String requestMessage = "";
+    private String responseMessage = "";
+    private String matchStringArg = "";
+    private boolean matchStringArgEvaluationRulesFlag = false;
+    private String httpMethodType = "";
+    private String responseHeader = "Accept-Language: en-US | Accept: text/plain";
+    private int httpResponseStatusCode = HttpServletResponse.SC_OK;
+    private int hangTime = 0;
 
-	public String getScenarioName() {
-		return scenarioName;
-	}
+    public String getScenarioName() {
+        return scenarioName;
+    }
 
-	public void setScenarioName(String name) {
-		this.scenarioName = name;
-	}
+    public void setScenarioName(String name) {
+        this.scenarioName = name;
+    }
 
-	public String getRequestMessage() {
-		return requestMessage;
-	}
+    public String getRequestMessage() {
+        return requestMessage;
+    }
 
-	public void setRequestMessage(String requestMessage) {
-		this.requestMessage = requestMessage;
-	}
+    public void setRequestMessage(String requestMessage) {
+        this.requestMessage = requestMessage;
+    }
 
-	public String getResponseMessage() {
-		return responseMessage;
-	}
+    public String getResponseMessage() {
+        return responseMessage;
+    }
 
-	public void setResponseMessage(String responseMessage) {
-		this.responseMessage = responseMessage;
-	}
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
 
-	public String getMatchStringArg() {
-		return matchStringArg;
-	}
+    public String getMatchStringArg() {
+        return matchStringArg;
+    }
 
-	public void setMatchStringArg(String matchStringArg) {
-		this.matchStringArg = matchStringArg;
-	}
+    public void setMatchStringArg(String matchStringArg) {
+        this.matchStringArg = matchStringArg;
+    }
 
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("Scenario name: " + this.getScenarioName() + "\n");
-		sb.append("Match string : " + this.getMatchStringArg() + "\n");
-		sb.append("Request msg  : " + this.getRequestMessage() + "\n");
-		sb.append("Response msg : " + this.getResponseMessage() + "\n");
-		// sb.append("Response code: " + this. + "\n");
-		sb.append("Tag          : " + this.getTag() + "\n");
-		sb.append("Hangtime     : " + this.getHangTime() + "\n");
-		sb.append("Last visit   : " + this.getLastVisitSimple() + "\n");
-		return sb.toString();
-	}
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Scenario name: " + this.getScenarioName() + "\n");
+        sb.append("Match string : " + this.getMatchStringArg() + "\n");
+        sb.append("Request msg  : " + this.getRequestMessage() + "\n");
+        sb.append("Response msg : " + this.getResponseMessage() + "\n");
+        // sb.append("Response code: " + this. + "\n");
+        sb.append("Tag          : " + this.getTag() + "\n");
+        sb.append("Hangtime     : " + this.getHangTime() + "\n");
+        sb.append("Last visit   : " + this.getLastVisitSimple() + "\n");
+        return sb.toString();
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setServiceId(Long serviceId) {
-		this.serviceId = serviceId;
-	}
+    public Long getServiceId() {
+        return serviceId;
+    }
 
-	public Long getServiceId() {
-		return serviceId;
-	}
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
 
-	public boolean hasMatchArgument() {
-		if (getMatchStringArg() != null
-				&& getMatchStringArg().trim().length() > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean hasMatchArgument() {
+        return getMatchStringArg() != null
+                && getMatchStringArg().trim().length() > 0;
+    }
 
-	/**
-	 *
-	 * @param otherScenario
-	 * @return true if scenario name and scenario response message are equal
-	 *         (case ignored), otherwise false.
-	 */
-	public boolean hasSameNameAndResponse(Scenario otherScenario) {
-		try {
+    /**
+     * @param otherScenario
+     * @return true if scenario name and scenario response message are equal
+     * (case ignored), otherwise false.
+     */
+    public boolean hasSameNameAndResponse(Scenario otherScenario) {
+        try {
 
-			if (isMatching(this.scenarioName, otherScenario.getScenarioName())
-					&& isMatching(this.responseMessage,
-							otherScenario.getResponseMessage())) {
-				return true;
+            if (isMatching(this.scenarioName, otherScenario.getScenarioName())
+                    && isMatching(this.responseMessage,
+                    otherScenario.getResponseMessage())) {
+                return true;
 
-			}
+            }
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 
-	public boolean isMatching(String arg1, String arg2) {
-		boolean match = false;
-		if (arg1 != null && arg2 != null) {
-			if (arg1.trim().equalsIgnoreCase(arg2.trim())) {
-				match = true;
-			}
-		} else if (arg1 == null && arg2 == null) {
-			match = true;
-		}
-		return match;
-	}
+    public boolean isMatching(String arg1, String arg2) {
+        boolean match = false;
+        if (arg1 != null && arg2 != null) {
+            if (arg1.trim().equalsIgnoreCase(arg2.trim())) {
+                match = true;
+            }
+        } else if (arg1 == null && arg2 == null) {
+            match = true;
+        }
+        return match;
+    }
 
-	public int getHttpResponseStatusCode() {
-		return httpResponseStatusCode;
-	}
+    public int getHttpResponseStatusCode() {
+        return httpResponseStatusCode;
+    }
 
-	public void setHttpResponseStatusCode(int httpResponseStatusCode) {
-		this.httpResponseStatusCode = httpResponseStatusCode;
-	}
+    public void setHttpResponseStatusCode(int httpResponseStatusCode) {
+        this.httpResponseStatusCode = httpResponseStatusCode;
+    }
 
-	public void setResponseHeader(String responseHeader) {
-		this.responseHeader = responseHeader;
-	}
+    public String getResponseHeader() {
+        return this.responseHeader;
+    }
 
-	public String getResponseHeader() {
-		return this.responseHeader;
-	}
+    public void setResponseHeader(String responseHeader) {
+        this.responseHeader = responseHeader;
+    }
 
-	/**
-	 * Helper class to parse the header response into key value pairs.
-	 *
-	 * @return
-	 */
-	public Map<String, String> getHeaderInfoHelper() {
-		Map<String, String> m = new HashMap<String, String>();
+    /**
+     * Helper class to parse the header response into key value pairs.
+     *
+     * @return
+     */
+    public Map<String, String> getHeaderInfoHelper() {
+        Map<String, String> m = new HashMap<String, String>();
 
-		String[] args = this.responseHeader.split("\\|");
+        String[] args = this.responseHeader.split("\\|");
 
-		for (String k : args) {
-			int beginIndex = k.indexOf(":");
-			if (beginIndex > -1) {
-				String key = k.substring(0, beginIndex);
-				String val = k.substring(beginIndex + 1);
-				m.put(key.trim(), val.trim());
-			}
-		}
-		return m;
-	}
+        for (String k : args) {
+            int beginIndex = k.indexOf(":");
+            if (beginIndex > -1) {
+                String key = k.substring(0, beginIndex);
+                String val = k.substring(beginIndex + 1);
+                m.put(key.trim(), val.trim());
+            }
+        }
+        return m;
+    }
 
-	/**
-	 *
-	 * @return true if this Scenario's match argument should be treated as
-	 *         evaluation rules in JSON format, otherwise false.
-	 */
-	public boolean isMatchStringArgEvaluationRulesFlag() {
-		return matchStringArgEvaluationRulesFlag;
-	}
+    /**
+     * @return true if this Scenario's match argument should be treated as
+     * evaluation rules in JSON format, otherwise false.
+     */
+    public boolean isMatchStringArgEvaluationRulesFlag() {
+        return matchStringArgEvaluationRulesFlag;
+    }
 
-	/**
-	 *
-	 * @param matchStringArgEvaluationRulesFlag
-	 *            set to true if this Scenario's match argument should be
-	 *            treated as evaluation rules in JSON format
-	 */
-	public void setMatchStringArgEvaluationRulesFlag(
-			boolean matchStringArgEvaluationRulesFlag) {
-		this.matchStringArgEvaluationRulesFlag = matchStringArgEvaluationRulesFlag;
-	}
+    /**
+     * @param matchStringArgEvaluationRulesFlag set to true if this Scenario's match argument should be
+     *                                          treated as evaluation rules in JSON format
+     */
+    public void setMatchStringArgEvaluationRulesFlag(
+            boolean matchStringArgEvaluationRulesFlag) {
+        this.matchStringArgEvaluationRulesFlag = matchStringArgEvaluationRulesFlag;
+    }
 
-	public String getHttpMethodType() {
-		return httpMethodType;
-	}
+    public String getHttpMethodType() {
+        return httpMethodType;
+    }
 
-	public void setHttpMethodType(String httpMethodType) {
-		this.httpMethodType = httpMethodType;
-	}
-	public int getHangTime() {
-		return hangTime;
-	}
+    public void setHttpMethodType(String httpMethodType) {
+        this.httpMethodType = httpMethodType;
+    }
 
-	public void setHangTime(int hangTime) {
-		this.hangTime = hangTime;
-	}
+    public int getHangTime() {
+        return hangTime;
+    }
+
+    public void setHangTime(int hangTime) {
+        this.hangTime = hangTime;
+    }
 
 }

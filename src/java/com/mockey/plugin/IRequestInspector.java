@@ -33,36 +33,32 @@ import com.mockey.model.RequestFromClient;
  * of this? This is designed to inform developers and QA whether or not their
  * service requests is missing important information, e.g. a session token,
  * cookie information, etc.
- *
+ * <p>
  * This is designed for complex Request validation.
  *
+ * @author clafonta
  * @see com.mockey.model.Service#getRequestInspectorName()
  * @see com.mockey.storage.IMockeyStorage#getRequestInspectorByClassName(String)
- *
- * @author clafonta
- *
  */
 public interface IRequestInspector {
 
-	/**
-	 * Implementation will evaluate incoming request, example may include
-	 * incoming parameters, headers, body, etc.
-	 *
-	 * @param request
-	 */
-	public void analyze(RequestFromClient request);
+    /**
+     * Implementation will evaluate incoming request, example may include
+     * incoming parameters, headers, body, etc.
+     *
+     * @param request
+     */
+    void analyze(RequestFromClient request);
 
-	/**
-	 *
-	 * @return message to display
-	 */
-	public String getPostAnalyzeResultMessage();
+    /**
+     * @return message to display
+     */
+    String getPostAnalyzeResultMessage();
 
-	/**
-	 *
-	 * @return true if this implementation should be applied to each service,
-	 *         false otherwise.
-	 */
-	public boolean isGlobal();
+    /**
+     * @return true if this implementation should be applied to each service,
+     * false otherwise.
+     */
+    boolean isGlobal();
 
 }

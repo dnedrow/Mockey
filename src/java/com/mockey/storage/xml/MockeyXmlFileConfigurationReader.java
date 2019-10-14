@@ -38,38 +38,38 @@ import com.mockey.storage.IMockeyStorage;
 
 public class MockeyXmlFileConfigurationReader {
 
-	/**
-	 * Returns a
-	 *
-	 * @param mockServicesDefinition
-	 * @return
-	 */
-	public IMockeyStorage readDefinition(String mockServicesDefinition) throws org.xml.sax.SAXParseException,
-			java.io.IOException, org.xml.sax.SAXException {
+    /**
+     * Returns a
+     *
+     * @param mockServicesDefinition
+     * @return
+     */
+    public IMockeyStorage readDefinition(String mockServicesDefinition) throws
+            java.io.IOException, org.xml.sax.SAXException {
 
-		BufferedReader br = new BufferedReader(new StringReader(mockServicesDefinition));
+        BufferedReader br = new BufferedReader(new StringReader(mockServicesDefinition));
 
-		MockeyXmlFileConfigurationParser msp = new MockeyXmlFileConfigurationParser();
+        MockeyXmlFileConfigurationParser msp = new MockeyXmlFileConfigurationParser();
 
-		return msp.getMockeyStore(new InputSource(br));
+        return msp.getMockeyStore(new InputSource(br));
 
-	}
+    }
 
-	/**
-	 * Returns a
-	 *
-	 * @param mockServicesDefinition
-	 * @return
-	 */
-	public List<Service> readServiceDefinition(String mockServiceDefinition) throws org.xml.sax.SAXParseException,
-			java.io.IOException, org.xml.sax.SAXException {
+    /**
+     * Returns a
+     *
+     * @param mockServicesDefinition
+     * @return
+     */
+    public List<Service> readServiceDefinition(String mockServiceDefinition) throws
+            java.io.IOException, org.xml.sax.SAXException {
 
-		BufferedReader br = new BufferedReader(new StringReader(mockServiceDefinition));
+        BufferedReader br = new BufferedReader(new StringReader(mockServiceDefinition));
 
-		MockeyXmlFileConfigurationParser msp = new MockeyXmlFileConfigurationParser();
+        MockeyXmlFileConfigurationParser msp = new MockeyXmlFileConfigurationParser();
 
-		return msp.getMockService(new InputSource(br));
+        return msp.getMockService(new InputSource(br));
 
-	}
+    }
 
 }

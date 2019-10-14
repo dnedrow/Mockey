@@ -31,31 +31,30 @@ package com.mockey.model;
  * Used in retrieving and saving reference meta data of a service.
  *
  * @author chadlafontaine
- *
  */
 public class ServiceRef implements PersistableItem {
 
-	private String fileName = null;
-	private Long id = null;
+    private String fileName = null;
+    private Long id = null;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getFileName() {
-		return fileName;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
-	public String toString() {
-		return this.fileName;
-	}
+    public String toString() {
+        return this.fileName;
+    }
 
 }

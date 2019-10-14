@@ -40,73 +40,67 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 
-
 public class FileUploadOctetStreamReaderServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -8429482476914060900L;
+    private static final long serialVersionUID = -8429482476914060900L;
 
-	/**
-	 * Handles the HTTP <code>POST</code> method.
-	 *
-	 * @param request
-	 *            servlet request
-	 * @param response
-	 *            servlet response
-	 * @throws ServletException
-	 *             if a servlet-specific error occurs
-	 * @throws IOException
-	 *             if an I/O error occurs
-	 */
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-		PrintWriter writer = null;
-		InputStream is = null;
-		FileOutputStream fos = null;
+        PrintWriter writer = null;
+        InputStream is = null;
+        FileOutputStream fos = null;
 
-		try {
-			writer = response.getWriter();
-		} catch (IOException ex) {
-			log(FileUploadOctetStreamReaderServlet.class.getName() + "has thrown an exception: " + ex.getMessage());
-		}
+        try {
+            writer = response.getWriter();
+        } catch (IOException ex) {
+            log(FileUploadOctetStreamReaderServlet.class.getName() + "has thrown an exception: " + ex.getMessage());
+        }
 
 
+        try {
+            String filename = URLDecoder.decode(request.getHeader("X-File-Name"), "UTF-8");
+            is = request.getInputStream();
+            FileSystemManager fsm = new FileSystemManager();
+            File fileToWriteTo = fsm.getImageFile(filename);
+            fos = new FileOutputStream(fileToWriteTo);
 
-		try {
-			String filename = URLDecoder.decode(request.getHeader("X-File-Name"), "UTF-8");
-			is = request.getInputStream();
-			FileSystemManager fsm = new FileSystemManager();
-			File fileToWriteTo = fsm.getImageFile(filename);
-			fos = new FileOutputStream(fileToWriteTo);
+            IOUtils.copy(is, fos);
+            response.setStatus(HttpServletResponse.SC_OK);
+            writer.print("{success: true}");
+        } catch (FileNotFoundException ex) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            writer.print("{success: false}");
+            log(FileUploadOctetStreamReaderServlet.class.getName() + "has thrown an exception: " + ex.getMessage());
+        } catch (IOException ex) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            writer.print("{success: false}");
+            log(FileUploadOctetStreamReaderServlet.class.getName() + "has thrown an exception: " + ex.getMessage());
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
 
-			IOUtils.copy(is, fos);
-			response.setStatus(HttpServletResponse.SC_OK);
-			writer.print("{success: true}");
-		} catch (FileNotFoundException ex) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			writer.print("{success: false}");
-			log(FileUploadOctetStreamReaderServlet.class.getName() + "has thrown an exception: " + ex.getMessage());
-		} catch (IOException ex) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			writer.print("{success: false}");
-			log(FileUploadOctetStreamReaderServlet.class.getName() + "has thrown an exception: " + ex.getMessage());
-		} finally {
-			try {
-				if (fos != null) {
-					fos.close();
-				}
+            } catch (IOException ignored) {
+            }
+            try {
+                if (is != null) {
+                    is.close();
+                }
+            } catch (IOException ignored) {
+            }
+        }
 
-			} catch (IOException ignored) {
-			}
-			try {
-				if (is != null) {
-					is.close();
-				}
-			} catch (IOException ignored) {
-			}
-		}
-
-		writer.flush();
-		writer.close();
-	}
+        writer.flush();
+        writer.close();
+    }
 }

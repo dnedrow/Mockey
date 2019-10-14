@@ -26,20 +26,20 @@ package com.mockey.runner;
 
 /**
  * Refers to Boot Strap Constants.
- * @author chad.lafontaine
  *
+ * @author chad.lafontaine
  */
 public interface BSC {
 
-	public static final String DEFINITION_LOCATION = "location";
-	public static final String TRANSIENT = "transientState";
-	public static final String FILTERTAG = "filterTag";
-	public static final String FILE = "file";
-	public static final String INIT = "init";
-	public static final String TYPE = "type";
-	public static final String ACTION = "action";
-	public static final String URL = "url";
-	public static final String HEADLESS = "headless";
-	public static final String VERSION = "version";
+    String DEFINITION_LOCATION = "location";
+    String TRANSIENT = "transientState";
+    String FILTERTAG = "filterTag";
+    String FILE = "file";
+    String INIT = "init";
+    String TYPE = "type";
+    String ACTION = "action";
+    String URL = "url";
+    String HEADLESS = "headless";
+    String VERSION = "version";
 
 }

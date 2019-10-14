@@ -37,25 +37,23 @@ import com.mockey.model.Scenario;
  */
 public class ScenarioValidator {
 
-	private final static int SERVICE_NAME_SIZE_LIMIT = 250;
+    private final static int SERVICE_NAME_SIZE_LIMIT = 250;
 
-	/**
-	 *
-	 * @param ms
-	 *            MockServiceScenarioBean to validate.
-	 * @return a mapping of input field names and error messages, key value
-	 *         pairs. If no errors, then empty Map.
-	 */
-	public static Map<String, String> validate(Scenario mss) {
-		Map<String, String> errorMap = new HashMap<String, String>();
+    /**
+     * @param ms MockServiceScenarioBean to validate.
+     * @return a mapping of input field names and error messages, key value
+     * pairs. If no errors, then empty Map.
+     */
+    public static Map<String, String> validate(Scenario mss) {
+        Map<String, String> errorMap = new HashMap<String, String>();
 
-		// TRIM input in case user entered only spaces in input fields.
-		if ((mss.getScenarioName() == null) || (mss.getScenarioName().trim().length() < 1)
-				|| (mss.getScenarioName().trim().length() > SERVICE_NAME_SIZE_LIMIT)) {
-			errorMap.put("name", "Service scenario name must not be empty or greater than " + SERVICE_NAME_SIZE_LIMIT
-					+ " chars.");
-		}
+        // TRIM input in case user entered only spaces in input fields.
+        if ((mss.getScenarioName() == null) || (mss.getScenarioName().trim().length() < 1)
+                || (mss.getScenarioName().trim().length() > SERVICE_NAME_SIZE_LIMIT)) {
+            errorMap.put("name", "Service scenario name must not be empty or greater than " + SERVICE_NAME_SIZE_LIMIT
+                    + " chars.");
+        }
 
-		return errorMap;
-	}
+        return errorMap;
+    }
 }

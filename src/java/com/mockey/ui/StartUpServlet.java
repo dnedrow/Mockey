@@ -38,76 +38,73 @@ import com.mockey.storage.xml.MockeyXmlFileManager;
 
 public class StartUpServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -6466436642921760561L;
-	// private static Logger logger = Logger.getLogger(StartUpServlet.class);
-	private static final String SYSTEM_PROPERTY_KEY_DEBUG_FILE = "pathToMockeyDebugFile";
+    public static final String MOCKEY_DEBUG = "mockeyDebugFile.log";
+    private static final long serialVersionUID = -6466436642921760561L;
+    // private static Logger logger = Logger.getLogger(StartUpServlet.class);
+    private static final String SYSTEM_PROPERTY_KEY_DEBUG_FILE = "pathToMockeyDebugFile";
+    private static File debugFile = null;
 
-	public static final String MOCKEY_DEBUG = "mockeyDebugFile.log";
+    /**
+     * @return Location of debug output from
+     * <code>org.apache.log4j.RollingFileAppender</code>
+     * @see org.apache.log4j.RollingFileAppender
+     */
+    public static File getDebugFile() {
 
-	private static File debugFile = null;
+        if (debugFile == null || !debugFile.exists()) {
+            // ***************
+            // JETTY & TOMCAT compatible
+            // Not context
+            // ***************
+            // If no explicit path, then check for a system variable.
+            // Check for SYSTEM PROPERTY
+            String repoHome = System.getProperty(MockeyXmlFileManager.SYSTEM_PROPERTY_MOCKEY_DEF_REPO_HOME);
+            if (repoHome != null) {
+                String msg = "System environment '" + MockeyXmlFileManager.SYSTEM_PROPERTY_MOCKEY_DEF_REPO_HOME
+                        + "' value is provided. Writing debug file here: " + repoHome;
+                System.out.println(msg);
+            }
+            //
+            try {
+                String debugFilePath = null;
+                if (repoHome != null) {
+                    debugFilePath = repoHome + File.separatorChar + MOCKEY_DEBUG;
+                } else {
+                    debugFilePath = MOCKEY_DEBUG;
+                }
+                debugFile = new File(debugFilePath);
+                debugFile.createNewFile();
+                String abPath = getDebugFile().getAbsolutePath();
+                System.out.println("Created debug file " + abPath);
+                System.setProperty(SYSTEM_PROPERTY_KEY_DEBUG_FILE, abPath);
 
-	/**
-	 *
-	 * @return Location of debug output from
-	 *         <code>org.apache.log4j.RollingFileAppender</code>
-	 * @see org.apache.log4j.RollingFileAppender
-	 */
-	public static File getDebugFile() {
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return debugFile;
+    }
 
-		if (debugFile == null || !debugFile.exists()) {
-			// ***************
-			// JETTY & TOMCAT compatible
-			// Not context
-			// ***************
-			// If no explicit path, then check for a system variable.
-			// Check for SYSTEM PROPERTY
-			String repoHome = System.getProperty(MockeyXmlFileManager.SYSTEM_PROPERTY_MOCKEY_DEF_REPO_HOME);
-			if (repoHome != null) {
-				String msg = "System environment '" + MockeyXmlFileManager.SYSTEM_PROPERTY_MOCKEY_DEF_REPO_HOME
-						+ "' value is provided. Writing debug file here: " + repoHome;
-				System.out.println(msg);
-			}
-			//
-			try {
-				String debugFilePath = null;
-				if (repoHome != null) {
-					debugFilePath = repoHome + File.separatorChar + MOCKEY_DEBUG;
-				} else {
-					debugFilePath = MOCKEY_DEBUG;
-				}
-				debugFile = new File(debugFilePath);
-				debugFile.createNewFile();
-				String abPath = getDebugFile().getAbsolutePath();
-				System.out.println("Created debug file " + abPath);
-				System.setProperty(SYSTEM_PROPERTY_KEY_DEBUG_FILE, abPath);
+    public void init() throws ServletException {
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return debugFile;
-	}
+        // Init
+        getDebugFile();
 
-	public void init() throws ServletException {
+        try {
 
-		// Init
-		getDebugFile();
+            MockeyXmlFileManager reader = MockeyXmlFileManager.getInstance();
+            reader.loadConfiguration();
 
-		try {
+        } catch (FileNotFoundException fnf) {
 
-			MockeyXmlFileManager reader = MockeyXmlFileManager.getInstance();
-			reader.loadConfiguration();
+            System.out.println("File used to initialize Mockey not found. "
+                    + "It's OK; one will be created if Mockey is not in 'memory-mode-only' "
+                    + "meaning you have to tell Mockey to 'write-to-file' via the web browser interface. ");
 
-		} catch (FileNotFoundException fnf) {
+        } catch (Exception e) {
+            // logger.error("StartUpServlet:init()", e);
+            e.printStackTrace();
+        }
 
-			System.out.println("File used to initialize Mockey not found. "
-					+ "It's OK; one will be created if Mockey is not in 'memory-mode-only' "
-					+ "meaning you have to tell Mockey to 'write-to-file' via the web browser interface. ");
-
-		} catch (Exception e) {
-			// logger.error("StartUpServlet:init()", e);
-			e.printStackTrace();
-		}
-
-	}
+    }
 }

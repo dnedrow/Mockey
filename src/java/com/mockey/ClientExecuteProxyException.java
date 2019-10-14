@@ -31,25 +31,25 @@ import com.mockey.model.Url;
 
 public class ClientExecuteProxyException extends Throwable {
 
-	 /**
-	 *
-	 */
-	private static final long serialVersionUID = 1858670956465614515L;
-	private String errorMsg = null;
-	 private Url requestUrl = null;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1858670956465614515L;
+    private String errorMsg = null;
+    private Url requestUrl = null;
 
 
-		public ClientExecuteProxyException(String msg, Url requestUrl, Exception e) {
-			super(msg,e);
-			this.errorMsg = msg;
-			this.requestUrl = requestUrl;
-		}
+    public ClientExecuteProxyException(String msg, Url requestUrl, Exception e) {
+        super(msg, e);
+        this.errorMsg = msg;
+        this.requestUrl = requestUrl;
+    }
 
-		public String getMessage() {
-			return errorMsg;
-		}
+    public String getMessage() {
+        return errorMsg;
+    }
 
-		public Url getRequestUrl(){
-			return requestUrl;
-		}
+    public Url getRequestUrl() {
+        return requestUrl;
+    }
 }

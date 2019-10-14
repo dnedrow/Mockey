@@ -47,95 +47,94 @@ import com.mockey.storage.StorageRegistry;
 
 public class TwistInfoToggleServlet extends HttpServlet implements TwistInfoConfigurationAPI {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 8461665153162178045L;
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8461665153162178045L;
     private static final Logger logger = Logger.getLogger(TwistInfoToggleServlet.class);
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
 
-	/**
-	 * Handles the following activities for <code>TwistInfo</code>
-	 *
-	 */
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * Handles the following activities for <code>TwistInfo</code>
+     */
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String responseType = req.getParameter("response-type");
-		// If type is JSON, then respond with JSON
-		// Otherwise, direct to JSP
+        String responseType = req.getParameter("response-type");
+        // If type is JSON, then respond with JSON
+        // Otherwise, direct to JSP
 
-		Long twistInfoId = null;
-		TwistInfo twistInfo = null;
-		String coachingMessage = null;
-		JSONObject jsonObject = new JSONObject();
+        Long twistInfoId = null;
+        TwistInfo twistInfo = null;
+        String coachingMessage = null;
+        JSONObject jsonObject = new JSONObject();
 
-		try {
-			twistInfoId = new Long(req.getParameter(PARAMETER_KEY_TWIST_ID));
-			boolean enable = Boolean.parseBoolean(req.getParameter(PARAMETER_KEY_TWIST_ENABLE));
-			twistInfo = store.getTwistInfoById(twistInfoId);
-			if(enable){
-				store.setUniversalTwistInfoId(twistInfo.getId());
-				if (twistInfo != null) {
-					jsonObject.put(PARAMETER_KEY_TWIST_ID, "" + twistInfo.getId());
-					jsonObject.put(PARAMETER_KEY_TWIST_NAME, "" + twistInfo.getName());
-					coachingMessage = "Twist configuration on";
-				}
+        try {
+            twistInfoId = new Long(req.getParameter(PARAMETER_KEY_TWIST_ID));
+            boolean enable = Boolean.parseBoolean(req.getParameter(PARAMETER_KEY_TWIST_ENABLE));
+            twistInfo = store.getTwistInfoById(twistInfoId);
+            if (enable) {
+                store.setUniversalTwistInfoId(twistInfo.getId());
+                if (twistInfo != null) {
+                    jsonObject.put(PARAMETER_KEY_TWIST_ID, "" + twistInfo.getId());
+                    jsonObject.put(PARAMETER_KEY_TWIST_NAME, "" + twistInfo.getName());
+                    coachingMessage = "Twist configuration on";
+                }
 
-			}else if(store.getUniversalTwistInfoId()!=null && store.getUniversalTwistInfoId().equals(twistInfoId)){
-				// Disable
-				// The only way to DISABLE _all_ twist configurations, both ENABLE (false) and TWIST-ID value (equal
-				// to the current universal twist-id have to be passed in.
-				// Why? To prevent random 'ENABLE=false' arguments past to this service from users
-				// clicking OFF/disable when things are already disabled.
-				//
-				store.setUniversalTwistInfoId(null);
-				coachingMessage = "Twist configuration off";
-			}
+            } else if (store.getUniversalTwistInfoId() != null && store.getUniversalTwistInfoId().equals(twistInfoId)) {
+                // Disable
+                // The only way to DISABLE _all_ twist configurations, both ENABLE (false) and TWIST-ID value (equal
+                // to the current universal twist-id have to be passed in.
+                // Why? To prevent random 'ENABLE=false' arguments past to this service from users
+                // clicking OFF/disable when things are already disabled.
+                //
+                store.setUniversalTwistInfoId(null);
+                coachingMessage = "Twist configuration off";
+            }
 
-		} catch (Exception e) {
-			logger.error("Unable to properly set Twist configuration.", e);
-		}
+        } catch (Exception e) {
+            logger.error("Unable to properly set Twist configuration.", e);
+        }
 
-		if (PARAMETER_KEY_RESPONSE_TYPE_VALUE_JSON.equalsIgnoreCase(responseType)) {
-			// ***********************
-			// BEGIN - JSON response
-			// ***********************
-			resp.setContentType("application/json");
-			PrintWriter out = resp.getWriter();
-			try {
-				JSONObject jsonResponseObject = new JSONObject();
-				if (twistInfo != null) {
-					jsonObject.put("success", coachingMessage);
+        if (PARAMETER_KEY_RESPONSE_TYPE_VALUE_JSON.equalsIgnoreCase(responseType)) {
+            // ***********************
+            // BEGIN - JSON response
+            // ***********************
+            resp.setContentType("application/json");
+            PrintWriter out = resp.getWriter();
+            try {
+                JSONObject jsonResponseObject = new JSONObject();
+                if (twistInfo != null) {
+                    jsonObject.put("success", coachingMessage);
 
 
-				} else {
-					jsonObject.put("fail", "Unable to set twist configuration.");
+                } else {
+                    jsonObject.put("fail", "Unable to set twist configuration.");
 
-				}
-				jsonResponseObject.put("result", jsonObject);
-				out.println(jsonResponseObject.toString());
+                }
+                jsonResponseObject.put("result", jsonObject);
+                out.println(jsonResponseObject.toString());
 
-			} catch (JSONException jsonException) {
-				throw new ServletException(jsonException);
-			}
+            } catch (JSONException jsonException) {
+                throw new ServletException(jsonException);
+            }
 
-			out.flush();
-			out.close();
-			return;
-			// ***********************
-			// END - JSON response
-			// ***********************
+            out.flush();
+            out.close();
+            return;
+            // ***********************
+            // END - JSON response
+            // ***********************
 
-		} else {
-			List<TwistInfo> twistInfoList = store.getTwistInfoList();
-			Util.saveSuccessMessage("Twist configuration updated", req);
-			req.setAttribute("twistInfoList", twistInfoList);
-			req.setAttribute("twistInfoIdEnabled", store.getUniversalTwistInfoId());
-			RequestDispatcher dispatch = req.getRequestDispatcher("/twistinfo_setup.jsp");
-			dispatch.forward(req, resp);
-			return;
-		}
+        } else {
+            List<TwistInfo> twistInfoList = store.getTwistInfoList();
+            Util.saveSuccessMessage("Twist configuration updated", req);
+            req.setAttribute("twistInfoList", twistInfoList);
+            req.setAttribute("twistInfoIdEnabled", store.getUniversalTwistInfoId());
+            RequestDispatcher dispatch = req.getRequestDispatcher("/twistinfo_setup.jsp");
+            dispatch.forward(req, resp);
+            return;
+        }
 
-	}
+    }
 
 }

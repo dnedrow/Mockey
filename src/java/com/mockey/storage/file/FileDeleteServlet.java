@@ -37,46 +37,45 @@ import org.json.JSONObject;
 
 /**
  * @author clafonta
- *
  */
 public class FileDeleteServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -7334916323927032682L;
+    private static final long serialVersionUID = -7334916323927032682L;
 
-	public void service(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		FileSystemManager fsm = new FileSystemManager();
+        FileSystemManager fsm = new FileSystemManager();
 
-		String fileName = req.getParameter("filename");
-		boolean deletedFile = false;
-		String msg = fileName;
+        String fileName = req.getParameter("filename");
+        boolean deletedFile = false;
+        String msg = fileName;
 
-		if (fileName != null) {
-			fsm.deleteImageFile(fileName);
-		} else {
-			msg = "Missing sourceDir and/or filename arguments.";
-		}
+        if (fileName != null) {
+            fsm.deleteImageFile(fileName);
+        } else {
+            msg = "Missing sourceDir and/or filename arguments.";
+        }
 
-		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
-		JSONObject json = new JSONObject();
-		String resultingJSON = null;
-		try {
-			json.append("status", deletedFile);
-			json.append("msg", msg);
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        String resultingJSON = null;
+        try {
+            json.append("status", deletedFile);
+            json.append("msg", msg);
 
-			resultingJSON = json.toString();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            resultingJSON = json.toString();
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		out.println(resultingJSON);
-		out.flush();
-		out.close();
-		return;
+        out.println(resultingJSON);
+        out.flush();
+        out.close();
+        return;
 
-	}
+    }
 
 }

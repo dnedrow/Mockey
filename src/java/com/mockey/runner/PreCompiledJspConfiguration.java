@@ -38,8 +38,8 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
 public class PreCompiledJspConfiguration extends WebXmlConfiguration {
 
     @Override
-    public Resource findWebXml(WebAppContext webAppContext) throws IOException, MalformedURLException {
+    public Resource findWebXml(WebAppContext webAppContext) throws IOException {
         URL path = getClass().getClassLoader().getResource("WEB-INF/web.xml");
-        return  Resource.newResource(path);
+        return Resource.newResource(path);
     }
 }

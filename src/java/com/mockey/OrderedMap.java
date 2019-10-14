@@ -48,7 +48,6 @@ import com.mockey.model.PersistableItem;
  * </code>
  *
  * @author chad.lafontaine
- *
  */
 public class OrderedMap<T extends PersistableItem> extends ConcurrentHashMap<Long, T> implements Map<Long, T> {
 
@@ -89,10 +88,10 @@ public class OrderedMap<T extends PersistableItem> extends ConcurrentHashMap<Lon
     }
 
     public T get(Object key) {
-      if (key == null) {
-        return null;
-      }
-      return super.get(key);
+        if (key == null) {
+            return null;
+        }
+        return super.get(key);
     }
 
     private Long getSmallestValue() {
@@ -143,23 +142,22 @@ public class OrderedMap<T extends PersistableItem> extends ConcurrentHashMap<Lon
     }
 
     /**
-     *
-     * @param maxSize
-     * @see #getMaxSize()
-     */
-    public void setMaxSize(Integer maxSize) {
-        this.maxSize = maxSize;
-    }
-
-    /**
      * Maximum number of <code>PersistableItem</code> allowed in this ordered
      * map. Once this map has reached its limit, if set, it takes a first-in,
      * first-out (FIFO) persistence approach, purging the oldest object.
      *
      * @return null if not set (no size limit), otherwise returns the maximum
-     *         size value.
+     * size value.
      */
     public Integer getMaxSize() {
         return maxSize;
+    }
+
+    /**
+     * @param maxSize
+     * @see #getMaxSize()
+     */
+    public void setMaxSize(Integer maxSize) {
+        this.maxSize = maxSize;
     }
 }

@@ -46,7 +46,6 @@ import com.mockey.storage.StorageRegistry;
 /**
  * Returns an HTML form of the fulfilled request, designed to be consumed by an
  * AJAX call.
- *
  */
 public class HistoryHtmlServlet extends HttpServlet {
 
@@ -79,8 +78,8 @@ public class HistoryHtmlServlet extends HttpServlet {
             returnHTML.append("<td>");
             returnHTML.append("<div class=\"conflict_message\">");
             String doitagainUrl = Url.getAbsoluteURL(req, "/doitagain");
-            returnHTML.append("<form id=\"child\" action=\""+doitagainUrl+"\" method=\"post\" style=\"background-color:#FFD7D7\" >");
-            returnHTML.append("<input type=\"hidden\" name=\"fulfilledClientRequestId\" value=\""+fCRequest.getId()+"\" />");
+            returnHTML.append("<form id=\"child\" action=\"" + doitagainUrl + "\" method=\"post\" style=\"background-color:#FFD7D7\" >");
+            returnHTML.append("<input type=\"hidden\" name=\"fulfilledClientRequestId\" value=\"" + fCRequest.getId() + "\" />");
             returnHTML.append("<h2>Request:</h2>");
             returnHTML.append("<p><h4>" + fCRequest.getRawRequest() + "</h4></p>");
             returnHTML.append("<p>Header (pipe delimited)</p>");

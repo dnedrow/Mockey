@@ -43,15 +43,14 @@ import com.mockey.ClientExecuteProxy;
 
 /**
  * Returns a JSON to validate that sticky cookie session has been reset/flushed.
- *
  */
 public class StickyCookieSessionAjaxServlet extends HttpServlet {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1361928261096258669L;
-	private static Logger logger = Logger.getLogger(StickyCookieSessionAjaxServlet.class);
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1361928261096258669L;
+    private static Logger logger = Logger.getLogger(StickyCookieSessionAjaxServlet.class);
 
     /**
      *
@@ -60,18 +59,17 @@ public class StickyCookieSessionAjaxServlet extends HttpServlet {
 
         JSONObject jsonObject = new JSONObject();
         try {
-        	ClientExecuteProxy.resetStickySession();
+            ClientExecuteProxy.resetStickySession();
 
-            jsonObject.put("reset",true);
-
+            jsonObject.put("reset", true);
 
 
         } catch (Exception e) {
-        	 try {
-				jsonObject.put("error", "Unable to reset sticky session");
-			} catch (JSONException e1) {
-				logger.error("Unable to create JSON", e1);
-			}
+            try {
+                jsonObject.put("error", "Unable to reset sticky session");
+            } catch (JSONException e1) {
+                logger.error("Unable to create JSON", e1);
+            }
         }
 
         resp.setContentType("application/json");

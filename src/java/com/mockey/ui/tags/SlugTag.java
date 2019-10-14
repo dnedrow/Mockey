@@ -35,6 +35,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Slug a long txt for JSP display.
+ *
  * @author chad.lafontaine
  */
 public class SlugTag extends TagSupport {
@@ -72,11 +73,11 @@ public class SlugTag extends TagSupport {
         return SKIP_BODY;
     }
 
-    public void setMaxLength(int maxLength) {
-        this.maxLength = maxLength;
-    }
-
     public int getMaxLength() {
         return maxLength;
+    }
+
+    public void setMaxLength(int maxLength) {
+        this.maxLength = maxLength;
     }
 }

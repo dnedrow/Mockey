@@ -50,77 +50,75 @@ import com.mockey.storage.StorageRegistry;
  * Service Plans
  *
  * @author chad.lafontaine
- *
  */
 public class LastVisitTagHelperServlet extends HttpServlet {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -6008311413723842054L;
-	/**
-	 *
-	 */
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-	private static Logger logger = Logger
-			.getLogger(LastVisitTagHelperServlet.class);
-	public static final String FILTER_TAG = "FILTER_SESSION_TAG";
+    public static final String FILTER_TAG = "FILTER_SESSION_TAG";
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6008311413723842054L;
+    /**
+     *
+     */
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static Logger logger = Logger
+            .getLogger(LastVisitTagHelperServlet.class);
 
-	/**
-	 * Service does a few things, which includes:
-	 *
-	 */
-	public void service(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+    /**
+     * Service does a few things, which includes:
+     */
+    public void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		String serviceId = req.getParameter("serviceId");
-		String servicePlanId = req.getParameter("servicePlanId");
-		String scenarioId = req.getParameter("scenarioId");
-		String action = req.getParameter("action");
+        String serviceId = req.getParameter("serviceId");
+        String servicePlanId = req.getParameter("servicePlanId");
+        String scenarioId = req.getParameter("scenarioId");
+        String action = req.getParameter("action");
 
-		JSONObject jsonObject = new JSONObject();
-		try {
-			if ("clear_last_visit".equalsIgnoreCase(action)) {
-				if (serviceId != null && scenarioId != null) {
-					Service service = store.getServiceById(new Long(serviceId));
-					Scenario scenario = service
-							.getScenario(new Long(scenarioId));
-					scenario.setLastVisit(null);
-					service.saveOrUpdateScenario(scenario);
-					store.saveOrUpdateService(service);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            if ("clear_last_visit".equalsIgnoreCase(action)) {
+                if (serviceId != null && scenarioId != null) {
+                    Service service = store.getServiceById(new Long(serviceId));
+                    Scenario scenario = service
+                            .getScenario(new Long(scenarioId));
+                    scenario.setLastVisit(null);
+                    service.saveOrUpdateScenario(scenario);
+                    store.saveOrUpdateService(service);
 
-				} else if (serviceId != null) {
-					Service service = store.getServiceById(new Long(serviceId));
-					service.setLastVisit(null);
-					store.saveOrUpdateService(service);
-				} else if (servicePlanId != null) {
-					ServicePlan servicePlan = store
-							.getServicePlanById(new Long(servicePlanId));
-					servicePlan.setLastVisit(null);
-					store.saveOrUpdateServicePlan(servicePlan);
-				}
+                } else if (serviceId != null) {
+                    Service service = store.getServiceById(new Long(serviceId));
+                    service.setLastVisit(null);
+                    store.saveOrUpdateService(service);
+                } else if (servicePlanId != null) {
+                    ServicePlan servicePlan = store
+                            .getServicePlanById(new Long(servicePlanId));
+                    servicePlan.setLastVisit(null);
+                    store.saveOrUpdateServicePlan(servicePlan);
+                }
 
-				jsonObject.put("success", "Last visit was cleared.");
-			}else {
-				jsonObject.put("info", "Hmm...you seem to be missing some things. ");
-			}
+                jsonObject.put("success", "Last visit was cleared.");
+            } else {
+                jsonObject.put("info", "Hmm...you seem to be missing some things. ");
+            }
 
-		} catch (Exception e) {
-			logger.debug("Unable to clear last visit time with action '"
-					+ action + "' :" + e.getMessage());
-			try {
-				jsonObject.put("error", "" + "Sorry, not available.");
-			} catch (JSONException e1) {
-				logger.debug("What happended?" + e1.getMessage());
-			}
-		}
+        } catch (Exception e) {
+            logger.debug("Unable to clear last visit time with action '"
+                    + action + "' :" + e.getMessage());
+            try {
+                jsonObject.put("error", "" + "Sorry, not available.");
+            } catch (JSONException e1) {
+                logger.debug("What happended?" + e1.getMessage());
+            }
+        }
 
-		resp.setContentType("application/json");
+        resp.setContentType("application/json");
 
-		PrintStream out = new PrintStream(resp.getOutputStream());
+        PrintStream out = new PrintStream(resp.getOutputStream());
 
-		out.println(jsonObject.toString());
+        out.println(jsonObject.toString());
 
-		return;
-	}
+        return;
+    }
 }

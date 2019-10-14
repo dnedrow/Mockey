@@ -49,24 +49,21 @@
 package com.mockey.plugin;
 
 public enum InspectorRuleType {
-	STRING_REQUIRED("string_required"), REGEX_REQUIRED(
-			"regex_required"), REGEX_OPTIONAL(
-					"regex_optional");
-	private String value;
+    STRING_REQUIRED("string_required"), REGEX_REQUIRED(
+            "regex_required"), REGEX_OPTIONAL(
+            "regex_optional");
+    private String value;
 
-	private InspectorRuleType(String value) {
-		this.value = value;
-	}
+    InspectorRuleType(String value) {
+        this.value = value;
+    }
 
-	public String toString() {
-		return this.value;
-	}
-	public boolean equalsString(String arg){
-		if(this.value.equalsIgnoreCase(arg)){
-			return true;
-		}else {
-			return false;
-		}
-	}
+    public String toString() {
+        return this.value;
+    }
+
+    public boolean equalsString(String arg) {
+        return this.value.equalsIgnoreCase(arg);
+    }
 
 }

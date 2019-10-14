@@ -24,14 +24,14 @@
  */
 package com.mockey.model;
 
-public class TagItem implements Comparable<TagItem>{
-    public TagItem(String value, boolean state){
+public class TagItem implements Comparable<TagItem> {
+    private String value = null;
+    private boolean state = false;
+    public TagItem(String value, boolean state) {
         this.value = value;
         this.state = state;
 
     }
-    private String value = null;
-    private boolean state = false;
 
     public String getValue() {
         return value;
@@ -50,7 +50,6 @@ public class TagItem implements Comparable<TagItem>{
     }
 
 
-
     @Override
     public int compareTo(TagItem other) {
         // compareTo should return < 0 if this is supposed to be
@@ -58,6 +57,7 @@ public class TagItem implements Comparable<TagItem>{
         // other and 0 if they are supposed to be equal
         return this.value.compareTo(other.value);
     }
+
     @Override
     public String toString() {
         return "TagItem{" +

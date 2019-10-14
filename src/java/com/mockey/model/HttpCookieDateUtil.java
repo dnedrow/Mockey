@@ -38,17 +38,16 @@ public final class HttpCookieDateUtil {
     public static final String PATTERN_ASCTIME = "EEE MMM d HH:mm:ss yyyy";
 
     private static final Collection<String> DEFAULT_PATTERNS = Arrays.asList(
-        new String[] {PATTERN_ASCTIME, PATTERN_RFC1036, PATTERN_RFC1123});
+            PATTERN_ASCTIME, PATTERN_RFC1036, PATTERN_RFC1123);
 
     private static final Date DEFAULT_TWO_DIGIT_YEAR_START;
+    private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
 
     static {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2000, Calendar.JANUARY, 1, 0, 0);
         DEFAULT_TWO_DIGIT_YEAR_START = calendar.getTime();
     }
-
-    private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
 
     /**
      * This class should not be instantiated.
@@ -78,8 +77,7 @@ public final class HttpCookieDateUtil {
      * @return the parsed date
      * @throws DateParseException if none of the dataFormats could parse the dateValue
      */
-    public static Date parseDate(String dateValue, Collection<String> dateFormats)
-        {
+    public static Date parseDate(String dateValue, Collection<String> dateFormats) {
         return parseDate(dateValue, dateFormats, null);
     }
 
@@ -96,10 +94,10 @@ public final class HttpCookieDateUtil {
      * @throws DateParseException if none of the dataFormats could parse the dateValue
      */
     public static Date parseDate(
-        String dateValue,
-        Collection<String> dateFormats,
-        Date startDate
-    )  {
+            String dateValue,
+            Collection<String> dateFormats,
+            Date startDate
+    ) {
 
         if (dateValue == null) {
             throw new IllegalArgumentException("dateValue is null");
@@ -113,9 +111,9 @@ public final class HttpCookieDateUtil {
         // trim single quotes around date if present
         // see issue #5279
         if (dateValue.length() > 1
-            && dateValue.startsWith("'")
-            && dateValue.endsWith("'")
-            ) {
+                && dateValue.startsWith("'")
+                && dateValue.endsWith("'")
+        ) {
             dateValue = dateValue.substring(1, dateValue.length() - 1);
         }
 

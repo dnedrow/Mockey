@@ -25,15 +25,15 @@
 package com.mockey.model;
 
 public enum SearchResultType {
-	SERVICE("service"), SERVICE_SCENARIO("scenario"), SERVICE_PLAN(
-			"service_plan");
-	private String value;
+    SERVICE("service"), SERVICE_SCENARIO("scenario"), SERVICE_PLAN(
+            "service_plan");
+    private String value;
 
-	private SearchResultType(String value) {
-		this.value = value;
-	}
+    SearchResultType(String value) {
+        this.value = value;
+    }
 
-	public String toString() {
-		return this.value;
-	}
-};
+    public String toString() {
+        return this.value;
+    }
+}

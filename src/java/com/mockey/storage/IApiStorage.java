@@ -33,14 +33,17 @@ import com.mockey.model.ApiDocService;
 
 /**
  * How Mockey stores it's API.
- * @author chad.lafontaine
  *
+ * @author chad.lafontaine
  */
 public interface IApiStorage {
 
-	public ApiDocService getApiDocServiceById(Long serviceId);
-	public ApiDocService getApiDocServiceByName(String name);
-	public List<ApiDocService> getApiDocServices();
-	public ApiDocService saveOrUpdateService(ApiDocService apiDocService);
+    ApiDocService getApiDocServiceById(Long serviceId);
+
+    ApiDocService getApiDocServiceByName(String name);
+
+    List<ApiDocService> getApiDocServices();
+
+    ApiDocService saveOrUpdateService(ApiDocService apiDocService);
 
 }

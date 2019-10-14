@@ -28,75 +28,89 @@ package com.mockey.model;
  * Very basic container for search results
  *
  * @author chadlafontaine
- *
  */
 public class SearchResult {
 
-	private String content = null;
-	private SearchResultType type = null;
-	private String serviceId = null;
-	private String scenarioId = null;
-	private String servicePlanId = null;
-	private String scenarioName = null;
-	private String serviceName = null;
-	private String servicePlanName = null;
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
+    private String content = null;
+    private SearchResultType type = null;
+    private String serviceId = null;
+    private String scenarioId = null;
+    private String servicePlanId = null;
+    private String scenarioName = null;
+    private String serviceName = null;
+    private String servicePlanName = null;
 
-	public String getServiceId() {
-		return serviceId;
-	}
-	public void setServiceId(String id) {
-		this.serviceId = id;
-	}
-	public void setScenarioId(String scenarioId) {
-		this.scenarioId = scenarioId;
-	}
-	public String getScenarioId() {
-		return scenarioId;
-	}
-	public void setScenarioName(String scenarioName) {
-		this.scenarioName = scenarioName;
-	}
-	public String getScenarioName() {
-		return scenarioName;
-	}
-	public SearchResultType getType() {
-		return type;
-	}
-	public void setType(SearchResultType type) {
-		this.type = type;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getServicePlanId() {
-		return servicePlanId;
-	}
-	public void setServicePlanId(String servicePlanId) {
-		this.servicePlanId = servicePlanId;
-	}
-	public String getServiceName() {
-		return serviceName;
-	}
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
-	public String getServicePlanName() {
-		return servicePlanName;
-	}
-	public void setServicePlanName(String servicePlanName) {
-		this.servicePlanName = servicePlanName;
-	}
-	public String getTypeAsString(){
-		if(this.type!=null){
-			return this.type.toString();
-		}else {
-			return null;
-		}
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String id) {
+        this.serviceId = id;
+    }
+
+    public String getScenarioId() {
+        return scenarioId;
+    }
+
+    public void setScenarioId(String scenarioId) {
+        this.scenarioId = scenarioId;
+    }
+
+    public String getScenarioName() {
+        return scenarioName;
+    }
+
+    public void setScenarioName(String scenarioName) {
+        this.scenarioName = scenarioName;
+    }
+
+    public SearchResultType getType() {
+        return type;
+    }
+
+    public void setType(SearchResultType type) {
+        this.type = type;
+    }
+
+    public String getServicePlanId() {
+        return servicePlanId;
+    }
+
+    public void setServicePlanId(String servicePlanId) {
+        this.servicePlanId = servicePlanId;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getServicePlanName() {
+        return servicePlanName;
+    }
+
+    public void setServicePlanName(String servicePlanName) {
+        this.servicePlanName = servicePlanName;
+    }
+
+    public String getTypeAsString() {
+        if (this.type != null) {
+            return this.type.toString();
+        } else {
+            return null;
+        }
+    }
 
 
 }

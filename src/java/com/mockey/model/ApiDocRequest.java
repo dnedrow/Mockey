@@ -32,33 +32,36 @@ import java.util.List;
 
 public class ApiDocRequest {
 
-	private List<ApiDocAttribute> attributes = new ArrayList<ApiDocAttribute>();
-	private String example = null;
-	private String description = null;
+    private List<ApiDocAttribute> attributes = new ArrayList<ApiDocAttribute>();
+    private String example = null;
+    private String description = null;
 
-	public void setAttributes(ArrayList<ApiDocAttribute> attributes) {
-		this.attributes = attributes;
-	}
-	public void addAttribute(ApiDocAttribute attribute) {
-		this.attributes.add(attribute);
-	}
+    public void addAttribute(ApiDocAttribute attribute) {
+        this.attributes.add(attribute);
+    }
 
-	public List<ApiDocAttribute> getAttributes() {
-		return attributes;
-	}
+    public List<ApiDocAttribute> getAttributes() {
+        return attributes;
+    }
 
-	public void setExample(String example) {
-		this.example = example;
-	}
+    public void setAttributes(ArrayList<ApiDocAttribute> attributes) {
+        this.attributes = attributes;
+    }
 
-	public String getExample() {
-		return example;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getDescription() {
-		return description;
-	}
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

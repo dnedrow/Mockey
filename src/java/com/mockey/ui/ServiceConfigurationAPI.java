@@ -26,27 +26,27 @@ package com.mockey.ui;
 
 public interface ServiceConfigurationAPI {
 
-	public static final String API_SERVICE_CONFIGURATION_NAME = "Service Configuration";
-	public static final String API_SERVICE_NAME = "serviceName";
-	public static final String API_SERVICE_ID = "serviceId";
-	// SCENARIO RESONSE JSON SCHEMA
-	public static final String API_SERVICE_SCHEMA = "serviceSchema";
-	public static final String API_SERVICE_SCHEMA_ENABLE_FLAG = "serviceSchemaEnableFlag";
+    String API_SERVICE_CONFIGURATION_NAME = "Service Configuration";
+    String API_SERVICE_NAME = "serviceName";
+    String API_SERVICE_ID = "serviceId";
+    // SCENARIO RESONSE JSON SCHEMA
+    String API_SERVICE_SCHEMA = "serviceSchema";
+    String API_SERVICE_SCHEMA_ENABLE_FLAG = "serviceSchemaEnableFlag";
 
-	// REQUEST JSON VALIDATION RULES
+    // REQUEST JSON VALIDATION RULES
 
-	public static final String API_SERVICE_REQUEST_INSPECTOR_RULES = "requestInspectorJsonRules";
-	public static final String API_SERVICE_REQUEST_INSPECTOR_RULES_ENABLE_FLAG = "requestInspectorJsonRulesEnableFlag";
+    String API_SERVICE_REQUEST_INSPECTOR_RULES = "requestInspectorJsonRules";
+    String API_SERVICE_REQUEST_INSPECTOR_RULES_ENABLE_FLAG = "requestInspectorJsonRulesEnableFlag";
 
-	public static final String API_TRANSIENT_STATE = "transientState";
-	public static final String API_DEFAULT_SCENARIO_ID = "defaultScenarioId";
-	public static final String API_DEFAULT_SCENARIO_NAME = "defaultScenarioName";
-	public static final String API_SERVICE_SCENARIO_NAME = "scenarioName";
-	public static final String API_SERVICE_SCENARIO_ID = "scenarioId";
-	public static final String API_SERVICE_RESPONSE_TYPE = "serviceResponseType";
-	public static final String API_SERVICE_RESPONSE_TYPE_VALUE_PROXY = "proxy";
-	public static final String API_SERVICE_RESPONSE_TYPE_VALUE_STATIC = "static";
-	public static final String API_SERVICE_RESPONSE_TYPE_VALUE_DYNAMIC = "dynamic";
-	public static final String API_SERVICE_HANGTIME = "hangTime";
-	public static final String API_SERVICE_REQUEST_INSPECTOR_NAME = "requestInspectorName";
+    String API_TRANSIENT_STATE = "transientState";
+    String API_DEFAULT_SCENARIO_ID = "defaultScenarioId";
+    String API_DEFAULT_SCENARIO_NAME = "defaultScenarioName";
+    String API_SERVICE_SCENARIO_NAME = "scenarioName";
+    String API_SERVICE_SCENARIO_ID = "scenarioId";
+    String API_SERVICE_RESPONSE_TYPE = "serviceResponseType";
+    String API_SERVICE_RESPONSE_TYPE_VALUE_PROXY = "proxy";
+    String API_SERVICE_RESPONSE_TYPE_VALUE_STATIC = "static";
+    String API_SERVICE_RESPONSE_TYPE_VALUE_DYNAMIC = "dynamic";
+    String API_SERVICE_HANGTIME = "hangTime";
+    String API_SERVICE_REQUEST_INSPECTOR_NAME = "requestInspectorName";
 }

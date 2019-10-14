@@ -42,18 +42,17 @@ import com.mockey.storage.IApiStorageInMemory;
  * API Documentation Servlet
  *
  * @author chad.lafontaine
- *
  */
 public class ApiDocumentationServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 861059339190214183L;
-	private IApiStorage apiStore = IApiStorageInMemory.getInstance();
+    private static final long serialVersionUID = 861059339190214183L;
+    private IApiStorage apiStore = IApiStorageInMemory.getInstance();
 
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setAttribute("apiServices", Util.orderAlphabeticallyByApiName(apiStore.getApiDocServices()));
-		RequestDispatcher dispatch = req.getRequestDispatcher("api_documentation.jsp");
-		dispatch.forward(req, resp);
-	}
+        req.setAttribute("apiServices", Util.orderAlphabeticallyByApiName(apiStore.getApiDocServices()));
+        RequestDispatcher dispatch = req.getRequestDispatcher("api_documentation.jsp");
+        dispatch.forward(req, resp);
+    }
 
 }

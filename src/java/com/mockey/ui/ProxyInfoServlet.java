@@ -45,72 +45,60 @@ import com.mockey.storage.StorageRegistry;
 
 public class ProxyInfoServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 5503460488900643184L;
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static final long serialVersionUID = 5503460488900643184L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		ProxyServerModel proxyInfo = store.getProxy();
-		req.setAttribute("proxyInfo", proxyInfo);
+        ProxyServerModel proxyInfo = store.getProxy();
+        req.setAttribute("proxyInfo", proxyInfo);
 
-		RequestDispatcher dispatch = req.getRequestDispatcher("/proxy_setup.jsp");
-		dispatch.forward(req, resp);
-	}
+        RequestDispatcher dispatch = req.getRequestDispatcher("/proxy_setup.jsp");
+        dispatch.forward(req, resp);
+    }
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ProxyServerModel proxyInfo = new ProxyServerModel();
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProxyServerModel proxyInfo = new ProxyServerModel();
 
-		proxyInfo.setProxyPassword(req.getParameter("proxyPassword"));
-		proxyInfo.setProxyUsername(req.getParameter("proxyUsername"));
-		proxyInfo.setProxyUrl(req.getParameter("proxyUrl"));
-		String enabled = req.getParameter("proxyEnabled");
-		boolean proxyEnabled = false;
-		try {
-			proxyEnabled = Boolean.parseBoolean(enabled);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		proxyInfo.setProxyEnabled(proxyEnabled);
-		store.setProxy(proxyInfo);
-		JSONObject responseObject = new JSONObject();
-		JSONObject successMessage = new JSONObject();
+        proxyInfo.setProxyPassword(req.getParameter("proxyPassword"));
+        proxyInfo.setProxyUsername(req.getParameter("proxyUsername"));
+        proxyInfo.setProxyUrl(req.getParameter("proxyUrl"));
+        String enabled = req.getParameter("proxyEnabled");
+        boolean proxyEnabled = false;
+        try {
+            proxyEnabled = Boolean.parseBoolean(enabled);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        proxyInfo.setProxyEnabled(proxyEnabled);
+        store.setProxy(proxyInfo);
+        JSONObject responseObject = new JSONObject();
+        JSONObject successMessage = new JSONObject();
 
-		try {
-			successMessage.put("success", "Proxy settings updated.");
-			responseObject.put("result", successMessage);
+        try {
+            successMessage.put("success", "Proxy settings updated.");
+            responseObject.put("result", successMessage);
 
-		} catch (JSONException e) {
+        } catch (JSONException e) {
 
-		}
-		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
-		out.println(responseObject.toString());
-		out.flush();
-		out.close();
-		return;
-	}
+        }
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        out.println(responseObject.toString());
+        out.flush();
+        out.close();
+        return;
+    }
 }

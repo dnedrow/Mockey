@@ -61,7 +61,16 @@ import java.util.List;
  */
 public class MockeyXmlFileManager {
 
+    public static final String MOCK_SERVICE_DEFINITION = "mock_service_definitions.xml";
+    public static final String SYSTEM_PROPERTY_MOCKEY_DEF_REPO_HOME = "mockeyDefinitionsRepoHome";
+    public static final String FILESEPERATOR = System.getProperty("file.separator");
+    protected static final String MOCK_SERVICE_FOLDER = "mockey_def_depot";
+    protected static final String MOCK_SERVICE_SCENARIO_FOLDER = "scenarios";
+    private static final char[] VALID_FILE_NAME_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+            .toCharArray();
     private static Logger logger;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static MockeyXmlFileManager mockeyXmlFileManagerInstance = null;
 
     static {
         try {
@@ -71,19 +80,7 @@ public class MockeyXmlFileManager {
         }
     }
 
-    private static final char[] VALID_FILE_NAME_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
-            .toCharArray();
-
     private File basePathFile = null;
-    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-    private static MockeyXmlFileManager mockeyXmlFileManagerInstance = null;
-    public static final String MOCK_SERVICE_DEFINITION = "mock_service_definitions.xml";
-    public static final String SYSTEM_PROPERTY_MOCKEY_DEF_REPO_HOME = "mockeyDefinitionsRepoHome";
-
-    protected static final String MOCK_SERVICE_FOLDER = "mockey_def_depot";
-    protected static final String MOCK_SERVICE_SCENARIO_FOLDER = "scenarios";
-
-    public static final String FILESEPERATOR = System.getProperty("file.separator");
 
     /**
      * Basic constructor. Will create a folder on the file system to store XML definitions.
@@ -103,24 +100,6 @@ public class MockeyXmlFileManager {
             } else {
                 logger.info("Created directory: " + fileDepot.getAbsolutePath());
             }
-        }
-    }
-
-    protected void cleanDirectory() {
-        File fileDepot = new File(this.getBasePathFile(), MOCK_SERVICE_FOLDER);
-        if (fileDepot.isDirectory()) {
-
-            try {
-                // Delete it.
-                FileUtils.deleteDirectory(fileDepot);
-                // Create new one.
-                fileDepot.mkdirs();
-
-            } catch (IOException io) {
-                logger.error("Unable to delete" + fileDepot.getAbsolutePath(), io);
-            }
-
-
         }
     }
 
@@ -167,6 +146,51 @@ public class MockeyXmlFileManager {
         MockeyXmlFileManager.mockeyXmlFileManagerInstance = new MockeyXmlFileManager(path);
         return MockeyXmlFileManager.mockeyXmlFileManagerInstance;
 
+    }
+
+    /**
+     * @param arg
+     * @return a file name safe for a file system.
+     * @see MockeyXmlFileManager#VALID_FILE_NAME_CHARS
+     */
+    public static String getSafeForFileSystemName(String arg) {
+
+        // Let's make sure we only accept valid characters (AlphaNumberic +
+        // '_').
+        StringBuffer safe = new StringBuffer();
+        for (int x = 0; x < arg.length(); x++) {
+            boolean valid = false;
+            for (int i = 0; i < VALID_FILE_NAME_CHARS.length; i++) {
+                if (arg.charAt(x) == VALID_FILE_NAME_CHARS[i]) {
+                    valid = true;
+                    break;
+                }
+            }
+            if (valid) {
+                safe.append(arg.charAt(x));
+            }
+        }
+        return safe.toString().toLowerCase();
+
+        //
+    }
+
+    protected void cleanDirectory() {
+        File fileDepot = new File(this.getBasePathFile(), MOCK_SERVICE_FOLDER);
+        if (fileDepot.isDirectory()) {
+
+            try {
+                // Delete it.
+                FileUtils.deleteDirectory(fileDepot);
+                // Create new one.
+                fileDepot.mkdirs();
+
+            } catch (IOException io) {
+                logger.error("Unable to delete" + fileDepot.getAbsolutePath(), io);
+            }
+
+
+        }
     }
 
     /**
@@ -384,7 +408,7 @@ public class MockeyXmlFileManager {
             Service inMemoryServiceBean = null;
 
             while (inMemoryServiceIter.hasNext()) {
-                inMemoryServiceBean = (Service) inMemoryServiceIter.next();
+                inMemoryServiceBean = inMemoryServiceIter.next();
 
                 // Same name?
                 if (uploadedServiceBean.getServiceName().trim().toLowerCase()
@@ -444,7 +468,7 @@ public class MockeyXmlFileManager {
         if (uploadedService != null && inMemoryService != null
                 && uploadedService.getServiceName().trim().equalsIgnoreCase(inMemoryService.getServiceName().trim())
 
-                ) {
+        ) {
 
             // ********************** TAG - BEGIN ***********************
             // #TAG HANDLING for the Service - BEGIN
@@ -464,12 +488,12 @@ public class MockeyXmlFileManager {
             Iterator<Scenario> inMemListIter = inMemoryService.getScenarios().iterator();
 
             while (uploadedListIter.hasNext()) {
-                Scenario uploadedScenario = (Scenario) uploadedListIter.next();
+                Scenario uploadedScenario = uploadedListIter.next();
                 boolean inMemScenarioExistTemp = false;
                 Scenario inMemScenarioTemp = null;
 
                 while (inMemListIter.hasNext()) {
-                    inMemScenarioTemp = (Scenario) inMemListIter.next();
+                    inMemScenarioTemp = inMemListIter.next();
 
                     if (inMemScenarioTemp.hasSameNameAndResponse(uploadedScenario)) {
 
@@ -623,33 +647,6 @@ public class MockeyXmlFileManager {
      */
     public String getScenarioXmlFileName(Scenario scenario) {
         return getSafeForFileSystemName(scenario.getScenarioName()) + ".xml";
-    }
-
-    /**
-     * @param arg
-     * @return a file name safe for a file system.
-     * @see MockeyXmlFileManager#VALID_FILE_NAME_CHARS
-     */
-    public static String getSafeForFileSystemName(String arg) {
-
-        // Let's make sure we only accept valid characters (AlphaNumberic +
-        // '_').
-        StringBuffer safe = new StringBuffer();
-        for (int x = 0; x < arg.length(); x++) {
-            boolean valid = false;
-            for (int i = 0; i < VALID_FILE_NAME_CHARS.length; i++) {
-                if (arg.charAt(x) == VALID_FILE_NAME_CHARS[i]) {
-                    valid = true;
-                    break;
-                }
-            }
-            if (valid) {
-                safe.append(arg.charAt(x));
-            }
-        }
-        return safe.toString().toLowerCase();
-
-        //
     }
 
     /**

@@ -36,127 +36,125 @@ import com.mockey.model.*;
  * How Mockey stores itself.
  *
  * @author chad.lafontaine
- *
  */
 public interface IMockeyStorage {
 
-	public Long getTimeOfCreation();
+    Long getTimeOfCreation();
 
-	public String getDefaultServicePlanId();
+    String getDefaultServicePlanId();
 
-	public Long getDefaultServicePlanIdAsLong();
+    void setDefaultServicePlanId(String v);
 
-	public void setDefaultServicePlanId(String v);
+    Long getDefaultServicePlanIdAsLong();
 
-	public void setReadOnlyMode(Boolean transientState);
+    String getGlobalStateSystemFilterTag();
 
-	public String getGlobalStateSystemFilterTag();
+    void setGlobalStateSystemFilterTag(String tag);
 
-	public Boolean getReadOnlyMode();
+    Boolean getReadOnlyMode();
 
-	public void deleteEverything();
+    void setReadOnlyMode(Boolean transientState);
 
-	public List<TwistInfo> getTwistInfoList();
+    void deleteEverything();
 
-	public TwistInfo getTwistInfoById(Long id);
+    List<TwistInfo> getTwistInfoList();
 
-	public TwistInfo getTwistInfoByName(String name);
+    TwistInfo getTwistInfoById(Long id);
 
-	public TwistInfo saveOrUpdateTwistInfo(TwistInfo twistInfo);
+    TwistInfo getTwistInfoByName(String name);
 
-	public void deleteTwistInfo(TwistInfo twistInfo);
+    TwistInfo saveOrUpdateTwistInfo(TwistInfo twistInfo);
 
-	public Service getServiceById(Long serviceId);
+    void deleteTwistInfo(TwistInfo twistInfo);
 
-	public Service getServiceByUrl(String urlPath);
+    Service getServiceById(Long serviceId);
 
-	public List<Long> getServiceIds();
+    Service getServiceByUrl(String urlPath);
 
-	public List<Service> getServices();
+    List<Long> getServiceIds();
 
-	public Service saveOrUpdateService(Service service);
+    List<Service> getServices();
 
-	public Service duplicateService(Service service);
+    Service saveOrUpdateService(Service service);
 
-	public void deleteService(Service service);
+    Service duplicateService(Service service);
 
-	public ServiceRef saveOrUpdateServiceRef(ServiceRef serviceRef);
+    void deleteService(Service service);
 
-	public List<ServiceRef> getServiceRefs();
+    ServiceRef saveOrUpdateServiceRef(ServiceRef serviceRef);
 
-	public ServicePlan getServicePlanById(Long servicePlanId);
+    List<ServiceRef> getServiceRefs();
 
-	public ServicePlan getServicePlanByName(String servicePlanName);
+    ServicePlan getServicePlanById(Long servicePlanId);
 
-	public List<ServicePlan> getServicePlans();
+    ServicePlan getServicePlanByName(String servicePlanName);
 
-	public ServicePlan saveOrUpdateServicePlan(ServicePlan servicePlan);
+    List<ServicePlan> getServicePlans();
 
-	/**
-	 * Goes through each ServicePlan and updates the Scenario Name associated to
-	 * the matching Service and Scenario IDs.
-	 *
-	 * @param serviceId
-	 *            - needed to filter out only scenario updates associated with
-	 *            the appropriate service.
-	 * @param oldScenarioName
-	 * @param newScenarioName
-	 */
-	public void updateServicePlansWithNewScenarioName(Long serviceId, String oldScenarioName, String newScenarioName);
+    ServicePlan saveOrUpdateServicePlan(ServicePlan servicePlan);
 
-	public void updateServicePlansWithNewServiceName(String oldServiceName, String newServiceName);
+    /**
+     * Goes through each ServicePlan and updates the Scenario Name associated to
+     * the matching Service and Scenario IDs.
+     *
+     * @param serviceId       - needed to filter out only scenario updates associated with
+     *                        the appropriate service.
+     * @param oldScenarioName
+     * @param newScenarioName
+     */
+    void updateServicePlansWithNewScenarioName(Long serviceId, String oldScenarioName, String newScenarioName);
 
-	public void deleteServicePlan(ServicePlan servicePlan);
+    void updateServicePlansWithNewServiceName(String oldServiceName, String newServiceName);
 
-	public ScenarioRef getUniversalErrorScenarioRef();
+    void deleteServicePlan(ServicePlan servicePlan);
 
-	public Scenario getUniversalErrorScenario();
+    ScenarioRef getUniversalErrorScenarioRef();
 
-	public Long getUniversalTwistInfoId();
+    void setUniversalErrorScenarioRef(ScenarioRef scenario);
 
-	public void setUniversalTwistInfoId(Long twistInfoId);
+    Scenario getUniversalErrorScenario();
 
-	public void setUniversalErrorScenarioRef(ScenarioRef scenario);
+    Long getUniversalTwistInfoId();
 
-	public ProxyServerModel getProxy();
+    void setUniversalTwistInfoId(Long twistInfoId);
 
-	public void setProxy(ProxyServerModel proxy);
+    ProxyServerModel getProxy();
 
-	public List<String> uniqueClientIPs();
+    void setProxy(ProxyServerModel proxy);
 
-	public List<String> uniqueClientIPsForService(Long serviceId);
+    List<String> uniqueClientIPs();
 
-	public List<FulfilledClientRequest> getFulfilledClientRequests();
+    List<String> uniqueClientIPsForService(Long serviceId);
 
-	public FulfilledClientRequest getFulfilledClientRequestsById(Long fulfilledClientRequestId);
+    List<FulfilledClientRequest> getFulfilledClientRequests();
 
-	public List<FulfilledClientRequest> getFulfilledClientRequestsFromIP(String ip);
+    FulfilledClientRequest getFulfilledClientRequestsById(Long fulfilledClientRequestId);
 
-	public List<FulfilledClientRequest> getFulfilledClientRequestsForService(Long serviceId);
+    List<FulfilledClientRequest> getFulfilledClientRequestsFromIP(String ip);
 
-	public List<FulfilledClientRequest> getFulfilledClientRequestsFromIPForService(String ip, Long serviceId);
+    List<FulfilledClientRequest> getFulfilledClientRequestsForService(Long serviceId);
 
-	public List<FulfilledClientRequest> getFulfilledClientRequest(Collection<String> filterArguments);
+    List<FulfilledClientRequest> getFulfilledClientRequestsFromIPForService(String ip, Long serviceId);
 
-	public void saveOrUpdateFulfilledClientRequest(FulfilledClientRequest requestResponseX);
+    List<FulfilledClientRequest> getFulfilledClientRequest(Collection<String> filterArguments);
 
-	public void deleteFulfilledClientRequests();
+    void saveOrUpdateFulfilledClientRequest(FulfilledClientRequest requestResponseX);
 
-	public void deleteFulfilledClientRequestById(Long fulfilledRequestID);
+    void deleteFulfilledClientRequests();
 
-	public void deleteFulfilledClientRequestsFromIP(Long ip);
+    void deleteFulfilledClientRequestById(Long fulfilledRequestID);
 
-	public void deleteFulfilledClientRequestsForService(Long serviceId);
+    void deleteFulfilledClientRequestsFromIP(Long ip);
 
-	public void deleteFulfilledClientRequestsFromIPForService(String ip, Long serviceId);
+    void deleteFulfilledClientRequestsForService(Long serviceId);
 
-	public void deleteTagFromStore(String tag);
+    void deleteFulfilledClientRequestsFromIPForService(String ip, Long serviceId);
 
-	public Set<TagItem> getAllTagsFromStore();
+    void deleteTagFromStore(String tag);
 
-	public void setGlobalStateSystemFilterTag(String tag);
+    Set<TagItem> getAllTagsFromStore();
 
-	public Service getServiceByName(String serviceName);
+    Service getServiceByName(String serviceName);
 
-	public void setServicePlan(ServicePlan servicePlan);
+    void setServicePlan(ServicePlan servicePlan);
 }

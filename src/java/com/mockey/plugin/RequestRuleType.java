@@ -50,25 +50,21 @@ package com.mockey.plugin;
  */
 
 public enum RequestRuleType {
-	RULE_TYPE_FOR_URL("url"), RULE_TYPE_FOR_PARAMETERS("parameters"), RULE_TYPE_FOR_HEADERS("headers"), RULE_TYPE_FOR_BODY(
-			"body");
-	private String value;
+    RULE_TYPE_FOR_URL("url"), RULE_TYPE_FOR_PARAMETERS("parameters"), RULE_TYPE_FOR_HEADERS("headers"), RULE_TYPE_FOR_BODY(
+            "body");
+    private String value;
 
-	private RequestRuleType(String value) {
-		this.value = value;
-	}
+    RequestRuleType(String value) {
+        this.value = value;
+    }
 
-	public String toString() {
-		return this.value;
-	}
+    public String toString() {
+        return this.value;
+    }
 
-	public boolean equalsString(String arg) {
-		if (this.value.equalsIgnoreCase(arg)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public boolean equalsString(String arg) {
+        return this.value.equalsIgnoreCase(arg);
+    }
 
 
 }

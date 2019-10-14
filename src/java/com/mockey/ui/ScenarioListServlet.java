@@ -41,31 +41,25 @@ import com.mockey.storage.StorageRegistry;
 
 public class ScenarioListServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 5034479269126858921L;
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static final long serialVersionUID = 5034479269126858921L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		Long serviceId = new Long(req.getParameter("serviceId"));
-		Service service = store.getServiceById(serviceId);
-		req.setAttribute("service", service);
-		RequestDispatcher dispatch = req
-				.getRequestDispatcher("/service_scenario_list.jsp");
-		dispatch.forward(req, resp);
-	}
+        Long serviceId = new Long(req.getParameter("serviceId"));
+        Service service = store.getServiceById(serviceId);
+        req.setAttribute("service", service);
+        RequestDispatcher dispatch = req
+                .getRequestDispatcher("/service_scenario_list.jsp");
+        dispatch.forward(req, resp);
+    }
 
 
 }

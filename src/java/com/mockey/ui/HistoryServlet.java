@@ -49,7 +49,6 @@ import com.mockey.storage.StorageRegistry;
  * responses (history). Moreover, this servlet accepts String tokens to filter
  * the end list.
  *
- *
  * @author Chad Lafontaine (chad.lafontaine)
  */
 public class HistoryServlet extends HttpServlet {
@@ -90,17 +89,17 @@ public class HistoryServlet extends HttpServlet {
             // Ajax used in page, so don't return anything
             return;
 
-        }  else if (action != null && "tag".equals(action)) {
+        } else if (action != null && "tag".equals(action)) {
             String fulfilledRequestId = req.getParameter("fulfilledRequestId");
 
             try {
-            	FulfilledClientRequest ffcr = store.getFulfilledClientRequestsById(new Long(fulfilledRequestId));
-            	if(ffcr.getComment()!=null){
-            		ffcr.setComment(null);
-            	}else {
-            	    ffcr.setComment("tagged");
-            	}
-            	store.saveOrUpdateFulfilledClientRequest(ffcr);
+                FulfilledClientRequest ffcr = store.getFulfilledClientRequestsById(new Long(fulfilledRequestId));
+                if (ffcr.getComment() != null) {
+                    ffcr.setComment(null);
+                } else {
+                    ffcr.setComment("tagged");
+                }
+                store.saveOrUpdateFulfilledClientRequest(ffcr);
             } catch (Exception e) {
                 logger.error("Unable to tag history of a fulfilled request with id:" + fulfilledRequestId, e);
             }

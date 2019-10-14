@@ -47,30 +47,29 @@ import com.mockey.storage.xml.MockeyXmlFileManager;
  * the status of Mockey, e.g. "up and running?"
  *
  * @author clafonta
- *
  */
 public class StatusServlet extends HttpServlet {
 
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-	private static final SimpleDateFormat formatter = new SimpleDateFormat(
-			"MM/dd/yyyy | hh:mm:ss");
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -2712413420685133084L;
+    private static final SimpleDateFormat formatter = new SimpleDateFormat(
+            "MM/dd/yyyy | hh:mm:ss");
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2712413420685133084L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
 
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		resp.setHeader("Content-Encoding", "UTF-8");
-		resp.setContentType("text/json; charset=UTF-8");
+        resp.setHeader("Content-Encoding", "UTF-8");
+        resp.setContentType("text/json; charset=UTF-8");
 
-		File locationOfServicesBeingWritten = MockeyXmlFileManager.getInstance().getBasePathFile();
-		RequestDispatcher dispatch = req.getRequestDispatcher("status.jsp");
-		Long timeOfCreation = store.getTimeOfCreation();
-		String timeOfCreationString = formatter.format(new Date(timeOfCreation)); // .parse(lastvisit);
-		req.setAttribute("since", timeOfCreationString );
-		req.setAttribute("repoPath", locationOfServicesBeingWritten.getAbsolutePath() );
-		dispatch.forward(req, resp);
-	}
+        File locationOfServicesBeingWritten = MockeyXmlFileManager.getInstance().getBasePathFile();
+        RequestDispatcher dispatch = req.getRequestDispatcher("status.jsp");
+        Long timeOfCreation = store.getTimeOfCreation();
+        String timeOfCreationString = formatter.format(new Date(timeOfCreation)); // .parse(lastvisit);
+        req.setAttribute("since", timeOfCreationString);
+        req.setAttribute("repoPath", locationOfServicesBeingWritten.getAbsolutePath());
+        dispatch.forward(req, resp);
+    }
 
 }

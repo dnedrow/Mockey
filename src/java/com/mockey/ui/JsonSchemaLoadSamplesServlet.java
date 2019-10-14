@@ -44,43 +44,38 @@ import com.google.common.io.Closeables;
  * suite</a>.</p>
  */
 public final class JsonSchemaLoadSamplesServlet
-    extends HttpServlet
-{
+        extends HttpServlet {
     /**
-	 *
-	 */
-	private static final long serialVersionUID = 4101075691828931959L;
-	private static  Random RND = new Random();
+     *
+     */
+    private static final long serialVersionUID = 4101075691828931959L;
+    private static final String SAMPLESJSON = "samples.json";
+    private static Random RND = new Random();
     private static List<JsonNode> SAMPLE_DATA;
     private static int SAMPLE_DATA_SIZE;
-    private static final String SAMPLESJSON = "samples.json";
-
 
     public void init() throws ServletException {
         try {
 
-        	InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(SAMPLESJSON);
-        	if(is==null){
-        		is = getClass().getClassLoader().getResourceAsStream(SAMPLESJSON);
-        	}
-        	String myString = IOUtils.toString(is, "UTF-8");
+            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(SAMPLESJSON);
+            if (is == null) {
+                is = getClass().getClassLoader().getResourceAsStream(SAMPLESJSON);
+            }
+            String myString = IOUtils.toString(is, "UTF-8");
             final JsonNode node = JsonLoader.fromString(myString);
             SAMPLE_DATA = ImmutableList.copyOf(node);
             SAMPLE_DATA_SIZE = SAMPLE_DATA.size();
         } catch (IOException e) {
-        	System.err.println(e);
+            System.err.println(e);
             throw new ExceptionInInitializerError(e);
         }
     }
 
 
-
-
     @Override
     protected void doGet(final HttpServletRequest req,
-        final HttpServletResponse resp)
-        throws ServletException, IOException
-    {
+                         final HttpServletResponse resp)
+            throws ServletException, IOException {
         final int index = RND.nextInt(SAMPLE_DATA_SIZE);
         final JsonNode ret = SAMPLE_DATA.get(index);
 

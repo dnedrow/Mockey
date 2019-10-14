@@ -45,80 +45,79 @@ import com.mockey.storage.StorageRegistry;
 /**
  * Returns JSON of the fulfilled request, designed to be consumed by an AJAX
  * call.
- *
  */
 public class HistoryAjaxServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 4178219038104708097L;
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-	private static Logger logger = Logger.getLogger(HistoryAjaxServlet.class);
+    private static final long serialVersionUID = 4178219038104708097L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static Logger logger = Logger.getLogger(HistoryAjaxServlet.class);
 
-	/**
-	 *
-	 */
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public static void main(String[] args) {
+        HistoryHelper hh = new HistoryHelper();
+        hh.setConversationRecordId("abc");
+        Gson gson = new Gson();
+        String json = gson.toJson(hh);
+        System.out.println(json);
 
-		Long fulfilledRequestId = null;
-		PrintStream out = null;
-		Gson gson = new Gson();
-		HistoryHelper hh = new HistoryHelper();
-		try {
+    }
 
-			fulfilledRequestId = new Long(req.getParameter("conversationRecordId"));
-			FulfilledClientRequest fCRequest = store.getFulfilledClientRequestsById(fulfilledRequestId);
+    /**
+     *
+     */
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-			hh.setConversationRecordId("" + fulfilledRequestId);
-			hh.setServiceId("" + fCRequest.getServiceId());
-			hh.setServiceName(fCRequest.getServiceName());
-			hh.setRequestUrl(fCRequest.getRawRequest());
-			hh.setRequestHeaders(fCRequest.getClientRequestHeaders());
-			hh.setRequestParameters(fCRequest.getClientRequestParameters());
-			hh.setRequestBody(fCRequest.getClientRequestBody());
-			hh.setRequestCookies(fCRequest.getClientRequestCookies());
-			hh.setResponseCookies(fCRequest.getClientResponseCookies());
-			hh.setResponseStatus("" + fCRequest.getResponseMessage().getHttpResponseStatusCode());
-			hh.setResponseHeader(fCRequest.getResponseMessage().getHeaderInfo());
-			hh.setResponseBody(fCRequest.getResponseMessage().getBody());
-			hh.setResponseScenarioName(fCRequest.getScenarioName());
-			hh.setResponseScenarioTags(fCRequest.getScenarioTagsAsString());
+        Long fulfilledRequestId = null;
+        PrintStream out = null;
+        Gson gson = new Gson();
+        HistoryHelper hh = new HistoryHelper();
+        try {
 
-			resp.setContentType("application/json");
+            fulfilledRequestId = new Long(req.getParameter("conversationRecordId"));
+            FulfilledClientRequest fCRequest = store.getFulfilledClientRequestsById(fulfilledRequestId);
 
-			out = new PrintStream(resp.getOutputStream());
-			Util.logMemoryFootprint();
-			out.println(gson.toJson(hh));
-			out.close();
-			hh = null;
+            hh.setConversationRecordId("" + fulfilledRequestId);
+            hh.setServiceId("" + fCRequest.getServiceId());
+            hh.setServiceName(fCRequest.getServiceName());
+            hh.setRequestUrl(fCRequest.getRawRequest());
+            hh.setRequestHeaders(fCRequest.getClientRequestHeaders());
+            hh.setRequestParameters(fCRequest.getClientRequestParameters());
+            hh.setRequestBody(fCRequest.getClientRequestBody());
+            hh.setRequestCookies(fCRequest.getClientRequestCookies());
+            hh.setResponseCookies(fCRequest.getClientResponseCookies());
+            hh.setResponseStatus("" + fCRequest.getResponseMessage().getHttpResponseStatusCode());
+            hh.setResponseHeader(fCRequest.getResponseMessage().getHeaderInfo());
+            hh.setResponseBody(fCRequest.getResponseMessage().getBody());
+            hh.setResponseScenarioName(fCRequest.getScenarioName());
+            hh.setResponseScenarioTags(fCRequest.getScenarioTagsAsString());
 
-		} catch (Throwable e) {
-			try {
-				logger.error("Unable to create response: " + e.getMessage(), e);
-				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				out = new PrintStream(resp.getOutputStream());
-				out.println("System error");
-				out.close();
-			} catch (Exception e1) {
-				logger.error("Unable to create JSON", e1);
-			}
-		} finally {
-			try {
-				if (out != null) {
-					out.close();
-				}
-			} catch (Exception e) {
+            resp.setContentType("application/json");
 
-			}
-		}
+            out = new PrintStream(resp.getOutputStream());
+            Util.logMemoryFootprint();
+            out.println(gson.toJson(hh));
+            out.close();
+            hh = null;
 
-	}
+        } catch (Throwable e) {
+            try {
+                logger.error("Unable to create response: " + e.getMessage(), e);
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                out = new PrintStream(resp.getOutputStream());
+                out.println("System error");
+                out.close();
+            } catch (Exception e1) {
+                logger.error("Unable to create JSON", e1);
+            }
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
 
-	public static void main(String[] args) {
-		HistoryHelper hh = new HistoryHelper();
-		hh.setConversationRecordId("abc");
-		Gson gson = new Gson();
-		String json = gson.toJson(hh);
-		System.out.println(json);
+            }
+        }
 
-	}
+    }
 
 }

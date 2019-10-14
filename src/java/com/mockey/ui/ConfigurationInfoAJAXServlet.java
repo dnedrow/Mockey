@@ -46,70 +46,64 @@ import com.mockey.storage.StorageRegistry;
 
 public class ConfigurationInfoAJAXServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 5503460488900643184L;
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-	private static Logger logger = Logger.getLogger(ConfigurationInfoAJAXServlet.class);
+    private static final long serialVersionUID = 5503460488900643184L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static Logger logger = Logger.getLogger(ConfigurationInfoAJAXServlet.class);
 
-	/**
-	 *
-	 *
-	 * @param req
-	 *            basic request
-	 * @param resp
-	 *            basic resp
-	 * @throws ServletException
-	 *             basic
-	 * @throws IOException
-	 *             basic
-	 */
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * @param req  basic request
+     * @param resp basic resp
+     * @throws ServletException basic
+     * @throws IOException      basic
+     */
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		ProxyServerModel proxyInfo = store.getProxy();
-		String transientState = req.getParameter("transient_state");
+        ProxyServerModel proxyInfo = store.getProxy();
+        String transientState = req.getParameter("transient_state");
 
-		try {
-			if (transientState != null) {
-				store.setReadOnlyMode(new Boolean(transientState));
-			}
-		} catch (Exception e) {
-			logger.error("Unable to set transient state with value: " + transientState, e);
-		}
+        try {
+            if (transientState != null) {
+                store.setReadOnlyMode(new Boolean(transientState));
+            }
+        } catch (Exception e) {
+            logger.error("Unable to set transient state with value: " + transientState, e);
+        }
 
-		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
-		try {
-			JSONObject responseObject = new JSONObject();
-			JSONObject messageObject = new JSONObject();
-			messageObject.put("proxy_enabled", Boolean.toString(proxyInfo.isProxyEnabled()));
-			messageObject.put("transient_state", store.getReadOnlyMode());
-			Long twistInfoId = store.getUniversalTwistInfoId();
-			TwistInfo twistInfo = store.getTwistInfoById(twistInfoId);
-			if (twistInfo != null) {
-				messageObject.put("twist_enabled", true);
-				messageObject.put("twist-id", twistInfo.getId());
-				messageObject.put("twist-name", twistInfo.getName());
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        try {
+            JSONObject responseObject = new JSONObject();
+            JSONObject messageObject = new JSONObject();
+            messageObject.put("proxy_enabled", Boolean.toString(proxyInfo.isProxyEnabled()));
+            messageObject.put("transient_state", store.getReadOnlyMode());
+            Long twistInfoId = store.getUniversalTwistInfoId();
+            TwistInfo twistInfo = store.getTwistInfoById(twistInfoId);
+            if (twistInfo != null) {
+                messageObject.put("twist_enabled", true);
+                messageObject.put("twist-id", twistInfo.getId());
+                messageObject.put("twist-name", twistInfo.getName());
 
-			} else {
-				messageObject.put("twist_enabled", false);
-			}
-			String filter = (String)req.getSession().getAttribute(TagHelperServlet.FILTER_TAG);
-			if(filter!=null && filter.trim().length()>0){
-				messageObject.put("filter_view_arg", filter.trim());
-				messageObject.put("filter_view_status", "on");
-			}else {
-				messageObject.put("filter_view_arg", "");
-				messageObject.put("filter_view_status", "off");
-			}
+            } else {
+                messageObject.put("twist_enabled", false);
+            }
+            String filter = (String) req.getSession().getAttribute(TagHelperServlet.FILTER_TAG);
+            if (filter != null && filter.trim().length() > 0) {
+                messageObject.put("filter_view_arg", filter.trim());
+                messageObject.put("filter_view_status", "on");
+            } else {
+                messageObject.put("filter_view_arg", "");
+                messageObject.put("filter_view_status", "off");
+            }
 
-			resp.setContentType("application/json;");
-			responseObject.put("result", messageObject);
+            resp.setContentType("application/json;");
+            responseObject.put("result", messageObject);
 
-			out.println(responseObject.toString());
-		} catch (JSONException e) {
-			throw new ServletException(e);
-		}
-		out.flush();
-		out.close();
-		return;
-	}
+            out.println(responseObject.toString());
+        } catch (JSONException e) {
+            throw new ServletException(e);
+        }
+        out.flush();
+        out.close();
+        return;
+    }
 }

@@ -40,38 +40,37 @@ import javax.servlet.http.HttpServletResponse;
  * <pre>
  * Access-Control-Allow-Origin: *
  * </pre>
- *
+ * <p>
  * then users can do Ajax request from any domain to Mockey without the need to
  * set up a reverse proxy. See http://enable-cors.org
  *
  * @author clafonta
- *
  */
 public class EnableCorsFilter implements Filter {
 
-	@Override
-	public void init(FilterConfig config) throws ServletException {
-		//
-	}
+    @Override
+    public void init(FilterConfig config) throws ServletException {
+        //
+    }
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
-			throws ServletException, java.io.IOException {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+            throws ServletException, java.io.IOException {
 
-		HttpServletResponse response = (HttpServletResponse) resp;
-		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Expires", "Tue, 03 Jul 2001 06:00:00 GMT");
-		response.setDateHeader("Last-Modified", new Date().getTime());
-		response.setHeader("Cache-Control",
-				"no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0");
-		response.setHeader("Pragma", "no-cache");
-		chain.doFilter(req, resp);
+        HttpServletResponse response = (HttpServletResponse) resp;
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Expires", "Tue, 03 Jul 2001 06:00:00 GMT");
+        response.setDateHeader("Last-Modified", new Date().getTime());
+        response.setHeader("Cache-Control",
+                "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0");
+        response.setHeader("Pragma", "no-cache");
+        chain.doFilter(req, resp);
 
-	}
+    }
 
-	@Override
-	public void destroy() {
-		//
-	}
+    @Override
+    public void destroy() {
+        //
+    }
 
 }

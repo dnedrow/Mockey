@@ -43,57 +43,55 @@ import com.mockey.storage.xml.MockeyXmlFileManager;
  * Access to application debug file.
  *
  * @author chad.lafontaine
- *
  */
 public class ConsoleServlet extends HttpServlet {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -566808206001734404L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -566808206001734404L;
 
-	/**
-	 * Reads debug file from the file system and outputs to HTML.
-	 */
-	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * Reads debug file from the file system and outputs to HTML.
+     */
+    public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// resp.setContentType("application/html");
-		resp.setContentType("text/html;charset=ISO-8859-1");
-		PrintWriter out = resp.getWriter();
-		File console = StartUpServlet.getDebugFile();
-		if (console.exists()) {
-			out.println(getFileContentAsString(console));
-		} else {
-			out.println("No debug file availalble");
-		}
+        // resp.setContentType("application/html");
+        resp.setContentType("text/html;charset=ISO-8859-1");
+        PrintWriter out = resp.getWriter();
+        File console = StartUpServlet.getDebugFile();
+        if (console.exists()) {
+            out.println(getFileContentAsString(console));
+        } else {
+            out.println("No debug file availalble");
+        }
 
-		return;
-	}
+        return;
+    }
 
-	/**
-	 *
-	 * @param file
-	 * @return - debugfile as string
-	 * @throws IOException
-	 */
-	private String getFileContentAsString(File file) throws IOException {
+    /**
+     * @param file
+     * @return - debugfile as string
+     * @throws IOException
+     */
+    private String getFileContentAsString(File file) throws IOException {
 
 
-		FileInputStream fstream = new FileInputStream(file);
-		System.out.println("Console file: "  + file.getAbsolutePath() + " (Size:" +file.length()+" bytes)");
-		MockeyXmlFileManager mxfm = MockeyXmlFileManager.getInstance();
-		String arg = null;
-		if(file.length() > 0) {
-			try {
-				arg = mxfm.getFileContentAsString(fstream);
-			} catch (Exception e) {
-				throw new IOException(e);
-			}
-		}else {
-			arg = "Console is empty. No debug information is available here. File is located here: " + file.getAbsolutePath();
-		}
-		return arg;
+        FileInputStream fstream = new FileInputStream(file);
+        System.out.println("Console file: " + file.getAbsolutePath() + " (Size:" + file.length() + " bytes)");
+        MockeyXmlFileManager mxfm = MockeyXmlFileManager.getInstance();
+        String arg = null;
+        if (file.length() > 0) {
+            try {
+                arg = mxfm.getFileContentAsString(fstream);
+            } catch (Exception e) {
+                throw new IOException(e);
+            }
+        } else {
+            arg = "Console is empty. No debug information is available here. File is located here: " + file.getAbsolutePath();
+        }
+        return arg;
 
-	}
+    }
 
 }

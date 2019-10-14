@@ -48,7 +48,6 @@ import com.mockey.storage.StorageRegistry;
 /**
  * Returns JSON of the fulfilled request, designed to be consumed by an
  * AJAX call.
- *
  */
 public class LatestHistoryAjaxServlet extends HttpServlet {
 

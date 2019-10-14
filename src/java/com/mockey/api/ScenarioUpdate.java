@@ -29,7 +29,7 @@ public class ScenarioUpdate {
         String filterTagArg = store.getGlobalStateSystemFilterTag();
         FilterHelper filterHelper = new FilterHelper();
         Scenario scenario = new Scenario();
-                                 model.toString();
+        model.toString();
         return model;
     }
 }

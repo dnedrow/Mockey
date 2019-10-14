@@ -28,18 +28,20 @@
 package com.mockey.model;
 
 public class ScenarioRef {
-	private Long id;
-	private Long serviceId;
-	public ScenarioRef(Long scenarioId, Long serviceId){
-		this.id = scenarioId;
-		this.serviceId = serviceId;
-	}
-	public Long getServiceId() {
-		return serviceId;
-	}
+    private Long id;
+    private Long serviceId;
 
-	public Long getId() {
-		return id;
-	}
+    public ScenarioRef(Long scenarioId, Long serviceId) {
+        this.id = scenarioId;
+        this.serviceId = serviceId;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
 }

@@ -38,59 +38,59 @@ import javax.servlet.http.HttpServletResponse;
 
 public class FileSystemManagerServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -7334916323927032682L;
+    private static final long serialVersionUID = -7334916323927032682L;
 
-	/**
-	 * This service
-	 */
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+    /**
+     * This service
+     */
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		FileSystemManager fsm = new FileSystemManager();
+        FileSystemManager fsm = new FileSystemManager();
 
-		FileInfo[] imageList = fsm.getImageFileList();
+        FileInfo[] imageList = fsm.getImageFileList();
 
-		String fileName = req.getParameter("filename");
+        String fileName = req.getParameter("filename");
 
 
-		if (fileName != null) {
+        if (fileName != null) {
 
-			try {
+            try {
 
-				BufferedOutputStream bos = new BufferedOutputStream(
-						resp.getOutputStream());
-				File fileToWriteOut = null;
+                BufferedOutputStream bos = new BufferedOutputStream(
+                        resp.getOutputStream());
+                File fileToWriteOut = null;
 
-				fileToWriteOut = fsm.getImageFile(fileName);
+                fileToWriteOut = fsm.getImageFile(fileName);
 
-				resp.setContentType(new MimetypesFileTypeMap()
-						.getContentType(fileToWriteOut));
-				resp.setHeader("Content-disposition", "attachment; filename="
-						+ fileName);
-				FileInputStream fis = new FileInputStream(fileToWriteOut);
+                resp.setContentType(new MimetypesFileTypeMap()
+                        .getContentType(fileToWriteOut));
+                resp.setHeader("Content-disposition", "attachment; filename="
+                        + fileName);
+                FileInputStream fis = new FileInputStream(fileToWriteOut);
 
-				int len;
-				byte[] buf = new byte[1024];
+                int len;
+                byte[] buf = new byte[1024];
 
-				while ((len = fis.read(buf)) > 0) {
-					bos.write(buf, 0, len);
-				}
+                while ((len = fis.read(buf)) > 0) {
+                    bos.write(buf, 0, len);
+                }
 
-				bos.close();
+                bos.close();
 
-				return;
-			} catch (Exception e) {
-				// do the following in a finally block:
-			}
+                return;
+            } catch (Exception e) {
+                // do the following in a finally block:
+            }
 
-		} else {
+        } else {
 
-			RequestDispatcher dispatch = req
-					.getRequestDispatcher("filesysteminfo.jsp");
-			req.setAttribute("imageList", imageList);
+            RequestDispatcher dispatch = req
+                    .getRequestDispatcher("filesysteminfo.jsp");
+            req.setAttribute("imageList", imageList);
 
-			dispatch.forward(req, resp);
-		}
-	}
+            dispatch.forward(req, resp);
+        }
+    }
 
 }

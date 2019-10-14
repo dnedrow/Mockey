@@ -40,96 +40,96 @@ import com.mockey.OrderedMap;
  * logged in and is presented a notification'.
  *
  * @author chad.lafontaine
- *
  */
 public class ServicePlan extends StatusCheck implements PersistableItem {
-	private Long id;
-	private String name;
-	private String description;
-	private Boolean transientState = new Boolean(false);
-	private OrderedMap<PlanItem> planItemStore = new OrderedMap<PlanItem>();
+    private Long id;
+    private String name;
+    private String description;
+    private Boolean transientState = new Boolean(false);
+    private OrderedMap<PlanItem> planItemStore = new OrderedMap<PlanItem>();
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public List<PlanItem> getPlanItemList() {
-		return this.planItemStore.getOrderedList();
-	}
+    public List<PlanItem> getPlanItemList() {
+        return this.planItemStore.getOrderedList();
+    }
 
-	/**
-	 * Clears the ServicePlan state, and updates with all plan items.
-	 *
-	 * @param planItemList
-	 */
-	public void setPlanItemList(List<PlanItem> planItemList) {
-		this.planItemStore = new OrderedMap<PlanItem>();
-		for (PlanItem pI : planItemList) {
-			pI.setId(null);
-			this.planItemStore.save(pI);
-		}
-	}
+    /**
+     * Clears the ServicePlan state, and updates with all plan items.
+     *
+     * @param planItemList
+     */
+    public void setPlanItemList(List<PlanItem> planItemList) {
+        this.planItemStore = new OrderedMap<PlanItem>();
+        for (PlanItem pI : planItemList) {
+            pI.setId(null);
+            this.planItemStore.save(pI);
+        }
+    }
 
-	/**
-	 * If plan item has an ID, then it will be updated.
-	 * @param planItem
-	 */
-	public void addPlanItem(PlanItem planItem) {
-		planItemStore.save(planItem);
-	}
+    /**
+     * If plan item has an ID, then it will be updated.
+     *
+     * @param planItem
+     */
+    public void addPlanItem(PlanItem planItem) {
+        planItemStore.save(planItem);
+    }
 
-	public void setTransientState(Boolean transientState) {
-		this.transientState = transientState;
-	}
+    public Boolean getTransientState() {
+        return transientState;
+    }
 
-	public Boolean getTransientState() {
-		return transientState;
-	}
+    public void setTransientState(Boolean transientState) {
+        this.transientState = transientState;
+    }
 
-	/**
-	 * Helper method to check if this Service Plan manages a Service with a
-	 * matching name.
-	 *
-	 * @return
-	 */
-	public boolean hasServiceWithMatchingName(String serviceName) {
-		boolean foundMatch = false;
-		for (PlanItem pi : this.getPlanItemList()) {
-			if (pi.getServiceName() != null
-					&& pi.getServiceName().equals(serviceName)) {
-				foundMatch = true;
-				break;
-			}
+    /**
+     * Helper method to check if this Service Plan manages a Service with a
+     * matching name.
+     *
+     * @return
+     */
+    public boolean hasServiceWithMatchingName(String serviceName) {
+        boolean foundMatch = false;
+        for (PlanItem pi : this.getPlanItemList()) {
+            if (pi.getServiceName() != null
+                    && pi.getServiceName().equals(serviceName)) {
+                foundMatch = true;
+                break;
+            }
 
-		}
-		return foundMatch;
-	}
+        }
+        return foundMatch;
+    }
 
-	@Override
-	public String toString() {
-		return "ServicePlan [id=" + id + ", name=" + name + ", description=" + description + ", transientState="
-				+ transientState + ", planItemStore=" + planItemStore + "]";
-	}
+    @Override
+    public String toString() {
+        return "ServicePlan [id=" + id + ", name=" + name + ", description=" + description + ", transientState="
+                + transientState + ", planItemStore=" + planItemStore + "]";
+    }
 
 
 }

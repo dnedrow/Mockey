@@ -76,90 +76,90 @@ import java.util.Set;
  * </ul>
  */
 public final class JsonSchemaValidateServlet extends HttpServlet {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 2625630469996134777L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2625630469996134777L;
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(JsonSchemaValidateServlet.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(JsonSchemaValidateServlet.class);
 
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		try {
-			Long serviceId = new Long(req.getParameter("serviceId"));
-			Long scenarioId = null;
-			scenarioId = new Long(req.getParameter("scenarioId"));
-			Service service = store.getServiceById(serviceId);
-			Scenario scenario = service.getScenario(scenarioId);
-			req.setAttribute("service", service);
-			req.setAttribute("scenario", scenario);
-		} catch (Exception e) {
-			logger.debug("Unable to retrieve a Service of ID: "
-					+ req.getParameter("serviceId"));
-		}
+        try {
+            Long serviceId = new Long(req.getParameter("serviceId"));
+            Long scenarioId = null;
+            scenarioId = new Long(req.getParameter("scenarioId"));
+            Service service = store.getServiceById(serviceId);
+            Scenario scenario = service.getScenario(scenarioId);
+            req.setAttribute("service", service);
+            req.setAttribute("scenario", scenario);
+        } catch (Exception e) {
+            logger.debug("Unable to retrieve a Service of ID: "
+                    + req.getParameter("serviceId"));
+        }
 
-		// Get the service.
-		RequestDispatcher dispatch = req
-				.getRequestDispatcher("/jsonschemavalidate.jsp");
-		dispatch.forward(req, resp);
-	}
+        // Get the service.
+        RequestDispatcher dispatch = req
+                .getRequestDispatcher("/jsonschemavalidate.jsp");
+        dispatch.forward(req, resp);
+    }
 
-	@Override
-	public void doPost(final HttpServletRequest req,
-			final HttpServletResponse resp) throws ServletException,
-			IOException {
-		final Set<String> params = Sets.newHashSet();
-		final Enumeration<String> enumeration = req.getParameterNames();
+    @Override
+    public void doPost(final HttpServletRequest req,
+                       final HttpServletResponse resp) throws ServletException,
+            IOException {
+        final Set<String> params = Sets.newHashSet();
+        final Enumeration<String> enumeration = req.getParameterNames();
 
-		// FIXME: no duplicates, it seems, but I cannot find the spec which
-		// guarantees that
-		while (enumeration.hasMoreElements())
-			params.add(enumeration.nextElement());
+        // FIXME: no duplicates, it seems, but I cannot find the spec which
+        // guarantees that
+        while (enumeration.hasMoreElements())
+            params.add(enumeration.nextElement());
 
-		// We have required parameters
-		if (!params.containsAll(ValidateRequest.REQUIRED_PARAMS)) {
-			logger.warn("Missing parameters! Someone using me as a web service?");
-			resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					"Missing parameters");
-			return;
-		}
+        // We have required parameters
+        if (!params.containsAll(ValidateRequest.REQUIRED_PARAMS)) {
+            logger.warn("Missing parameters! Someone using me as a web service?");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    "Missing parameters");
+            return;
+        }
 
-		// We don't want extraneous parameters
-		params.removeAll(ValidateRequest.VALID_PARAMS);
+        // We don't want extraneous parameters
+        params.removeAll(ValidateRequest.VALID_PARAMS);
 
-		if (!params.isEmpty()) {
-			logger.warn("Invalid parameters! Someone using me as a web service?");
-			resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					"Invalid parameters");
-			return;
-		}
+        if (!params.isEmpty()) {
+            logger.warn("Invalid parameters! Someone using me as a web service?");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    "Invalid parameters");
+            return;
+        }
 
-		final String rawSchema = req.getParameter(ValidateRequest.SCHEMA);
-		final String data = req.getParameter(ValidateRequest.DATA);
+        final String rawSchema = req.getParameter(ValidateRequest.SCHEMA);
+        final String data = req.getParameter(ValidateRequest.DATA);
 
-		// Set correct content type
-		resp.setContentType(MediaType.JSON_UTF_8.toString());
+        // Set correct content type
+        resp.setContentType(MediaType.JSON_UTF_8.toString());
 
-		final boolean useV3 = Boolean.parseBoolean(req
-				.getParameter(ValidateRequest.USE_V3));
-		final boolean useId = Boolean.parseBoolean(req
-				.getParameter(ValidateRequest.USE_ID));
+        final boolean useV3 = Boolean.parseBoolean(req
+                .getParameter(ValidateRequest.USE_V3));
+        final boolean useId = Boolean.parseBoolean(req
+                .getParameter(ValidateRequest.USE_ID));
 
-		final JsonNode ret = JsonSchemaUtil.buildResult(rawSchema, data, useV3, useId);
+        final JsonNode ret = JsonSchemaUtil.buildResult(rawSchema, data, useV3, useId);
 
-		final OutputStream out = resp.getOutputStream();
+        final OutputStream out = resp.getOutputStream();
 
-		try {
-			out.write(ret.toString().getBytes(Charset.forName("UTF-8")));
-			out.flush();
-		} finally {
-			Closeables.closeQuietly(out);
-		}
-	}
+        try {
+            out.write(ret.toString().getBytes(Charset.forName("UTF-8")));
+            out.flush();
+        } finally {
+            Closeables.closeQuietly(out);
+        }
+    }
 
 //	/*
 //	 * Build the response. When we arrive here, we are guaranteed that we have

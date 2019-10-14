@@ -35,102 +35,98 @@ import com.mockey.storage.IMockeyStorage;
  * Utility/helper class to help flag 'noise', possible problems in the setup.
  *
  * @author clafonta
- *
  */
 public class FilterHelper {
 
-	/**
-	 *
-	 * @param service
-	 * @param filterTag
-	 * @return
-	 */
-	public List<Service> getFlaggedServicesInfo(String tagFilter,
-			IMockeyStorage store) {
+    /**
+     * @param service
+     * @param filterTag
+     * @return
+     */
+    public List<Service> getFlaggedServicesInfo(String tagFilter,
+                                                IMockeyStorage store) {
 
-		List<Service> serviceList = this.getFilteredServices(tagFilter, store);
+        List<Service> serviceList = this.getFilteredServices(tagFilter, store);
 
-		if (tagFilter != null && tagFilter.trim().length() > 0) {
+        if (tagFilter != null && tagFilter.trim().length() > 0) {
 
-			List<Service> filteredList = new ArrayList<Service>();
-			for (Service tempService : store.getServices()) {
-				if (tempService.hasTag(tagFilter)) {
-					filteredList.add(tempService);
-				}
-			}
-			serviceList = Util.orderAlphabeticallyByServiceName(filteredList);
+            List<Service> filteredList = new ArrayList<Service>();
+            for (Service tempService : store.getServices()) {
+                if (tempService.hasTag(tagFilter)) {
+                    filteredList.add(tempService);
+                }
+            }
+            serviceList = Util.orderAlphabeticallyByServiceName(filteredList);
 
-		} else {
-			serviceList = Util.orderAlphabeticallyByServiceName(store
-					.getServices());
+        } else {
+            serviceList = Util.orderAlphabeticallyByServiceName(store
+                    .getServices());
 
-		}
-		return serviceList;
+        }
+        return serviceList;
 
-	}
+    }
 
-	/**
-	 *
-	 * @param service
-	 * @param filterTag
-	 * @return Services with matching tag(s)
-	 */
-	public List<Service> getFilteredServices(String tagFilter,
-			IMockeyStorage store) {
+    /**
+     * @param service
+     * @param filterTag
+     * @return Services with matching tag(s)
+     */
+    public List<Service> getFilteredServices(String tagFilter,
+                                             IMockeyStorage store) {
 
-		List<Service> serviceList = null;
+        List<Service> serviceList = null;
 
-		if (tagFilter != null && tagFilter.trim().length() > 0) {
+        if (tagFilter != null && tagFilter.trim().length() > 0) {
 
-			List<Service> filteredList = new ArrayList<Service>();
-			for (Service tempService : store.getServices()) {
-				if (tempService.hasTag(tagFilter)) {
-					filteredList.add(tempService);
-				}
-			}
-			serviceList = Util.orderAlphabeticallyByServiceName(filteredList);
+            List<Service> filteredList = new ArrayList<Service>();
+            for (Service tempService : store.getServices()) {
+                if (tempService.hasTag(tagFilter)) {
+                    filteredList.add(tempService);
+                }
+            }
+            serviceList = Util.orderAlphabeticallyByServiceName(filteredList);
 
-			//
-		} else {
-			serviceList = Util.orderAlphabeticallyByServiceName(store
-					.getServices());
+            //
+        } else {
+            serviceList = Util.orderAlphabeticallyByServiceName(store
+                    .getServices());
 
-		}
-		return serviceList;
+        }
+        return serviceList;
 
-	}
+    }
 
-	/**
-	 *
-	 * @param service
-	 * @param filterTag
-	 * @return
-	 */
-	public List<ServicePlan> getFilteredServicePlans(String tagFilter,
-			IMockeyStorage store) {
+    /**
+     * @param service
+     * @param filterTag
+     * @return
+     */
+    public List<ServicePlan> getFilteredServicePlans(String tagFilter,
+                                                     IMockeyStorage store) {
 
-		List<ServicePlan> servicePlanList = null;
+        List<ServicePlan> servicePlanList = null;
 
-		if (tagFilter != null && tagFilter.trim().length() > 0) {
+        if (tagFilter != null && tagFilter.trim().length() > 0) {
 
-			List<ServicePlan> filteredPlanList = new ArrayList<ServicePlan>();
-			for (ServicePlan tempServicePlan : store.getServicePlans()) {
-				if (tempServicePlan.hasTag(tagFilter)) {
-					filteredPlanList.add(tempServicePlan);
-				}
-			}
+            List<ServicePlan> filteredPlanList = new ArrayList<ServicePlan>();
+            for (ServicePlan tempServicePlan : store.getServicePlans()) {
+                if (tempServicePlan.hasTag(tagFilter)) {
+                    filteredPlanList.add(tempServicePlan);
+                }
+            }
 
-			servicePlanList = Util
-					.orderAlphabeticallyByServicePlanName(filteredPlanList);
+            servicePlanList = Util
+                    .orderAlphabeticallyByServicePlanName(filteredPlanList);
 
-			//
-		} else {
+            //
+        } else {
 
-			servicePlanList = Util.orderAlphabeticallyByServicePlanName(store
-					.getServicePlans());
-		}
-		return servicePlanList;
+            servicePlanList = Util.orderAlphabeticallyByServicePlanName(store
+                    .getServicePlans());
+        }
+        return servicePlanList;
 
-	}
+    }
 
 }

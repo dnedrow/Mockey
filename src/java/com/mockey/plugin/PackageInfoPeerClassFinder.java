@@ -41,113 +41,109 @@ import org.apache.log4j.Logger;
  * classes that exist in a package with package-level annotations.
  *
  * @author chadlafontaine
- *
  */
 class PackageInfoPeerClassFinder {
 
-	private static Logger logger = Logger.getLogger(PackageInfoPeerClassFinder.class);
+    private static Logger logger = Logger.getLogger(PackageInfoPeerClassFinder.class);
 
-	/**
-	 * Given a path to the Mockey.jar file, and when package-info classes are
-	 * found, then all peer classes are gathered into a list.
-	 *
-	 * @param pathToJarContainingClasses
-	 *            a list of all classes who share a package with a
-	 *            package-info.class class.
-	 * @return
-	 * @throws Exception
-	 */
-	public static List<PackageInfo> findPackageInfo() throws Exception {
-		List<PackageInfo> packageInfoSet = new ArrayList<PackageInfo>();
-		List<String> visitedClasses = new ArrayList<String>();
-		File jarFile = new File("Mockey.jar");
+    /**
+     * Given a path to the Mockey.jar file, and when package-info classes are
+     * found, then all peer classes are gathered into a list.
+     *
+     * @param pathToJarContainingClasses a list of all classes who share a package with a
+     *                                   package-info.class class.
+     * @return
+     * @throws Exception
+     */
+    public static List<PackageInfo> findPackageInfo() throws Exception {
+        List<PackageInfo> packageInfoSet = new ArrayList<PackageInfo>();
+        List<String> visitedClasses = new ArrayList<String>();
+        File jarFile = new File("Mockey.jar");
 
-		if (jarFile.exists()) {
+        if (jarFile.exists()) {
 
-			// STEP 1: go through all classes.
-			URL jar = jarFile.toURI().toURL();
-			ZipInputStream zip = new ZipInputStream(jar.openStream());
-			ZipEntry entry;
-			while ((entry = zip.getNextEntry()) != null) {
+            // STEP 1: go through all classes.
+            URL jar = jarFile.toURI().toURL();
+            ZipInputStream zip = new ZipInputStream(jar.openStream());
+            ZipEntry entry;
+            while ((entry = zip.getNextEntry()) != null) {
 
-				if (entry.getName().endsWith("package-info.class")) {
-					PackageInfo packageInfo = new PackageInfo(getPackageNameFromPackageInfoClass(entry.getName()));
-					packageInfoSet.add(packageInfo);
+                if (entry.getName().endsWith("package-info.class")) {
+                    PackageInfo packageInfo = new PackageInfo(getPackageNameFromPackageInfoClass(entry.getName()));
+                    packageInfoSet.add(packageInfo);
 
-				} else if (entry.getName().endsWith(".class")) {
-					visitedClasses.add(getCleanClassName(entry.getName()));
-				}
-			}
+                } else if (entry.getName().endsWith(".class")) {
+                    visitedClasses.add(getCleanClassName(entry.getName()));
+                }
+            }
 
-			// STEP 2: add all classes with matching name-space/package name to
-			// the right Package Info
-			for (PackageInfo pi : packageInfoSet) {
-				for (String className : visitedClasses) {
-					if (className.startsWith(pi.getName())) {
-						pi.addClassNameToPackage(className);
-					}
-				}
-			}
-		} else {
+            // STEP 2: add all classes with matching name-space/package name to
+            // the right Package Info
+            for (PackageInfo pi : packageInfoSet) {
+                for (String className : visitedClasses) {
+                    if (className.startsWith(pi.getName())) {
+                        pi.addClassNameToPackage(className);
+                    }
+                }
+            }
+        } else {
 
-			String[] packageListToLoad = new String[] { "com.mockey.plugin",  };
-			for (String pName : packageListToLoad) {
-				Package p = Package.getPackage(pName);
+            String[] packageListToLoad = new String[]{"com.mockey.plugin",};
+            for (String pName : packageListToLoad) {
+                Package p = Package.getPackage(pName);
 
-				if (p != null) {
-					PackageInfo pi = new PackageInfo(p.getName());
-					pi.addClassNameToPackage(SampleRequestInspector.class.getName());
+                if (p != null) {
+                    PackageInfo pi = new PackageInfo(p.getName());
+                    pi.addClassNameToPackage(SampleRequestInspector.class.getName());
 
-					packageInfoSet.add(pi);
-				} else {
-					logger.debug("Wow, due to lazy class loading we don't see "
-							+ SampleRequestInspector.class.getName());
-				}
-			}
-		}
+                    packageInfoSet.add(pi);
+                } else {
+                    logger.debug("Wow, due to lazy class loading we don't see "
+                            + SampleRequestInspector.class.getName());
+                }
+            }
+        }
 
 
-		return packageInfoSet;
-	}
+        return packageInfoSet;
+    }
 
-	/**
-	 *
-	 * @param packageInfoClassName
-	 *            - must include the string value 'package-info'.
-	 * @return package name in the format xx.yyy.cccc.etc if available, null
-	 *         otherwise.
-	 */
-	public static String getPackageNameFromPackageInfoClass(String packageInfoClassName) {
-		String pckge = null;
-		if (packageInfoClassName != null) {
-			int index = packageInfoClassName.indexOf("package-info");
-			if (index > -1) {
-				pckge = packageInfoClassName.substring(0, index - 1);
-				return getCleanClassName(pckge);
-			}
-		}
-		return pckge;
+    /**
+     * @param packageInfoClassName - must include the string value 'package-info'.
+     * @return package name in the format xx.yyy.cccc.etc if available, null
+     * otherwise.
+     */
+    public static String getPackageNameFromPackageInfoClass(String packageInfoClassName) {
+        String pckge = null;
+        if (packageInfoClassName != null) {
+            int index = packageInfoClassName.indexOf("package-info");
+            if (index > -1) {
+                pckge = packageInfoClassName.substring(0, index - 1);
+                return getCleanClassName(pckge);
+            }
+        }
+        return pckge;
 
-	}
+    }
 
-	/**
-	 * Takes a string value and ensures it is has good form. For example:
-	 *
-	 * <pre>
-	 * 'com/xxx/yyy/ClassName.class' becomes 'com.xxx.yyy.ClassName'
-	 * 'com/xxx/yyy/ClassName' becomes 'com.xxx.yyy.ClassName'
-	 * 'com.xxx.yyy.ClassName.class' becomes 'com.xxx.yyy.ClassName'
-	 * </pre>
-	 *
-	 * @param className
-	 * @return
-	 */
-	public static String getCleanClassName(String className) {
-		if (className != null) {
-			return className.replaceAll("[$].*", "").replaceAll("[.]class", "").replace('/', '.');
-		} else {
-			return null;
-		}
-	}
+    /**
+     * Takes a string value and ensures it is has good form. For example:
+     *
+     * <pre>
+     * 'com/xxx/yyy/ClassName.class' becomes 'com.xxx.yyy.ClassName'
+     * 'com/xxx/yyy/ClassName' becomes 'com.xxx.yyy.ClassName'
+     * 'com.xxx.yyy.ClassName.class' becomes 'com.xxx.yyy.ClassName'
+     * </pre>
+     *
+     * @param className
+     * @return
+     */
+    public static String getCleanClassName(String className) {
+        if (className != null) {
+            return className.replaceAll("[$].*", "").replaceAll("[.]class", "").replace('/', '.');
+        } else {
+            return null;
+        }
+    }
 
 }

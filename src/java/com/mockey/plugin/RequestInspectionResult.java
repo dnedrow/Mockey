@@ -32,43 +32,35 @@ import java.util.List;
  * or more RequestInspector(s).
  *
  * @author chadlafontaine
- *
  */
 public class RequestInspectionResult {
-	private List<String> resultMessageList = new ArrayList<String>();
+    private List<String> resultMessageList = new ArrayList<String>();
 
-	/**
-	 *
-	 * @return - true if a result message is available, false otherwise.
-	 */
-	public boolean hasResultMessages() {
-		if (this.resultMessageList != null && this.resultMessageList.size() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+    /**
+     * @return - true if a result message is available, false otherwise.
+     */
+    public boolean hasResultMessages() {
+        return this.resultMessageList != null && this.resultMessageList.size() > 0;
 
-	}
+    }
 
-	/**
-	 *
-	 * @return non-null list, could be empty.
-	 * @see #hasResultMessages()
-	 */
-	public List<String> getResultMessageList() {
-		return resultMessageList;
-	}
+    /**
+     * @return non-null list, could be empty.
+     * @see #hasResultMessages()
+     */
+    public List<String> getResultMessageList() {
+        return resultMessageList;
+    }
 
 
-	/**
-	 *
-	 * @param resultMessage
-	 */
-	void addResultMessage(String resultMessage) {
-		if (resultMessage != null && resultMessage.trim().length() > 0 && !this.resultMessageList.contains(resultMessage)) {
-			this.resultMessageList.add(resultMessage);
-		}
+    /**
+     * @param resultMessage
+     */
+    void addResultMessage(String resultMessage) {
+        if (resultMessage != null && resultMessage.trim().length() > 0 && !this.resultMessageList.contains(resultMessage)) {
+            this.resultMessageList.add(resultMessage);
+        }
 
-	}
+    }
 
 }

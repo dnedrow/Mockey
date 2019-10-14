@@ -34,29 +34,28 @@ import java.util.List;
  * loader.
  *
  * @author chadlafontaine
- *
  */
 class PackageInfo {
 
-	private String name;
-	private List<String> classesInPackageList = new ArrayList<String>();
+    private String name;
+    private List<String> classesInPackageList = new ArrayList<String>();
 
-	public PackageInfo(String packageName) {
+    public PackageInfo(String packageName) {
 
-		this.name = packageName;
-	}
+        this.name = packageName;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<String> getClassList() {
-		return this.classesInPackageList;
+    public List<String> getClassList() {
+        return this.classesInPackageList;
 
-	}
+    }
 
-	public void addClassNameToPackage(String className) {
-		this.classesInPackageList.add(className);
-	}
+    public void addClassNameToPackage(String className) {
+        this.classesInPackageList.add(className);
+    }
 
 }

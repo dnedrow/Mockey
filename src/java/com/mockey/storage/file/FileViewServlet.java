@@ -36,46 +36,46 @@ import javax.servlet.http.HttpServletResponse;
 
 public class FileViewServlet extends HttpServlet {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 4799258651817808844L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4799258651817808844L;
 
-	// This method is called by the servlet container to process a GET request.
-	public void service(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		String fileName = req.getParameter("filename");
-		ServletContext sc = getServletContext();
-		FileSystemManager fileManager = new FileSystemManager();
-		File image = fileManager.getImageFile(fileName);
+    // This method is called by the servlet container to process a GET request.
+    public void service(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        String fileName = req.getParameter("filename");
+        ServletContext sc = getServletContext();
+        FileSystemManager fileManager = new FileSystemManager();
+        File image = fileManager.getImageFile(fileName);
 
-		// Get the MIME type of the image
-		// Hack: looks like getMimeType in Tomcat 6.0xx doesn't like uppercase .PNG!
-		String mimeType = sc.getMimeType(fileName.toLowerCase());
-		if (mimeType == null) {
-			sc.log("Could not get MIME type of " + image.getName());
-			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return;
-		}
+        // Get the MIME type of the image
+        // Hack: looks like getMimeType in Tomcat 6.0xx doesn't like uppercase .PNG!
+        String mimeType = sc.getMimeType(fileName.toLowerCase());
+        if (mimeType == null) {
+            sc.log("Could not get MIME type of " + image.getName());
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
 
-		// Set content type
-		resp.setContentType(mimeType);
+        // Set content type
+        resp.setContentType(mimeType);
 
-		// Set content size
+        // Set content size
 
-		resp.setContentLength((int) image.length());
+        resp.setContentLength((int) image.length());
 
-		// Open the file and output streams
-		FileInputStream in = new FileInputStream(image);
-		OutputStream out = resp.getOutputStream();
+        // Open the file and output streams
+        FileInputStream in = new FileInputStream(image);
+        OutputStream out = resp.getOutputStream();
 
-		// Copy the contents of the file to the output stream
-		byte[] buf = new byte[1024];
-		int count = 0;
-		while ((count = in.read(buf)) >= 0) {
-			out.write(buf, 0, count);
-		}
-		in.close();
-		out.close();
-	}
+        // Copy the contents of the file to the output stream
+        byte[] buf = new byte[1024];
+        int count = 0;
+        while ((count = in.read(buf)) >= 0) {
+            out.write(buf, 0, count);
+        }
+        in.close();
+        out.close();
+    }
 }

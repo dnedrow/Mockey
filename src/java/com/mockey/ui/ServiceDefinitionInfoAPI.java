@@ -26,7 +26,7 @@ package com.mockey.ui;
 
 public interface ServiceDefinitionInfoAPI {
 
-	public static final String API_SERVICE_INFO_NAME = "Service Definitions";
+    String API_SERVICE_INFO_NAME = "Service Definitions";
 
 
 }

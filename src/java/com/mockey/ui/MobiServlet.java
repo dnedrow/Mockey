@@ -46,7 +46,6 @@ import com.mockey.storage.StorageRegistry;
  * crappy-ass browser, like a BlackBerry browser.
  *
  * @author chad.lafontaine
- *
  */
 public class MobiServlet extends HttpServlet {
 
@@ -59,13 +58,13 @@ public class MobiServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String serviceId = req.getParameter("serviceId");
-        if(serviceId!=null){
+        if (serviceId != null) {
             Long id = new Long(serviceId);
             req.setAttribute("filter", "yes");
             List<Service> list = new ArrayList<Service>();
             list.add(store.getServiceById(id));
             req.setAttribute("services", list);
-        }else {
+        } else {
             req.setAttribute("services", Util.orderAlphabeticallyByServiceName(store.getServices()));
 
         }
@@ -90,12 +89,12 @@ public class MobiServlet extends HttpServlet {
             service.setDefaultScenarioId(defaultScenarioId);
             store.saveOrUpdateService(service);
             String filter = req.getParameter("filter");
-            if(filter!=null && "yes".equals(filter)){
+            if (filter != null && "yes".equals(filter)) {
                 req.setAttribute("filter", "yes");
                 List<Service> list = new ArrayList<Service>();
                 list.add(service);
                 req.setAttribute("services", list);
-            }else {
+            } else {
                 req.setAttribute("services", store.getServices());
             }
 

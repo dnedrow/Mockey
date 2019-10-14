@@ -47,17 +47,15 @@ import com.mockey.storage.xml.MockeyXmlFactory;
  * Export service definitions to XML.
  *
  * @author Chad.Lafontaine
- *
  */
 public class ExportConfigurationServlet extends HttpServlet {
 
-	private static IMockeyStorage store = StorageRegistry.MockeyStorage;
-
     private static final long serialVersionUID = -8618555367432628615L;
+    private static IMockeyStorage store = StorageRegistry.MockeyStorage;
 
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		MockeyXmlFactory g = new MockeyXmlFactory();
+        MockeyXmlFactory g = new MockeyXmlFactory();
 
         String fileOutput;
         try {
@@ -70,15 +68,15 @@ public class ExportConfigurationServlet extends HttpServlet {
         resp.setCharacterEncoding(HTTP.UTF_8);
         resp.setContentLength(fileOutput.getBytes(HTTP.UTF_8).length);
 
-        if(req.getParameter("download")!=null){
-        	resp.setHeader("Content-disposition", "attachment; filename=mockservice.xml");
-        	resp.setHeader("Content-type", MediaType.XML_UTF_8.toString());
+        if (req.getParameter("download") != null) {
+            resp.setHeader("Content-disposition", "attachment; filename=mockservice.xml");
+            resp.setHeader("Content-type", MediaType.XML_UTF_8.toString());
         }
 
         PrintWriter out = resp.getWriter();
         out.println(fileOutput);
         out.flush();
-		out.close();
-		return;
+        out.close();
+        return;
     }
 }

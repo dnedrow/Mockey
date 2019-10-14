@@ -45,96 +45,89 @@ import java.util.Map;
  *   <li>Service A and Service C have 1 or more matching real URLs</li>
  * </ul>
  * </pre>
- *
+ * <p>
  * In short, Service A may have 1 or more services with a possible conflict. And
  * each conflicting Service may have 1 ore more reasons for a conflict.
  *
  * @author clafonta
- *
  */
 public class ConflictInfo {
 
-	// Ugly!!
-	private Map<Service, List<Conflict>> conflictMap = new HashMap<Service, List<Conflict>>();
+    // Ugly!!
+    private Map<Service, List<Conflict>> conflictMap = new HashMap<Service, List<Conflict>>();
 
-	/**
-	 * There can be 1 or more conflicting Services per 1 Service key.
-	 *
-	 * @param key
-	 *            - Service A
-	 * @param conflict
-	 *            - Service that has 1 or more matching attributes as Service A,
-	 *            e.g. name, url (real or mocked).
-	 * @param message
-	 *            - a description of the issue.
-	 */
-	public void addConflict(Service key, Service conflictService, String message) {
+    /**
+     * There can be 1 or more conflicting Services per 1 Service key.
+     *
+     * @param key      - Service A
+     * @param conflict - Service that has 1 or more matching attributes as Service A,
+     *                 e.g. name, url (real or mocked).
+     * @param message  - a description of the issue.
+     */
+    public void addConflict(Service key, Service conflictService, String message) {
 
-		List<Conflict> conflictList = this.conflictMap.get(key);
-		if(conflictList==null){
-			conflictList = new ArrayList<Conflict>();
-		}
+        List<Conflict> conflictList = this.conflictMap.get(key);
+        if (conflictList == null) {
+            conflictList = new ArrayList<Conflict>();
+        }
 
-		Conflict conflict = null;
-		int index = 0;
-		for(Conflict c: conflictList){
-			if(c.getService().getId().equals(conflictService.getId())){
-				conflict = c;
-				break;
-			}
-			index++;
-		}
+        Conflict conflict = null;
+        int index = 0;
+        for (Conflict c : conflictList) {
+            if (c.getService().getId().equals(conflictService.getId())) {
+                conflict = c;
+                break;
+            }
+            index++;
+        }
 
-		if(conflict== null){
-			conflict = new Conflict(conflictService);
-			index = -1;
-		}
+        if (conflict == null) {
+            conflict = new Conflict(conflictService);
+            index = -1;
+        }
 
-		conflict.addConflictMessage(message);
-		if(index>-1){
-			conflictList.set(index, conflict);
-		}else {
-			conflictList.add(conflict);
-		}
-		this.conflictMap.put(key, conflictList);
+        conflict.addConflictMessage(message);
+        if (index > -1) {
+            conflictList.set(index, conflict);
+        } else {
+            conflictList.add(conflict);
+        }
+        this.conflictMap.put(key, conflictList);
 
 
+    }
 
-	}
+    public boolean hasConflictFlag(Service service) {
+        boolean conflict = false;
+        conflict = this.conflictMap.get(service) != null;
+        return conflict;
+    }
 
-	public boolean hasConflictFlag(Service service) {
-		boolean conflict = false;
-		if(this.conflictMap.get(service)!=null){
-			conflict = true;
-		}else {
-			conflict = false;
-		}
-		return conflict;
-	}
+    public List<Conflict> getConflictList(Service service) {
+        return this.conflictMap.get(service);
+    }
 
-	public List<Conflict> getConflictList(Service service) {
-		return this.conflictMap.get(service);
-	}
+    public class Conflict {
+        private Service conflictService = null;
+        private List<String> conflictMessageList = new ArrayList<String>();
 
-	public class Conflict {
-		private Service conflictService = null;
-		private List<String> conflictMessageList = new ArrayList<String>();
-		public Conflict(Service service){
-			this.conflictService = service;
-		}
-		public Service getService() {
-			return this.conflictService;
-		}
+        public Conflict(Service service) {
+            this.conflictService = service;
+        }
 
-		public void addConflictMessage(String message) {
-			if (!this.conflictMessageList.contains(message)) {
-				this.conflictMessageList.add(message);
-			}
-		}
+        public Service getService() {
+            return this.conflictService;
+        }
 
-		public List<String> getConflictMessageList() {
-			return this.conflictMessageList;
-		}
-	}
+        public void addConflictMessage(String message) {
+            if (!this.conflictMessageList.contains(message)) {
+                this.conflictMessageList.add(message);
+            }
+        }
+
+        public List<String> getConflictMessageList() {
+            return this.conflictMessageList;
+        }
+    }
 
 }

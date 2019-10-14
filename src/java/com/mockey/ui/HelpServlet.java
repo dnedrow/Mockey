@@ -42,7 +42,6 @@ import com.mockey.model.Url;
  * Help Servlet
  *
  * @author chad.lafontaine
- *
  */
 public class HelpServlet extends HttpServlet {
 
@@ -65,7 +64,7 @@ public class HelpServlet extends HttpServlet {
         String hintRecordURL2 = serverURLObj.toString();
 
 
-        if (contextRoot != null && contextRoot.length() > 0 ) {
+        if (contextRoot != null && contextRoot.length() > 0) {
             hintRecordURL1 = hintRecordURL1 + contextRoot;
             hintRecordURL2 = hintRecordURL2 + contextRoot;
         }

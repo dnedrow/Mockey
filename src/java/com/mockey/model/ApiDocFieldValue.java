@@ -28,25 +28,31 @@
 package com.mockey.model;
 
 public class ApiDocFieldValue {
-	private String value;
-	private String description;
-	public ApiDocFieldValue(){
+    private String value;
+    private String description;
 
-	}
-	public ApiDocFieldValue(String value, String desc){
-		this.value = value;
-		this.description = desc;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-	public String getValue() {
-		return value;
-	}
+    public ApiDocFieldValue() {
+
+    }
+
+    public ApiDocFieldValue(String value, String desc) {
+        this.value = value;
+        this.description = desc;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

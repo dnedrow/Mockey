@@ -40,56 +40,54 @@ import javax.servlet.jsp.tagext.TagSupport;
  * "Fri Mar 26 10:28:50 PDT 2010", this tag will display "1 hour ago",
  * "Yesterday", "long time ago" with the exact time and time provided with a
  * mouse hover.
- *
+ * <p>
  * TODO: this needs testing.
  *
  * @author chad.lafontaine
  */
 public class FriendlyTimeTag extends TagSupport {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -4299632380644405286L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4299632380644405286L;
+    private static final DateFormat dateFormat = new SimpleDateFormat(
+            "yyyy/MM/dd hh:mm:ss a");
+    private static final DateFormat dateFormatShort = new SimpleDateFormat(
+            "hh:mm:ss a");
+    /**
+     *
+     */
+    // Time in milliseconds.
+    private Long time;
 
-	/**
-	 *
-	 */
-	// Time in milliseconds.
-	private Long time;
+    @Override
+    public int doStartTag() throws JspException {
 
-	private static final DateFormat dateFormat = new SimpleDateFormat(
-			"yyyy/MM/dd hh:mm:ss a");
-	private static final DateFormat dateFormatShort = new SimpleDateFormat(
-			"hh:mm:ss a");
+        // return dateFormat.format(time);
 
-	@Override
-	public int doStartTag() throws JspException {
+        JspWriter out = pageContext.getOut();
+        try {
+            String text = "Time unknown.";
+            if (time != null) {
+                text = "<a id=\"fdate\" title=\"" + dateFormat.format(time) + "\">"
+                        + dateFormatShort.format(time) + "</a>";
+            }
 
-		// return dateFormat.format(time);
+            out.print(text);
+        } catch (IOException e) {
+            throw new JspException("Unable to write to the jsp output", e);
+        }
+        return SKIP_BODY;
+    }
 
-		JspWriter out = pageContext.getOut();
-		try {
-			String text = "Time unknown.";
-			if (time != null) {
-				text = "<a id=\"fdate\" title=\"" + dateFormat.format(time) + "\">"
-				  + dateFormatShort.format(time) + "</a>";
-			}
+    public Long getTime() {
+        return time;
+    }
 
-			out.print(text);
-		} catch (IOException e) {
-			throw new JspException("Unable to write to the jsp output", e);
-		}
-		return SKIP_BODY;
-	}
-
-	public Long getTime() {
-		return time;
-	}
-
-	public void setTime(Long time) {
-		this.time = time;
-	}
+    public void setTime(Long time) {
+        this.time = time;
+    }
 
 
 }
