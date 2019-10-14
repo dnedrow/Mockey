@@ -59,7 +59,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -981,7 +981,7 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1571011341393</updated>
-      <workItem from="1571011342360" duration="127000" />
+      <workItem from="1571011342360" duration="262000" />
     </task>
     <task id="LOCAL-00003" summary="Added Illustrator-based icon assets.">
       <created>1571011422160</created>
@@ -990,7 +990,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571011422160</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Workspace update.">
+      <created>1571011504371</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1571011504371</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <option name="trackContextForNewChangelist" value="true" />
     <servers />
   </component>
@@ -1018,7 +1025,8 @@
     <option name="MOVE_SHELVES" value="true" />
     <MESSAGE value="Idea project update." />
     <MESSAGE value="Added Illustrator-based icon assets." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Illustrator-based icon assets." />
+    <MESSAGE value="Workspace update." />
+    <option name="LAST_COMMIT_MESSAGE" value="Workspace update." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -1063,10 +1071,14 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="712" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1570419998191" />
-    <state x="49" y="75" key="SettingsEditor" timestamp="1570843369075">
+    <state x="49" y="75" key="SettingsEditor" timestamp="1571011604884">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="49" y="75" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1570843369075" />
+    <state x="49" y="75" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1571011604884" />
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1571011613404">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1571011613404" />
     <state x="393" y="121" key="antBuildFilePropertiesDialogDimension" timestamp="1570419888593">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
